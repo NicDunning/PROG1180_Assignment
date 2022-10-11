@@ -5,7 +5,8 @@ items = [
         "Name" : "Wrench",
         "Details" : "12-Inch Wrench",
         "ManFactID" : 0,
-        "SerialNum" : 10000
+        "SerialNum" : 10000,
+        "Cost" : 2.0
     }
     ,
     {
@@ -14,7 +15,8 @@ items = [
         "Name" : "Screw Driver",
         "Details" : "Phillips Head Size 2",
         "ManFactID" : 2,
-        "SerialNum" : 20000
+        "SerialNum" : 20000,
+        "Cost": 2.5
     }
     // Template for items
     // ,
@@ -24,7 +26,8 @@ items = [
     //     "Name" : "",
     //     "Details" : "",
     //     "ManFactID" : ,
-    //     "SerialNum" :
+    //     "SerialNum" : ,
+    //     "Cost" :
     // }
 ]
 
@@ -69,7 +72,6 @@ onHandInventory = [
     //     "DateRecieved" : Date.now()
     // }
 ]
-
 function Store(key, data){
     localStorage.setItem(key, JSON.stringify(data));
 }
