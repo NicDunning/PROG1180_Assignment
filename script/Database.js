@@ -6,6 +6,7 @@ items = [
         "Details" : "12-Inch Wrench",
         "ManFactID" : 0,
         "SerialNum" : 10000,
+        "Quantity" : 10,
         "Cost" : 2.0
     }
     ,
@@ -16,6 +17,7 @@ items = [
         "Details" : "Phillips Head Size 2",
         "ManFactID" : 2,
         "SerialNum" : 20000,
+        "Quantity" : 3,
         "Cost": 2.5
     }
     // Template for items
@@ -27,6 +29,7 @@ items = [
     //     "Details" : "",
     //     "ManFactID" : ,
     //     "SerialNum" : ,
+    //     "Quantity" : ,
     //     "Cost" :
     // }
 ]
@@ -98,3 +101,5 @@ function Retrieve(key){
 
 // setButt.addEventListener("click", Store);
 // getButt.addEventListener("click", Retrieve);
+
+
