@@ -1,10 +1,13 @@
 document.onreadystatechange = function () {
+    var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
-        RefreshDisplayedData();
+        if(pageName = "inventory.html"){
+            RefreshInventoryDisplayedData();
+        }
     }
 }
 
-function RefreshDisplayedData(){
+function RefreshInventoryDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
     var tblInventoryHeaders = ["Edit", "UPC", "Product", "Details", "Quantity", "Price"];
