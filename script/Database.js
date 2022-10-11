@@ -6,8 +6,6 @@ items = [
         "Details" : "12-Inch Wrench",
         "ManFactID" : 0,
         "SerialNum" : 10000,
-        "Quantity" : 10,
-        "Cost" : 2.0
     }
     ,
     {
@@ -58,21 +56,24 @@ manufacturers = [
 onHandInventory = [
     {
         "UPC" : 123456789012,
-        "QTY" : 10,
-        "DateRecieved" : Date.now()
+        "QtyOnHand" : 10,
+        "DateRecieved" : Date.now(),
+        "Cost" : 2.0
     }
     ,
     {
         "UPC" : 123456789013,
-        "QTY" : 2,
-        "DateRecieved" : Date.now()
+        "QtyOnHand" : 2,
+        "DateRecieved" : Date.now(),
+        "Cost" : 2.5
     }
     // Template for onHandInventory 
     // ,
     // {
     //     "UPC" : ,
-    //     "QTY" : ,
-    //     "DateRecieved" : Date.now()
+    //     "QtyOnHand" : ,
+    //     "DateRecieved" : Date.now(),
+    //     "Cost" :
     // }
 ]
 
