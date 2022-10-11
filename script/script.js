@@ -1,10 +1,18 @@
 document.onreadystatechange = function () {
+    // Get name of HTML page.
     var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
         if(pageName = "inventory.html"){
             RefreshInventoryDisplayedData();
         }
     }
+
+    // buttons in table have OnClick
+    editButtons = document.querySelectorAll("td > input");
+    editButtons.forEach( button => {
+        button.addEventListener("click", sendToEdit);
+    })
+    
 }
 
 function RefreshInventoryDisplayedData(){
@@ -23,18 +31,33 @@ function RefreshInventoryDisplayedData(){
     // Generate Joined DB
     itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     // Foreach item on hand
+    var counter = 0;
     itemsOnHand.forEach(item => {
-        itemRow += "<tr><td><a href='inventory.html'>Edit</a></td>";
-        for (const [key, value] of Object.entries(item)){
-            // If it is not a blacklisted value.
-            if(!(blacklist.includes(key))){
-                // Add it to the row.
-                itemRow += `<td>${value}</td>`;
-            }
-        }
-        itemRow += "</tr>";
+        //<a href='' class='${JSON.stringify(itemsOnHand)}' >Edit</a>
+        itemRow += `<tr><td><input type="submit" value="Edit" class="${counter}"</td>`;
+        counter++;
+        itemRow += `<td>${item["UPC"]}</td>`
+        +`<td>${item["Name"]}</td>`
+        +`<td>${item["Details"]}</td>`
+        +`<td>${item["QtyOnHand"]}</td>`
+        +`<td>${item["Cost"]}</td></tr>`
     });
     
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;    
+}
+
+function sendToEdit(){
+    console.log(JSON.parse(this.className));
+    console.log(itemsOnHand[parseInt(this.className)]);
+    upc = document.getElementById("upc");
+    productName = document.getElementById("pname");
+    itemDescription = document.getElementById("itemdesc");
+    itemQuantity = document.getElementById("quan");
+
+    selectedItem = itemsOnHand[parseInt(this.className)];
+    upc.value = selectedItem["UPC"];
+    productName.value = selectedItem["Name"];
+    itemDescription.value = selectedItem["Details"];
+    itemQuantity.value = selectedItem["QtyOnHand"]
 }
