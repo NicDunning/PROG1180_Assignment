@@ -72,6 +72,17 @@ onHandInventory = [
     //     "DateRecieved" : Date.now()
     // }
 ]
+
+// Testing to make sure objects are visible
+// const p = document.getElementById("test");
+// const getButt = document.getElementById("get");
+// const setButt = document.getElementById("set");
+
+
+// p.innerHTML += JSON.stringify(items) + "<br/>";
+// p.innerHTML += JSON.stringify(manufacturers) + "<br/>";
+// p.innerHTML += JSON.stringify(onHandInventory) + "<br/>";
+
 function Store(key, data){
     localStorage.setItem(key, JSON.stringify(data));
 }
@@ -84,3 +95,6 @@ function Retrieve(key){
     sessionStorage.removeItem(key);
     localStorage.clear();
 }
+
+// setButt.addEventListener("click", Store);
+// getButt.addEventListener("click", Retrieve);
