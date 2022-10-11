@@ -1,0 +1,63 @@
+
+.tiles {
+	float: left;
+	width: 21%;
+	padding: 10px;
+	margin:20px;
+	height: 250px;
+	font-size: 30px;
+	text-align: center;
+  } 
+
+  .column-inv{
+	float: left;
+	width: 50%;
+	height: 500px;
+  }
+  .row::after{
+	clear:both;
+	content:"";
+	display: table;
+	
+  }
+  .highlight{background: yellow;}
+
+
+
+
+a{
+	font-size: 35px;
+	padding: 25px;
+	width: 50px;
+}
+
+header{
+	background-color: rgb(124, 124, 124);
+	color: #fff;
+	height: auto;
+	margin-bottom: 25px;
+	padding: 10px;
+	text-align: center;
+	width: 100%;;
+
+
+}
+form{
+	font-size: 25px;
+}
+input{
+	font-size: 25px;
+}
+footer{
+	text-align: center;
+}
+
+table{
+	background-color: beige;
+}
+th{font-size: 35px;}
+td{font-size: 25px;}
+tr {cursor: default;}
+
+
+
