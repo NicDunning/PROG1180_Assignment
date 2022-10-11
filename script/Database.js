@@ -5,7 +5,7 @@ items = [
         "Name" : "Wrench",
         "Details" : "12-Inch Wrench",
         "ManFactID" : 0,
-        "SerialNum" : 10000,
+        "SerialNum" : 10000
     }
     ,
     {
@@ -14,9 +14,7 @@ items = [
         "Name" : "Screw Driver",
         "Details" : "Phillips Head Size 2",
         "ManFactID" : 2,
-        "SerialNum" : 20000,
-        "Quantity" : 3,
-        "Cost": 2.5
+        "SerialNum" : 20000
     }
     // Template for items
     // ,
@@ -66,6 +64,12 @@ onHandInventory = [
         "QtyOnHand" : 2,
         "DateRecieved" : Date.now(),
         "Cost" : 2.5
+    },
+    {
+        "UPC" : 123456789012,
+        "QtyOnHand" : 4,
+        "DateRecieved" : Date.now(),
+        "Cost" : 3
     }
     // Template for onHandInventory 
     // ,
@@ -76,16 +80,6 @@ onHandInventory = [
     //     "Cost" :
     // }
 ]
-
-// Testing to make sure objects are visible
-// const p = document.getElementById("test");
-// const getButt = document.getElementById("get");
-// const setButt = document.getElementById("set");
-
-
-// p.innerHTML += JSON.stringify(items) + "<br/>";
-// p.innerHTML += JSON.stringify(manufacturers) + "<br/>";
-// p.innerHTML += JSON.stringify(onHandInventory) + "<br/>";
 
 function Store(key, data){
     localStorage.setItem(key, JSON.stringify(data));
@@ -100,7 +94,22 @@ function Retrieve(key){
     localStorage.clear();
 }
 
-// setButt.addEventListener("click", Store);
-// getButt.addEventListener("click", Retrieve);
+// joiningDB is the child,  joinedDB is the parent.
+function JoinDB(joiningDB, joinedDB, matchingKey){
+    // Foreach record in database 1
+    joiningDB.forEach(record1 => {
+        // Foreach record in database 2
+        joinedDB.forEach(record2 => {
+            // If they both contain the matching key and they have the same value.
+            if((record1[matchingKey] != undefined) && (record2[matchingKey] != undefined) && (record2[matchingKey] == record1[matchingKey])){
+                for (const[key, value] of Object.entries(record2)){
+                    if(!(key in record1)){
+                        record1[key] = value;
+                    }
+                }
+            }
+        })
+    });
+    return(joiningDB);
 
-
+}
