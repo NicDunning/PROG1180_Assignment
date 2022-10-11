@@ -30,19 +30,20 @@ function RefreshDisplayedData(){
     });
     // Set innerHTML add table header.
     tblInventory.innerHTML += tblInventoryHTML + "</tr>";
-    // Foreach key/ value pair in items dictionary[0]
-    var itemRow = "<tr><td><a href='inventory.html'>Edit</a></td>";
-    for (const [key, value] of Object.entries(items[0])){
-        // If it is a displayed value.
-        if(!(["Status", "ManFactID", "SerialNum"].includes(key))){
-            // Add it to the row.
-            itemRow += `<td>${value}</td>`;
+    // Foreach key/ value pair in items dictionary
+    var itemRow = "";
+    items.forEach(item => {
+        itemRow += "<tr><td><a href='inventory.html'>Edit</a></td>";
+        for (const [key, value] of Object.entries(item)){
+            console.log(item);
+            // If it is a displayed value.
+            if(!(["Status", "ManFactID", "SerialNum"].includes(key))){
+                // Add it to the row.
+                itemRow += `<td>${value}</td>`;
+            }
         }
-    }
-    itemRow += "</tr>";
+        itemRow += "</tr>";
+    });
     // Add the row to the table.
-    tblInventory.innerHTML += itemRow; 
-
-
-    
+    tblInventory.innerHTML += itemRow;    
 }
