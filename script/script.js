@@ -49,7 +49,7 @@ function RefreshInventoryDisplayedData(){
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;   
     // Store the cookie.
-    Store("db", itemsOnHand, 1);
+    Store("db", itemsOnHand, 1/500);
     Retrieve(); 
 }
 
