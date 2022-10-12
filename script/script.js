@@ -1,13 +1,18 @@
 document.onreadystatechange = function () {
     // Get name of HTML page.
+    
     var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
         if(pageName = "inventory.html"){
             RefreshInventoryDisplayedData();
         }
     }
-
-    // buttons in table have OnClick
+    // const navs = document.querySelectorAll("nav > a");
+    // navs.forEach( link => {
+    //     link.addEventListener("click", Store("db", itemsOnHand));
+    // })
+    
+    // A tags in table have OnClick
     editButtons = document.querySelectorAll("td > input");
     editButtons.forEach( button => {
         button.addEventListener("click", sendToEdit);
@@ -29,7 +34,7 @@ function RefreshInventoryDisplayedData(){
     tblInventory.innerHTML += tblInventoryHTML + "</tr>";
     var itemRow = "";
     // Generate Joined DB
-    itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+    var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     // Foreach item on hand
     var counter = 0;
     itemsOnHand.forEach(item => {
@@ -44,7 +49,10 @@ function RefreshInventoryDisplayedData(){
     });
     
     // Add the row to the table.
-    tblInventory.innerHTML += itemRow;    
+    tblInventory.innerHTML += itemRow;   
+    // Store the cookie.
+    Store("db", itemsOnHand);
+    Retrieve(); 
 }
 
 function sendToEdit(){
