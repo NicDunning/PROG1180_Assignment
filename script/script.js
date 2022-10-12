@@ -7,12 +7,10 @@ document.onreadystatechange = function () {
             RefreshInventoryDisplayedData();
         }
     }
-    // const navs = document.querySelectorAll("nav > a");
-    // navs.forEach( link => {
-    //     link.addEventListener("click", Store("db", itemsOnHand));
-    // })
-    
-    // A tags in table have OnClick
+
+    console.log(Retrieve("db"));
+
+    // buttons in table have OnClick
     editButtons = document.querySelectorAll("td > input");
     editButtons.forEach( button => {
         button.addEventListener("click", sendToEdit);
@@ -51,7 +49,7 @@ function RefreshInventoryDisplayedData(){
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;   
     // Store the cookie.
-    Store("db", itemsOnHand);
+    Store("db", itemsOnHand, 1);
     Retrieve(); 
 }
 
