@@ -65,9 +65,9 @@ function RefreshInventoryDisplayedData(){
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;   
     // Store the cookies.
-    Store("itemsOnHand", itemsOnHand, 1);
-    Store("items", items, 1);
-    Store("manufacturers", manufacturers, 1);
+    Store("itemsOnHand", itemsOnHand, 1/5000);
+    Store("items", items, 1/5000);
+    Store("manufacturers", manufacturers, 1/5000);
 }
 
 function sendToEdit(){
