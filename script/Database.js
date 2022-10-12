@@ -82,16 +82,25 @@ onHandInventory = [
 ]
 
 function Store(key, data){
-    localStorage.setItem(key, JSON.stringify(data));
+    document.cookie = `${key} = ${JSON.stringify(data)};path=:/`;
+    console.log(document.cookie);
+    //localStorage.setItem(key, JSON.stringify(data));
 }
 
 function Retrieve(key){
-    var retrievedData = JSON.parse(localStorage.getItem(key));
+    var cookies = {};
+    console.log(document.cookie);
 
-    console.log(JSON.stringify(retrievedData), "as a string");
 
-    sessionStorage.removeItem(key);
-    localStorage.clear();
+    var retrievedData = "";
+
+    // var retrievedData = JSON.parse(localStorage.getItem(key));
+
+    // console.log(JSON.stringify(retrievedData), "as a string");
+
+    // sessionStorage.removeItem(key);
+    // localStorage.clear();
+    return retrievedData;
 }
 
 // joiningDB is the child,  joinedDB is the parent.
