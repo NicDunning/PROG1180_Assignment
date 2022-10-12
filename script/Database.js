@@ -81,26 +81,30 @@ onHandInventory = [
     // }
 ]
 
-function Store(key, data){
-    document.cookie = `${key} = ${JSON.stringify(data)};path=:/`;
-    console.log(document.cookie);
-    //localStorage.setItem(key, JSON.stringify(data));
+function Store(key, data, expireDays){
+    const date = new Date();
+    date.setTime(date.getTime() + (expireDays*24*60*60*1000));
+    let expires = "expires="+ date.toUTCString();
+    document.cookie = `${key} = ${JSON.stringify(data)};${expires};path=:/`;
 }
 
 function Retrieve(key){
     var cookies = {};
     console.log(document.cookie);
-
-
-    var retrievedData = "";
-
-    // var retrievedData = JSON.parse(localStorage.getItem(key));
-
-    // console.log(JSON.stringify(retrievedData), "as a string");
-
-    // sessionStorage.removeItem(key);
-    // localStorage.clear();
-    return retrievedData;
+    let name = key + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            console.log(c.substring(name.length, c.length));
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
 
 // joiningDB is the child,  joinedDB is the parent.
