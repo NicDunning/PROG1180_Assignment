@@ -1,3 +1,9 @@
+upc = document.getElementById("upc");
+productName = document.getElementById("pname");
+itemDescription = document.getElementById("itemdesc");
+itemQuantity = document.getElementById("quan");
+
+
 document.onreadystatechange = function () {
     // Get name of HTML page.
     
@@ -5,17 +11,28 @@ document.onreadystatechange = function () {
     if (document.readyState == "interactive") {
         if(pageName = "inventory.html"){
             RefreshInventoryDisplayedData();
+
+            btnNew = document.getElementById("btnNew");
+            // On button click retrieve data, add data, store data.
+            btnNew.addEventListener("click", function(){
+                var itemsOnHand = Retrieve("itemsOnHand");
+                var items = Retrieve("items");
+                var manufacturers = Retrieve("manufacturers");
+                
+                console.log(itemsOnHand);
+                console.log(items);
+                console.log(manufacturers);
+                // Do the adding to DB.
+                // Store DB.
+            });
+        
+            // buttons in table have OnClick
+            editButtons = document.querySelectorAll("td > input");
+            editButtons.forEach( button => {
+                button.addEventListener("click", sendToEdit);
+            })
         }
     }
-
-    console.log(Retrieve("db"));
-
-    // buttons in table have OnClick
-    editButtons = document.querySelectorAll("td > input");
-    editButtons.forEach( button => {
-        button.addEventListener("click", sendToEdit);
-    })
-    
 }
 
 function RefreshInventoryDisplayedData(){
@@ -36,7 +53,6 @@ function RefreshInventoryDisplayedData(){
     // Foreach item on hand
     var counter = 0;
     itemsOnHand.forEach(item => {
-        //<a href='' class='${JSON.stringify(itemsOnHand)}' >Edit</a>
         itemRow += `<tr><td><input type="submit" value="Edit" class="${counter}"</td>`;
         counter++;
         itemRow += `<td>${item["UPC"]}</td>`
@@ -48,19 +64,13 @@ function RefreshInventoryDisplayedData(){
     
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;   
-    // Store the cookie.
-    Store("db", itemsOnHand, 1/500);
-    Retrieve(); 
+    // Store the cookies.
+    Store("itemsOnHand", itemsOnHand, 1);
+    Store("items", items, 1);
+    Store("manufacturers", manufacturers, 1);
 }
 
 function sendToEdit(){
-    console.log(JSON.parse(this.className));
-    console.log(itemsOnHand[parseInt(this.className)]);
-    upc = document.getElementById("upc");
-    productName = document.getElementById("pname");
-    itemDescription = document.getElementById("itemdesc");
-    itemQuantity = document.getElementById("quan");
-
     selectedItem = itemsOnHand[parseInt(this.className)];
     upc.value = selectedItem["UPC"];
     productName.value = selectedItem["Name"];
