@@ -15,7 +15,7 @@ document.onreadystatechange = function () {
                 // var manufacturers = Retrieve("manufacturers");
                 var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
                 // Do the adding to DB.
-                var newitem = {"UPC" : document.getElementById("upc").value, "QtyOnHand" : document.getElementById("quan").value, "DateRecieved" : DateTime.Date.now(), "Cost" : document.getElementById("cost").value};
+                var newitem = {"UPC" : document.getElementById("upc").value, "QtyOnHand" : document.getElementById("quan").value, "DateRecieved" : Date.now(), "Cost" : document.getElementById("cost").value};
                 if(itemsOnHand.indexOf(newitem)){
                     console.log(newitem);
                 }
