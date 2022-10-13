@@ -17,7 +17,7 @@ document.onreadystatechange = function () {
                 // Do the adding to DB.
                 
                 var newitem = {};
-                newitem["UPC"] : document.getElementById("upc").value;
+                newitem["UPC"] = document.getElementById("upc").value;
                 newitem["QtyOnHand"] = document.getElementById("quan").value;
                 newitem["DateRecieved"] = Date.now();
                 newitem["Cost"] = document.getElementById("cost").value};
