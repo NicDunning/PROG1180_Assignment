@@ -55,20 +55,20 @@ onHandInventory = [
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 10,
-        "DateRecieved" : DateTime.Date.now(),
+        "DateRecieved" : Date.now(),
         "Cost" : 2.0
     }
     ,
     {
         "UPC" : 123456789013,
         "QtyOnHand" : 2,
-        "DateRecieved" : DateTime.Date.now(),
+        "DateRecieved" : Date.now(),
         "Cost" : 2.5
     },
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 4,
-        "DateRecieved" : DateTime.Date.now(),
+        "DateRecieved" : Date.now(),
         "Cost" : 3
     }
     // Template for onHandInventory 
