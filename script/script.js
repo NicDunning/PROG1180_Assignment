@@ -24,7 +24,7 @@ document.onreadystatechange = function () {
                 if(itemsOnHand.indexOf(newitem)){
                     console.log(newitem);
                 }
-                Console.log(addInventoryItem(newitem["UPC"], newitem["QtyOnHand"], newitem["Cost"], newitem["DateRecieved"]));
+                console.log(addInventoryItem(newitem["UPC"], newitem["QtyOnHand"], newitem["Cost"], newitem["DateRecieved"]));
             });
         
             // buttons in table have OnClick
