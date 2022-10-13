@@ -20,7 +20,7 @@ document.onreadystatechange = function () {
                 newitem["UPC"] = document.getElementById("upc").value;
                 newitem["QtyOnHand"] = document.getElementById("quan").value;
                 newitem["DateRecieved"] = Date.now();
-                newitem["Cost"] = document.getElementById("cost").value};
+                newitem["Cost"] = document.getElementById("cost").value;
                 if(itemsOnHand.indexOf(newitem)){
                     console.log(newitem);
                 }
