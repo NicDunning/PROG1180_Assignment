@@ -55,20 +55,20 @@ onHandInventory = [
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 10,
-        "DateRecieved" : Date.now(),
+        "DateRecieved" : DateTime.Date.now(),
         "Cost" : 2.0
     }
     ,
     {
         "UPC" : 123456789013,
         "QtyOnHand" : 2,
-        "DateRecieved" : Date.now(),
+        "DateRecieved" : DateTime.Date.now(),
         "Cost" : 2.5
     },
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 4,
-        "DateRecieved" : Date.now(),
+        "DateRecieved" : DateTime.Date.now(),
         "Cost" : 3
     }
     // Template for onHandInventory 
@@ -90,7 +90,6 @@ function Store(key, data, expireDays){
 
 function Retrieve(key){
     var cookies = {};
-    console.log(document.cookie);
     let name = key + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -101,10 +100,14 @@ function Retrieve(key){
         }
         if (c.indexOf(name) == 0) {
             console.log(c.substring(name.length, c.length));
-            return c.substring(name.length, c.length);
+            return JSON.parse(c.substring(name.length, c.length));
         }
     }
     return "";
+}
+
+function Delete(key){
+    document.cookie = key +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 // joiningDB is the child,  joinedDB is the parent.
@@ -124,4 +127,61 @@ function JoinDB(joiningDB, joinedDB, matchingKey){
         })
     });
     return(joiningDB);
+}
+
+function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, invoiceQTY = -1) {
+    let funcStatus = "Failed to add item to inventory."
+
+    // pull down array of products
+    let products = Retrieve("items");
+    // ensure item is in products
+    // if(products.findIndex(item => item["UPC"] === itemUPC) === -1) {
+    //     funcStatus = "Item is not in list of products. Please add item to list of products before adding to inventory."
+    //     return funcStatus
+    // }
+
+    // pull down invoice array
+    // let invoices = JSON.parse("JSON STRING")
+    // ensure invoice exists
+    // if (invoices.findIndex(invoice => invoice["InvoiceID"] === invoiceID) === -1) {
+    //     funcStatus = "Invoice does not exist. Please create invoice before adding items to inventory."
+    //     return funcStatus
+    // }
+
+    // pull down inventory arrays
+    let onHandInv = Retrieve("itemsOnHand");
+    // let orderInv = JSON.parse("JSON STRING")
+
+    // check for duplicate item
+    // if ((orderInv.findIndex(item => item["InvoiceId"] === invoiceID && item["UPC"] === UPC)) != -1) {
+    //     funcStatus = "An item listing with this UPC from this invoice is already in the system."
+    //     return funcStatus
+    // }
+
+    // construct new objects
+    let newOnHandInvItem = {
+        //"InvoiceID": invoiceID,
+        "UPC": UPC,
+        "QtyOnHand": qtyOnHand,
+        "Cost": cost,
+        "DateReceived": dateReceived
+    }
+    // let newOrderInvItem = {
+    //     "InvoiceID": invoiceID,
+    //     "UPC": UPC,
+    //     "InvoiceQTY": invoiceQTY
+    // }
+
+    // push new objects into respective arrays
+    onHandInv.push(newOnHandInvItem)
+    
+    // orderInv.push(newOrderInvItem)
+
+    // return arrays to JSON
+    // idk man make Nic do it lol
+    Store("itemsOnHand", onHandInv, 1/1440);
+    // if (success) {
+        funcStatus = "Item added successfully."
+        return funcStatus
+    // }
 }
