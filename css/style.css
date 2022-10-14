@@ -10,15 +10,24 @@
   } 
 
   .column-inv{
-	float: left;
-	width: 50%;
-	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	text-align: center;
+;
   }
   .row::after{
 	clear:both;
 	content:"";
 	display: table;
 	
+  }
+  .row{
+	display: flex;
+	height: auto;
+	margin: auto;
+	width: 90%;
+	padding: 10px;
   }
   .highlight{background: yellow;}
 
