@@ -3,7 +3,7 @@ document.onreadystatechange = function () {
     
     var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
-        if(pageName = "inventory.html"){
+        if(pageName = "inventory.html" || pageName == "test.html"){
             RefreshInventoryDisplayedData();
 
             btnNew = document.getElementById("btnNew");
