@@ -21,10 +21,8 @@ document.onreadystatechange = function () {
                 newitem["QtyOnHand"] = document.getElementById("quan").value;
                 newitem["DateRecieved"] = Date.now();
                 newitem["Cost"] = document.getElementById("cost").value;
-                if(itemsOnHand.indexOf(newitem)){
-                    console.log(newitem);
-                }
                 console.log(addInventoryItem(newitem["UPC"], newitem["QtyOnHand"], newitem["Cost"], newitem["DateRecieved"]));
+                RefreshInventoryDisplayedData();
             });
         
             // buttons in table have OnClick
@@ -42,6 +40,7 @@ function RefreshInventoryDisplayedData(){
     var tblInventoryHeaders = ["Edit", "UPC", "Product", "Details", "Quantity", "Price"];
     var tblInventoryHTML = "<tr>";
     const blacklist = ["Status", "ManFactID", "SerialNum", "DateRecieved"];
+    tblInventory.innerHTML = "";
     // Foreach value in headers make a column.
     tblInventoryHeaders.forEach(header => {
         tblInventoryHTML += `<th>${header}</th>`;
@@ -50,7 +49,13 @@ function RefreshInventoryDisplayedData(){
     tblInventory.innerHTML += tblInventoryHTML + "</tr>";
     var itemRow = "";
     // Generate Joined DB
-    var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+    if(document.cookie == ""){
+        var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+    }
+    else{
+        var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+    }
+    
     // Foreach item on hand
     var counter = 0;
     itemsOnHand.forEach(item => {
