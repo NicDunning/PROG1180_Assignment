@@ -188,7 +188,7 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     // return arrays to JSON
     // idk man make Nic do it lol
 
-    if(document.cookie != ""){
+    if(document.cookie == ""){
         onHandInventory = onHandInv;
     }
     else{
