@@ -26,7 +26,31 @@
     <div class="column-inv" style="background-color: #838996;">
         <h2>Current Inventory</h2>
         <table border="1" id="tbInventory">
+
         </table>
+    </div>
+    <div class="column-inv" style="background-color: #778899">
+        <h2>Edit Or Add Items Here</h2>
+        <label for="upc">UPC</label><br>
+        <input type="text" id="upc" name="upc"><br>
+        <label for="status">Status</label><br>
+        <label for="true">Active</label>
+        <input type="radio" id="true" name="status">
+        <label for="false">Inactive</label>
+        <input type="radio" id="false" name="status"><br>
+        <label for="pname">Product Name</label><br>
+        <input type="text" id="pname" name="pname"><br>
+        <label for="itemdesc">Item Description</label><br>
+        <input type="text" id="itemdesc" name="itemdesc"><br>
+        <label for="manfactid">Manufacturer ID</label><br>
+        <!-- Will be a dropdown -->
+        <input type="text" id="manfactid" name="manfactid"><br>
+        <label for="serialnum">Serial Number</label><br>
+        <input type="text" id="serialnum" name="serialnum"><br>
+        
+        
+        <input type="submit" value="Submit" id="btnSubmit">
+        <input type="submit" value="New Entry" id="btnNew">
     </div>
 </div>
 <footer>

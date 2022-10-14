@@ -70,6 +70,8 @@ footer{
 
 table{
 	background-color: beige;
+	padding: 5px;
+	margin: 5px;
 }
 th{font-size: 35px;}
 td{font-size: 25px;}
@@ -78,6 +80,14 @@ img{
 	max-width: 100px;
 	max-height: 100px;
   }
+.edit{
+	margin: 2px;
+	width: 130px;
+}
+.delete{
+	margin: 2px;
+	width: 130px;
+}
 
 
 
