@@ -70,7 +70,8 @@ onHandInventory = [
         "QtyOnHand" : 4,
         "DateRecieved" : Date.now(),
         "Cost" : 3
-    }
+    },
+    
     // Template for onHandInventory 
     // ,
     // {
@@ -148,8 +149,15 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     //     return funcStatus
     // }
 
+    let onHandInv = [];
     // pull down inventory arrays
-    let onHandInv = Retrieve("itemsOnHand");
+    if(document.cookie != ""){
+        onHandInv = Retrieve("itemsOnHand");
+    }
+    else{
+        onHandInv = onHandInventory;
+    }
+    
     // let orderInv = JSON.parse("JSON STRING")
 
     // check for duplicate item
@@ -179,7 +187,14 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
 
     // return arrays to JSON
     // idk man make Nic do it lol
-    Store("itemsOnHand", onHandInv, 1/1440);
+
+    if(document.cookie != ""){
+        onHandInventory = onHandInv;
+    }
+    else{
+        Store("itemsOnHand", onHandInv, 1/1440);
+    }
+    
     // if (success) {
         funcStatus = "Item added successfully."
         return funcStatus

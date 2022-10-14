@@ -27,21 +27,23 @@ document.onreadystatechange = function () {
             });
         
             // buttons in table have OnClick
-            editButtons = document.querySelectorAll("td > input");
-            editButtons.forEach( button => {
-                button.addEventListener("click", sendToEdit);
-            })
+            ButtonFunctionality();
         }
 
         if(pageName == "items.html"){
+            // Add Product();
             RefreshItemsDisplayedData();
-            // buttons in table have OnClick
-            editButtons = document.querySelectorAll("td > input");
-            editButtons.forEach( button => {
-                button.addEventListener("click", sendToEdit);
-            })
+            ButtonFunctionality();
         }
     }
+}
+
+function ButtonFunctionality(){
+    // buttons in table have OnClick
+    editButtons = document.querySelectorAll("td > input");
+    editButtons.forEach( button => {
+        button.addEventListener("click", sendToEdit);
+    })
 }
 
 function RefreshInventoryDisplayedData(){
@@ -85,12 +87,13 @@ function RefreshInventoryDisplayedData(){
     Store("itemsOnHand", itemsOnHand, 1);
     Store("items", items, 1);
     Store("manufacturers", manufacturers, 1);
+    ButtonFunctionality();
 }
 
 function RefreshItemsDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
-    var tblInventoryHeaders = ["Edit", "UPC", "Product", "Details", "Quantity", "Price"];
+    var tblInventoryHeaders = ["Edit", "UPC", "Status", "Name", "Details", "ManFactID", "SerialNum"];
     var tblInventoryHTML = "<tr>";
     const blacklist = ["Status", "ManFactID", "SerialNum", "DateRecieved"];
     tblInventory.innerHTML = "";
@@ -101,14 +104,65 @@ function RefreshItemsDisplayedData(){
     // Set innerHTML add table header.
     tblInventory.innerHTML += tblInventoryHTML + "</tr>";
     var itemRow = "";
+    itemsCarried = [];
+    if(document.cookie == ""){
+        itemsCarried = items;
+    }
+    else{
+        var itemsCarried = Retrieve("items");
+    }
+    
+    // Foreach item on hand
+    var counter = 0;
+    itemsCarried.forEach(item => {
+        itemRow += `<tr><td><input type="submit" value="Edit" class="${counter} edit">` 
+        + `<input type="submit" value="Delete" class="${counter} delete"></td>`;
+        counter++;
+        itemRow += `<td>${item["UPC"]}</td>`
+        +`<td>${item["Status"]}</td>`
+        +`<td>${item["Name"]}</td>`
+        +`<td>${item["Details"]}</td>`
+        +`<td>${item["ManFactID"]}</td>`
+        +`<td>${item["SerialNum"]}</td></tr>`
+    });
+    
+    // Add the row to the table.
+    tblInventory.innerHTML += itemRow;   
+    // Store the cookies.
+    Store("items", items, 1);
+    Store("manufacturers", manufacturers, 1);
+    ButtonFunctionality();
 }
 
 function sendToEdit(){
-    var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
-    var selectedItem = itemsOnHand[parseInt(this.className)];
-    document.getElementById("upc").value = selectedItem["UPC"];
-    // document.getElementById("pname").value = selectedItem["Name"];
-    // document.getElementById("itemdesc").value = selectedItem["Details"];
-    document.getElementById("quan").value = selectedItem["QtyOnHand"];
-    document.getElementById("cost").value = selectedItem["Cost"];
+    var pageName = window.location.pathname.split("/").pop();
+        if(pageName == "inventory.html"){    
+        // Generate Joined DB
+        if(document.cookie == ""){
+            var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+        }
+        else{
+            var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        }
+        var selectedItem = itemsOnHand[parseInt(this.className)];
+        document.getElementById("upc").value = selectedItem["UPC"];
+        document.getElementById("quan").value = selectedItem["QtyOnHand"];
+        document.getElementById("cost").value = selectedItem["Cost"];
+    }
+    else if (pageName == "items.html"){
+        // Generate DB
+        itemsDB = [];
+        if(document.cookie == ""){
+            itemsDB = items;
+        }
+        else{
+            var itemsDB = Retrieve("items");
+        }
+        var selectedItem = itemsDB[parseInt(this.className)];
+        document.getElementById("upc").value = selectedItem["UPC"];
+        document.getElementById("pname").value = selectedItem["Name"];
+        document.getElementById("itemdesc").value = selectedItem["Details"];
+        document.getElementById("manfactid").value = selectedItem["ManFactID"];
+        document.getElementById("serialnum").value = selectedItem["SerialNum"];
+    }
 };
