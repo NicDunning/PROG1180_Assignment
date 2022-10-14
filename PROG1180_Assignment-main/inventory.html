@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Megaventory</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">   
+    <script src="script\Database.js"></script>
+    <script src="script\script.js"></script>
+</head>
+<body>
+<header>
+        <h1>ComicSans Megaventory System</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ordering.html">Ordering</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="test.html">DataTestingPage</a>
+        </nav>
+</header>
+<div class="row">
+    <div class="column-inv" style="background-color: #838996;">
+        <h2>Current Inventory</h2>
+        <table border="1" id="tbInventory">
+            <!--
+            <tr>
+                <th>Edit</th>
+                <th>UPC</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td><a href="inventory.html">Edit</a></td>
+                <td>23165489</td>
+                <td>Bolt</td>
+                <td>5</td>
+                <td>$0.99</td>
+            </tr>
+            <tr>
+                <td><a href="inventory.html">Edit</a></td>
+                <td>7894582</td>
+                <td>Fuel Filter</td>
+                <td>10</td>
+                <td>$9.99</td>
+            </tr>
+            -->
+        </table>
+    </div>
+    <div class="column-inv" style="background-color: #778899">
+        <h2>Edit Or Add Items Here</h2>
+        
+            <label for="upc">UPC</label><br>
+            <input type="text" id="upc" name="upc"><br>
+            <label for="pname">Product Name</label><br>
+            <input type="text" id="pname" name="pname"><br>
+            <label for="itemdesc">Item Description</label><br>
+            <input type="text" id="itemdesc" name="itemdesc"><br>
+            <label for="quan">Quanitity</label><br>
+            <input type="text" id="quan" name="quan"><br>
+            <label for="cost">Cost</label><br>
+            <input type="text" id="cost" name="cost"><br>
+            <input type="submit" value="Submit" id="btnSubmit">
+            <input type="submit" value="New Entry" id="btnNew">
+        
+    </div>
+</div>
+<footer>
+   RPOG1180 ComicSans Megaventory
+</footer>
+</body>
+</html>
