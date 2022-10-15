@@ -10,11 +10,14 @@ document.onreadystatechange = function () {
             btnNew = document.getElementById("btnNew");
             // On button click retrieve data, add data, store data.
             btnNew.addEventListener("click", function(){
-                // Comment swap these next 4 line for live server.
-                // var itemsOnHand = Retrieve("itemsOnHand");
-                // var items = Retrieve("items");
-                // var manufacturers = Retrieve("manufacturers");
-                var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+                if(document.cookie == ""){
+                    var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+                }
+                else{
+                    var itemsOnHand = Retrieve("itemsOnHand");
+                    var items = Retrieve("items");
+                    var manufacturers = Retrieve("manufacturers");
+                }
                 // Do the adding to DB.
                 
                 var newOnHandItem = {};
@@ -31,7 +34,28 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "items.html"){
-            // Add Product();
+            btnNew.addEventListener("click", function(){
+                if(document.cookie == ""){
+
+                }
+                else{
+                    var itemsOnHand = Retrieve("itemsOnHand");
+                    var items = Retrieve("items");
+                    var manufacturers = Retrieve("manufacturers");
+                }
+                // Do the adding to DB.
+                
+                var newItem = {};
+                newItem["UPC"] = document.getElementById("upc").value;
+                newItem["Status"] = document.getElementById("status").checked;
+                newItem["Name"] = document.getElementById("pname").value;
+                newItem["Details"] = document.getElementById("itemdesc").value;
+                newItem["ManFactID"] = document.getElementById("manfactid").value;
+                newItem["SerialNum"] = document.getElementById("serialnum").value;
+                
+                console.log(addProduct(newItem["UPC"], newItem["Status"], newItem["Name"], newItem["Details"], newItem["ManFactID"], newItem["SerialNum"]));
+                RefreshItemsDisplayedData();
+            });
             RefreshItemsDisplayedData();
             ButtonFunctionality();
         }

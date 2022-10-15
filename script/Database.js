@@ -134,7 +134,7 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     let funcStatus = "Failed to add item to inventory."
 
     // pull down array of products
-    let products = Retrieve("items");
+    // let products = Retrieve("items");
     // ensure item is in products
     // if(products.findIndex(item => item["UPC"] === itemUPC) === -1) {
     //     funcStatus = "Item is not in list of products. Please add item to list of products before adding to inventory."
@@ -199,4 +199,52 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
         funcStatus = "Item added successfully."
         return funcStatus
     // }
+}
+
+function addProduct(UPC, status, name, details, manFactID, serialNum) {
+    let funcStatus = "Failed to add product."
+    // pull down array
+    // let products = JSON.parse("JSON STRING")
+
+    // check for duplicate item in array
+    // if (products.findIndex(item => item["UPC"] === UPC) != -1) {
+    //     funcStatus = "Item with this UPC already exists."
+    //     return funcStatus
+    // }
+
+    let carriedItems = [];
+    // pull down inventory arrays
+    if(document.cookie != ""){
+        carriedItems = Retrieve("items");
+    }
+    else{
+        carriedItems = items;
+    }
+
+    // construct new item
+    let newItem = {
+        "UPC": UPC,
+        "Status": status,
+        "Name": name,
+        "Details": details,
+        "ManFactID": manFactID,
+        "SerialNum": serialNum
+    }
+
+    // push to array
+    carriedItems.push(newItem)
+
+    if(document.cookie == ""){
+        items = carriedItems;
+    }
+    else{
+        Store("items", carriedItems, 1/1440);
+    }
+
+    // return array to JSON
+    // idk man make Nic do it lol
+    // if (success) {
+        funcStatus = "Item added successfully."
+    // }
+    return funcStatus
 }
