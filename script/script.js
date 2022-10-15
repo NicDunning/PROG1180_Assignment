@@ -11,12 +11,12 @@ document.onreadystatechange = function () {
             // On button click retrieve data, add data, store data.
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
-                    var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+                    itemsOnHand = JoinDB(onHandInventory, items, "UPC");
                 }
                 else{
-                    var itemsOnHand = Retrieve("itemsOnHand");
-                    var items = Retrieve("items");
-                    var manufacturers = Retrieve("manufacturers");
+                    itemsOnHand = Retrieve("itemsOnHand");
+                    items = Retrieve("items");
+                    manufacturers = Retrieve("manufacturers");
                 }
                 // Do the adding to DB.
                 
@@ -30,7 +30,7 @@ document.onreadystatechange = function () {
             });
         
             // buttons in table have OnClick
-            ButtonFunctionality();
+            ButtonFunctionality;
         }
 
         if(pageName == "items.html"){
@@ -39,9 +39,9 @@ document.onreadystatechange = function () {
 
                 }
                 else{
-                    var itemsOnHand = Retrieve("itemsOnHand");
-                    var items = Retrieve("items");
-                    var manufacturers = Retrieve("manufacturers");
+                    itemsOnHand = Retrieve("itemsOnHand");
+                    items = Retrieve("items");
+                    manufacturers = Retrieve("manufacturers");
                 }
                 // Do the adding to DB.
                 
@@ -64,9 +64,13 @@ document.onreadystatechange = function () {
 
 function ButtonFunctionality(){
     // buttons in table have OnClick
-    editButtons = document.querySelectorAll("td > input");
+    editButtons = document.querySelectorAll("td > input.edit");
     editButtons.forEach( button => {
         button.addEventListener("click", sendToEdit);
+    })
+    deleteButtons = document.querySelectorAll("td > input.delete");
+    deleteButtons.forEach( button => {
+        button.addEventListener("click", ArchiveRecord);
     })
 }
 
@@ -133,7 +137,7 @@ function RefreshItemsDisplayedData(){
     if(document.cookie == ""){
     }
     else{
-        var items = Retrieve("items");
+        items = Retrieve("items");
     }
     
     // Foreach item on hand
@@ -160,7 +164,7 @@ function RefreshItemsDisplayedData(){
 
 function sendToEdit(){
     var pageName = window.location.pathname.split("/").pop();
-        if(pageName == "inventory.html"){    
+    if(pageName == "inventory.html"){    
         // Generate Joined DB
         if(document.cookie == ""){
             var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
@@ -175,9 +179,8 @@ function sendToEdit(){
     }
     else if (pageName == "items.html"){
         // Generate DB
-        itemsDB = [];
         if(document.cookie == ""){
-            itemsDB = items;
+            var itemsDB = items;
         }
         else{
             var itemsDB = Retrieve("items");
@@ -190,3 +193,31 @@ function sendToEdit(){
         document.getElementById("serialnum").value = selectedItem["SerialNum"];
     }
 };
+
+function ArchiveRecord(){
+    let archivedRecords = [];
+    var pageName = window.location.pathname.split("/").pop();
+    // Live/ Local
+    if(document.cookie == ""){
+        var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+        var itemsDB = items;
+    }
+    else{
+        var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        var itemsDB = Retrieve("items");
+    }
+    // Page Differences
+    if (pageName == "inventory.html"){
+        // Splice the archived item from the list. Add it to archived records.
+        archivedRecords.push(itemsOnHand.splice((parseInt(this.className)), 1));
+        RefreshInventoryDisplayedData();
+        ButtonFunctionality();
+    }
+    else if(pageName == "items.html"){
+        archivedRecords.push(itemsDB.splice(parseInt(this.className), 1));
+        RefreshItemsDisplayedData();
+        ButtonFunctionality();
+    }
+}
+
+
