@@ -214,7 +214,9 @@ function ArchiveRecord(){
         ButtonFunctionality();
     }
     else if(pageName == "items.html"){
+        console.log(items);
         archivedRecords.push(items.splice(parseInt(this.className), 1));
+        console.log(items);
         Store(items);
         RefreshItemsDisplayedData();
         ButtonFunctionality();
