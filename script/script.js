@@ -128,17 +128,15 @@ function RefreshItemsDisplayedData(){
     // Set innerHTML add table header.
     tblInventory.innerHTML += tblInventoryHTML + "</tr>";
     var itemRow = "";
-    itemsCarried = [];
     if(document.cookie == ""){
-        itemsCarried = items;
     }
     else{
-        var itemsCarried = Retrieve("items");
+        var items = Retrieve("items");
     }
     
     // Foreach item on hand
     var counter = 0;
-    itemsCarried.forEach(item => {
+    items.forEach(item => {
         itemRow += `<tr><td><input type="submit" value="Edit" class="${counter} edit">` 
         + `<input type="submit" value="Delete" class="${counter} delete"></td>`;
         counter++;

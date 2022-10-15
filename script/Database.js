@@ -192,7 +192,7 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
         onHandInventory = onHandInv;
     }
     else{
-        Store("itemsOnHand", onHandInv, 1/1440);
+        Store("itemsOnHand", onHandInv, 1);
     }
     
     // if (success) {
@@ -238,7 +238,7 @@ function addProduct(UPC, status, name, details, manFactID, serialNum) {
         items = carriedItems;
     }
     else{
-        Store("items", carriedItems, 1/1440);
+        Store("items", carriedItems, 1);
     }
 
     // return array to JSON
