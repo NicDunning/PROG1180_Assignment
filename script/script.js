@@ -75,7 +75,7 @@ function RefreshInventoryDisplayedData(){
     const tblInventory = document.getElementById("tbInventory");
     var tblInventoryHeaders = ["Edit", "UPC", "Product", "Details", "Quantity", "Price"];
     var tblInventoryHTML = "<tr>";
-    const blacklist = ["Status", "ManFactID", "SerialNum", "DateRecieved"];
+    
     tblInventory.innerHTML = "";
     // Foreach value in headers make a column.
     tblInventoryHeaders.forEach(header => {
@@ -90,6 +90,8 @@ function RefreshInventoryDisplayedData(){
     }
     else{
         var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        items = Retrieve("items");
+        manufacturers = Retrieve("manufacturers");
     }
     
     // Foreach item on hand
