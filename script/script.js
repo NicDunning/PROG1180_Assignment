@@ -202,8 +202,12 @@ function ArchiveRecord(){
         itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     }
     else{
-        itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
-        items = Retrieve("items");
+        if(pageName == "inventory.html"){
+            itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        }
+        if(pageName == "items.html"){
+            items = Retrieve("items");
+        }
     }
     // Page Differences
     if (pageName == "inventory.html"){
