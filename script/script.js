@@ -90,10 +90,10 @@ function RefreshInventoryDisplayedData(){
     var itemRow = "";
     // Generate Joined DB
     if(document.cookie == ""){
-        var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+        itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     }
     else{
-        var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
         items = Retrieve("items");
         manufacturers = Retrieve("manufacturers");
     }
@@ -167,10 +167,10 @@ function sendToEdit(){
     if(pageName == "inventory.html"){    
         // Generate Joined DB
         if(document.cookie == ""){
-            var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+            itemsOnHand = JoinDB(onHandInventory, items, "UPC");
         }
         else{
-            var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+            itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
         }
         var selectedItem = itemsOnHand[parseInt(this.className)];
         document.getElementById("upc").value = selectedItem["UPC"];
