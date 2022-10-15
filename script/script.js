@@ -209,11 +209,13 @@ function ArchiveRecord(){
     if (pageName == "inventory.html"){
         // Splice the archived item from the list. Add it to archived records.
         archivedRecords.push(itemsOnHand.splice((parseInt(this.className)), 1));
+        Store(itemsOnHand);
         RefreshInventoryDisplayedData();
         ButtonFunctionality();
     }
     else if(pageName == "items.html"){
         archivedRecords.push(items.splice(parseInt(this.className), 1));
+        Store(items);
         RefreshItemsDisplayedData();
         ButtonFunctionality();
     }
