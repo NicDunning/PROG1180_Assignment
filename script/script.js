@@ -199,12 +199,11 @@ function ArchiveRecord(){
     var pageName = window.location.pathname.split("/").pop();
     // Live/ Local
     if(document.cookie == ""){
-        var itemsOnHand = JoinDB(onHandInventory, items, "UPC");
-        var itemsDB = items;
+        itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     }
     else{
-        var itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
-        var itemsDB = Retrieve("items");
+        itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
+        items = Retrieve("items");
     }
     // Page Differences
     if (pageName == "inventory.html"){
@@ -214,7 +213,7 @@ function ArchiveRecord(){
         ButtonFunctionality();
     }
     else if(pageName == "items.html"){
-        archivedRecords.push(itemsDB.splice(parseInt(this.className), 1));
+        archivedRecords.push(items.splice(parseInt(this.className), 1));
         RefreshItemsDisplayedData();
         ButtonFunctionality();
     }
