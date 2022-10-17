@@ -47,6 +47,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "items.html"){
+            RefreshItemsDisplayedData();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
 
@@ -72,13 +73,13 @@ document.onreadystatechange = function () {
 
             btnCommit.addEventListener("click", function(){
                 upc = document.getElementById("upc").value;
-                let status = document.getElementById("status").value;
-                let name = document.getElementById("pname").value;
+                Status = document.getElementById("status").checked;
+                Name = document.getElementById("pname").value;
                 details = document.getElementById("itemdesc").value;
                 manfactid = document.getElementById("manfactid").value;
                 serialnum = document.getElementById("serialnum").value;
 
-                console.log(editProduct(upc, status, name, details, manfactid, serialnum));
+                console.log(editProduct(upc, Status, Name, details, manfactid, serialnum));
                 RefreshItemsDisplayedData();
             })
             RefreshItemsDisplayedData();
@@ -149,7 +150,7 @@ function RefreshInventoryDisplayedData(){
 function RefreshItemsDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
-    var tblInventoryHeaders = ["UPC", "Status", "Name", "Details", "ManFactID", "SerialNum", "Modify"];
+    var tblInventoryHeaders = ["UPC", "Carry?", "Name", "Details", "ManFactID", "SerialNum", "Modify"];
     var tblInventoryHTML = "<tr>";
     const blacklist = ["Status", "ManFactID", "SerialNum", "DateReceived"];
     tblInventory.innerHTML = "";
@@ -219,6 +220,7 @@ function sendToEdit(){
         }
         var selectedItem = itemsDB[parseInt(this.className)];
         document.getElementById("upc").value = selectedItem["UPC"];
+        document.getElementById("status").checked = selectedItem["Status"];
         document.getElementById("pname").value = selectedItem["Name"];
         document.getElementById("itemdesc").value = selectedItem["Details"];
         document.getElementById("manfactid").value = selectedItem["ManFactID"];

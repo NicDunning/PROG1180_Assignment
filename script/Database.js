@@ -331,6 +331,8 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
     })
     if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
 
+    console.log(status);
+
     // slice product from array
     products[index] =
     {
