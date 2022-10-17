@@ -231,7 +231,7 @@ function editInventoryItem(UPC, qtyOnHand, cost, dateReceived,  invoiceID = -1, 
     if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
     // let onHandItem = onHandInv.slice(index, index + 1)
 
-    onHandInventory[index] = 
+    onHandInv[index] = 
     {
         "UPC" : UPC,
         "QtyOnHand" : qtyOnHand,
