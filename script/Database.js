@@ -1,3 +1,9 @@
+
+
+d = new Date();
+datestring = d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
+
+
 items = [
     {
         "UPC" : 123456789012,
@@ -51,24 +57,25 @@ manufacturers = [
     // }
 ]
 
+
 onHandInventory = [
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 10,
-        "DateRecieved" : Date.now(),
+        "DateReceived" : datestring,
         "Cost" : 2.0
     }
     ,
     {
         "UPC" : 123456789013,
         "QtyOnHand" : 2,
-        "DateRecieved" : Date.now(),
+        "DateReceived" : datestring,
         "Cost" : 2.5
     },
     {
         "UPC" : 123456789012,
         "QtyOnHand" : 4,
-        "DateRecieved" : Date.now(),
+        "DateReceived" : d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + (d.getDate()-1).toString().padStart(2, '0'),
         "Cost" : 3
     },
     
@@ -77,7 +84,7 @@ onHandInventory = [
     // {
     //     "UPC" : ,
     //     "QtyOnHand" : ,
-    //     "DateRecieved" : Date.now(),
+    //     "DateReceived" : Date.now(),
     //     "Cost" :
     // }
 ]
@@ -201,6 +208,62 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     // }
 }
 
+function editInventoryItem(UPC, qtyOnHand, cost, dateReceived,  invoiceID = -1, invoiceQTY = -1) {
+    // pull down arrays
+    let onHandInv = [];
+    if(document.cookie != ""){
+        onHandInv = Retrieve("itemsOnHand");
+    }
+    else{
+        onHandInv = onHandInventory;
+    }
+    // orderInv = JSON.parse("JSON STRING")
+
+    // Invoice ID can be nullable so we need to match for UPC and dateReceived then InvoiceID if it exists ( You wont have two of the same item invoiced at the same time ).
+    // slice item from OnHandInv array
+    index = -1;
+    onHandInv.forEach( item => {
+        if((item["UPC"] == UPC) && (item["DateReceived"] == dateReceived)){
+            index = onHandInv.indexOf(item);
+        }
+    })
+    // index = onHandInv.findIndex(item => (item["UPC"] === UPC && item["DateReceived" === dateReceived])); 
+    if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
+    // let onHandItem = onHandInv.slice(index, index + 1)
+
+    onHandInventory[index] = 
+    {
+        "UPC" : UPC,
+        "QtyOnHand" : qtyOnHand,
+        "DateReceived" : dateReceived,
+        "Cost" : cost
+    }
+    // // update OnHandInv item, ignoring any nulls
+    // onHandItem["QtyOnHand"] = qtyOnHand != null ? qtyOnHand : onHandItem["QtyOnHand"]
+    // onHandItem["DateReceived"] = dateReceived != null ? dateReceived : onHandItem["DateReceived"]
+    // onHandItem["Cost"] = cost != null ? cost : onHandItem["Cost"]
+
+    // // slice item from OrderInv array
+    // index = orderInv.findIndex(item => item["UPC"] === UPC && item["InvoiceID" === invoiceID]) 
+    // if (index === -1) {throw new error("editInventoryItem indexing error in OrderInv table.")}
+    // let orderInvItem = orderInv.slice(index, index + 1)
+    // // update OrderInv item, ignoring any nulls
+    // orderInvItem["InvoiceQTY"] = invoiceQTY != null ? invoiceQTY : orderInvItem["InvoiceQTY"]
+
+    // update the JSON with updated arrays
+    // idk man make Nic do it lol
+    if(document.cookie == ""){
+        onHandInventory = onHandInv;
+    }
+    else{
+        Store("itemsOnHand", onHandInv, 1);
+    }
+    // if (success) {
+        funcStatus = "Inventory item edited successfully."
+        return funcStatus
+    // }
+}
+
 function addProduct(UPC, status, name, details, manFactID, serialNum) {
     let funcStatus = "Failed to add product."
     // pull down array
@@ -245,6 +308,57 @@ function addProduct(UPC, status, name, details, manFactID, serialNum) {
     // idk man make Nic do it lol
     // if (success) {
         funcStatus = "Item added successfully."
+    // }
+    return funcStatus
+}
+
+function editProduct(UPC, status, name, details, manFactID, serialNum) {
+    let funcStatus = "Failed to edit product."
+    // pull down array
+    let products = [];
+    if(document.cookie != ""){
+        product = Retrieve("items");
+    }
+    else{
+        products = items;
+    }
+    // check for missing product in array and store index for slice
+    index = -1;
+    products.forEach( item => {
+        if((item["UPC"] == UPC)){
+            index = products.indexOf(item);
+        }
+    })
+    if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
+
+    // slice product from array
+    products[index] =
+    {
+        "UPC" : UPC,
+        "Status" : status,
+        "Name" : name,
+        "Details" : details,
+        "ManFactID" : manFactID,
+        "SerialNum" : serialNum
+    }
+
+    
+    // // update product, ignoring any nulls
+    // product["Status"] = status != null ? status : product["Status"]
+    // product["Name"] = name != null ? name : product["Name"]
+    // product["Details"] = details != null ? details : product["Details"]
+    // product["ManFactID"] = manFactID != null ? manFactID : product["ManFactID"]
+    // product["SerialNum"] = serialNum != null ? serialNum : product["SerialNum"]
+
+    // return array to JSON
+    if(document.cookie == ""){
+        items = products;
+    }
+    else{
+        Store("items", products, 1);
+    }
+    // if (success) {
+    funcStatus = "Product updated successfully."
     // }
     return funcStatus
 }
