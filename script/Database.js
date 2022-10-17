@@ -317,7 +317,7 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
     // pull down array
     let products = [];
     if(document.cookie != ""){
-        product = Retrieve("items");
+        products = Retrieve("items");
     }
     else{
         products = items;
