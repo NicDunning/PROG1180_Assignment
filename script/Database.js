@@ -3,6 +3,8 @@
 d = new Date();
 datestring = d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
 contactUs = "If you think this is incorrect please contact your Database Administrator.";
+missing = "Entry fields cannot be blank. Please check your field to make sure they contain values.";
+itemExists = "An Item already exists with that UPC. Did you make a typo?";
 
 items = [
     {
@@ -206,6 +208,9 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     if(index != -1){
         return "Item has already been recorded as ordered for that day. Please update the existing record rather than adding a new one. " + contactUs;
     }
+    if(UPC == "" || qtyOnHand == "" || cost == "" ||  dateReceived == ""){
+        return missing + ' ' + contactUs;
+    };
     
     // let orderInv = JSON.parse("JSON STRING")
 
@@ -335,8 +340,11 @@ function addProduct(UPC, status, name, details, manFactID, serialNum) {
     })
 
     if(index != -1){
-        return "An Item already exists with that UPC. Did you make a typo? " + contactUs;
+        return itemExists + ' ' + contactUs;
     }
+    if(UPC == "" || status == "" || name == "" ||  details == "" || manFactID == "" || serialNum == ""){
+        return missing + ' ' + contactUs;
+    };
 
     // construct new item
     let newItem = {
