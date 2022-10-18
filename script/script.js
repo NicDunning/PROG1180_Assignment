@@ -2,7 +2,6 @@ document.onreadystatechange = function () {
     // Get name of HTML page.
     
     var pageName = window.location.pathname.split("/").pop();
-    console.log(pageName);
     if (document.readyState == "interactive") {
         if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
@@ -107,7 +106,7 @@ function ButtonFunctionality(){
 function RefreshInventoryDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
-    var tblInventoryHeaders = ["UPC", "Product", "Details", "Quantity", "Price", "Modify"];
+    var tblInventoryHeaders = ["UPC", "Product", "Details", "Quantity", "Price", "Date Received", "Modify"];
     var tblInventoryHTML = "<tr>";
     
     tblInventory.innerHTML = "";
@@ -137,6 +136,7 @@ function RefreshInventoryDisplayedData(){
         +`<td>${item["Details"]}</td>`
         +`<td>${item["QtyOnHand"]}</td>`
         +`<td>${item["Cost"]}</td>`
+        +`<td>${item["DateReceived"]}</td>`
         +`<td><input type="submit" value="Edit" class="${counter} edit">` 
         + `<input type="submit" value="Delete" class="${counter} delete"></td></tr>`
         counter++;
@@ -249,7 +249,6 @@ function sendToEdit(){
             itemsOnHand = JoinDB(Retrieve("itemsOnHand"), Retrieve("items"), "UPC");
         }
         var selectedItem = itemsOnHand[parseInt(this.className)];
-        console.log(selectedItem["DateReceived"]);
 
         document.getElementById("upc").value = selectedItem["UPC"];
         document.getElementById("quan").value = selectedItem["QtyOnHand"];
@@ -304,5 +303,12 @@ function ArchiveRecord(){
         ButtonFunctionality();
     }
 }
+
+// Prevent forms from reloading page.
+var forms = document.getElementsByTagName("form");
+function handleForm(event) { event.preventDefault(); } 
+forms.forEach(form => function(){
+    form.addEventListener('submit', handleForm);
+});
 
 

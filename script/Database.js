@@ -144,7 +144,6 @@ function Retrieve(key){
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-            console.log(c.substring(name.length, c.length));
             return JSON.parse(c.substring(name.length, c.length));
         }
     }
@@ -197,20 +196,29 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
         onHandInv = onHandInventory;
     }
 
-    // ensure item is in products
+    // Validation
     index = -1;
     onHandInv.forEach( item => {
         if((item["UPC"] == UPC) && (item["DateReceived"] == dateReceived)){
             index = onHandInv.indexOf(item);
         }
     })
-
     if(index != -1){
         return "Item has already been recorded as ordered for that day. Please update the existing record rather than adding a new one. " + contactUs;
     }
     if(UPC == "" || qtyOnHand == "" || cost == "" ||  dateReceived == ""){
         return missing + ' ' + contactUs;
     };
+    onHandInv.forEach( item => {
+        if((item["UPC"] == UPC)){
+            index = onHandInv.indexOf(item);
+        }
+    })
+    if(index == -1){
+        return "There are no items currently that exist with that UPC code. Please check to make sure your items exists or if your data is correct. " + contactUs;
+    }
+
+    
     
     // let orderInv = JSON.parse("JSON STRING")
 
@@ -392,8 +400,6 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
         }
     })
     if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
-
-    console.log(status);
 
     // slice product from array
     products[index] =
