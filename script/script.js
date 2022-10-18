@@ -4,7 +4,7 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     console.log(pageName);
     if (document.readyState == "interactive") {
-        if(pageName == "inventory.html" || pageName == "test.html"){
+        if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
 
             btnNew = document.getElementById("btnNew");
@@ -25,7 +25,7 @@ document.onreadystatechange = function () {
                 newOnHandItem["QtyOnHand"] = document.getElementById("quan").value;
                 newOnHandItem["DateReceived"] = document.getElementById("date").value;
                 newOnHandItem["Cost"] = document.getElementById("cost").value;
-                console.log(addInventoryItem(newOnHandItem["UPC"], newOnHandItem["QtyOnHand"], newOnHandItem["Cost"], newOnHandItem["DateReceived"]));
+                alert(addInventoryItem(newOnHandItem["UPC"], newOnHandItem["QtyOnHand"], newOnHandItem["Cost"], newOnHandItem["DateReceived"]));
                 RefreshInventoryDisplayedData();
             });
 
@@ -38,7 +38,7 @@ document.onreadystatechange = function () {
                 cost = document.getElementById("cost").value;
                 
 
-                console.log(editInventoryItem(upc, quantity, cost, dateReceived));
+                alert(editInventoryItem(upc, quantity, cost, dateReceived));
                 RefreshInventoryDisplayedData();
             })
         
@@ -67,7 +67,7 @@ document.onreadystatechange = function () {
                 newItem["ManFactID"] = document.getElementById("manfactid").value;
                 newItem["SerialNum"] = document.getElementById("serialnum").value;
                 
-                console.log(addProduct(newItem["UPC"], newItem["Status"], newItem["Name"], newItem["Details"], newItem["ManFactID"], newItem["SerialNum"]));
+                alert(addProduct(newItem["UPC"], newItem["Status"], newItem["Name"], newItem["Details"], newItem["ManFactID"], newItem["SerialNum"]));
                 RefreshItemsDisplayedData();
             });
 
@@ -79,11 +79,15 @@ document.onreadystatechange = function () {
                 manfactid = document.getElementById("manfactid").value;
                 serialnum = document.getElementById("serialnum").value;
 
-                console.log(editProduct(upc, Status, Name, details, manfactid, serialnum));
+                alert(editProduct(upc, Status, Name, details, manfactid, serialnum));
                 RefreshItemsDisplayedData();
             })
             RefreshItemsDisplayedData();
             ButtonFunctionality();
+        }
+
+        if(pageName == "ordering.html"){
+            refreshInvoices();
         }
     }
 }
@@ -185,6 +189,48 @@ function RefreshItemsDisplayedData(){
     
     // Add the row to the table.
     tblInventory.innerHTML += itemRow;   
+    // Store the cookies.
+    Store("items", items, 1);
+    Store("manufacturers", manufacturers, 1);
+    ButtonFunctionality();
+}
+
+function refreshInvoices(){
+    // Init Variables
+    const tblInvoice = document.getElementById("tbinvoices");
+    var tblInvoiceHeaders = ["Invoice #", "Customer Name", "Date Placed", "Employee Rep.", "Modify"];
+    var tblInvoiceHTML = "<tr>";
+    tblInvoice.innerHTML = "";
+    // Foreach value in headers make a column.
+    tblInvoiceHeaders.forEach(header => {
+        tblInvoiceHTML += `<th>${header}</th>`;
+    });
+    // Set innerHTML add table header.
+    tblInvoice.innerHTML += tblInvoiceHTML + "</tr>";
+    var itemRow = "";
+
+    if(document.cookie == ""){
+    }
+    else{
+        items = Retrieve("invoices");
+    }
+
+    // Foreach item on hand
+    var counter = 0;
+    invoice.forEach(item => {
+        itemRow += `<tr>`;
+
+        itemRow += `<td>${item["InvoiceID"]}</td>`
+        +`<td>${item["CustomerID"]}</td>`
+        +`<td>${item["OrderDate"]}</td>`
+        +`<td>${item["EmployeeID"]}</td>`
+        +`<td><input type="submit" value="Edit" class="${counter} edit">` 
+        +`<input type="submit" value="Delete" class="${counter} delete"></td></tr>`
+        counter++;
+    });
+    
+    // Add the row to the table.
+    tblInvoice.innerHTML += itemRow;   
     // Store the cookies.
     Store("items", items, 1);
     Store("manufacturers", manufacturers, 1);

@@ -1,8 +1,8 @@
 
-
+//Declare Variables.
 d = new Date();
 datestring = d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
-
+contactUs = "If you think this is incorrect please contact your Database Administrator.";
 
 items = [
     {
@@ -89,6 +89,41 @@ onHandInventory = [
     // }
 ]
 
+invoice = [
+    {
+        "InvoiceID" : "1000",
+        "OrderDate" : datestring,
+        "AltSysCode" : "31342",
+        "CustomerID" : "00001",
+        "EmployeeID" : "004",
+        "EquipmentID" : "00001"
+    },
+    {
+        "InvoiceID" : "1001",
+        "OrderDate" : datestring,
+        "AltSysCode" : "24313",
+        "CustomerID" : "00002",
+        "EmployeeID" : "002",
+        "EquipmentID" : "00003"
+    },
+    {
+        "InvoiceID" : "1002",
+        "OrderDate" : datestring,
+        "AltSysCode" : "12452",
+        "CustomerID" : "00003",
+        "EmployeeID" : "003",
+        "EquipmentID" : "00012"
+    }
+    // {
+    //     "InvoiceID" : "",
+    //     "OrderDate" : "",
+    //     "AltSysCode" : "",
+    //     "CustomerID" : "",
+    //     "EmployeeID" : "",
+    //     "EquipmentID" : ""
+    // }
+]
+
 function Store(key, data, expireDays){
     const date = new Date();
     date.setTime(date.getTime() + (expireDays*24*60*60*1000));
@@ -140,13 +175,7 @@ function JoinDB(joiningDB, joinedDB, matchingKey){
 function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, invoiceQTY = -1) {
     let funcStatus = "Failed to add item to inventory."
 
-    // pull down array of products
-    // let products = Retrieve("items");
-    // ensure item is in products
-    // if(products.findIndex(item => item["UPC"] === itemUPC) === -1) {
-    //     funcStatus = "Item is not in list of products. Please add item to list of products before adding to inventory."
-    //     return funcStatus
-    // }
+    
 
     // pull down invoice array
     // let invoices = JSON.parse("JSON STRING")
@@ -160,9 +189,22 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     // pull down inventory arrays
     if(document.cookie != ""){
         onHandInv = Retrieve("itemsOnHand");
+        items = Retrieve("items");
     }
     else{
         onHandInv = onHandInventory;
+    }
+
+    // ensure item is in products
+    index = -1;
+    onHandInv.forEach( item => {
+        if((item["UPC"] == UPC) && (item["DateReceived"] == dateReceived)){
+            index = onHandInv.indexOf(item);
+        }
+    })
+
+    if(index != -1){
+        return "Item has already been recorded as ordered for that day. Please update the existing record rather than adding a new one. " + contactUs;
     }
     
     // let orderInv = JSON.parse("JSON STRING")
@@ -282,6 +324,18 @@ function addProduct(UPC, status, name, details, manFactID, serialNum) {
     }
     else{
         carriedItems = items;
+    }
+
+    // ensure item is in products
+    index = -1;
+    carriedItems.forEach( item => {
+        if(item["UPC"] == UPC){
+            index = carriedItems.indexOf(item);
+        }
+    })
+
+    if(index != -1){
+        return "An Item already exists with that UPC. Did you make a typo? " + contactUs;
     }
 
     // construct new item
