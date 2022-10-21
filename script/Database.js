@@ -279,6 +279,25 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     if(UPC.length !=12){
         return upcLength + ' ' + contactUs;
     }
+    
+
+    var today = new Date()
+    var date = new Date(dateReceived)
+
+    console.log(date.getFullYear(), today.getFullYear());
+
+    if (date.getFullYear() > today.getFullYear()) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() > today.getMonth())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() == today.getMonth()) && (date.getDate() > today.getDate())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
 
     
     
@@ -537,9 +556,26 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
         return missing + ' ' + contactUs;
     };
 
-//     if(UPC.length !=12){
-//         return upcLength + ' ' + contactUs;
-//     }
+    var today = new Date()
+    var date = new Date(orderDate)
+
+
+    if (date.getFullYear() > today.getFullYear()) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() > today.getMonth())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() == today.getMonth()) && (date.getDate() > today.getDate())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+
+    // if(UPC.length !=12){
+    //     return upcLength + ' ' + contactUs;
+    // }
 
     // Not sure why this doesnt work
     console.log(undefined in UPC);
