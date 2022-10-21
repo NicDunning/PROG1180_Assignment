@@ -537,9 +537,9 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
         return missing + ' ' + contactUs;
     };
 
-    if(UPC.length !=12){
-        return upcLength + ' ' + contactUs;
-    }
+//     if(UPC.length !=12){
+//         return upcLength + ' ' + contactUs;
+//     }
 
     // Not sure why this doesnt work
     console.log(undefined in UPC);
