@@ -2,26 +2,12 @@ let sortAsc = true;
 document.onreadystatechange = function () {
     // Get name of HTML page.
     var pageName = window.location.pathname.split("/").pop();
-    if(pageName == "index.html"){
-        itemsOnHand = JoinDB(onHandInventory, items, "UPC");
-        Store("itemsOnHand", itemsOnHand, 1);
-        Store("items", items, 1);
-        Store("suppliers", Suppliers, 1);
-        Store("orders", orders, 1)
-
-        itemsOnHand = Retrieve("itemsOnHand");
-        items = Retrieve("items");
-        Suppliers = Retrieve("suppliers");
-        orders = Retrieve("orders");
-    }
     
     if (document.readyState == "interactive") {
         
-
-
         if(pageName == "inventory.html"){
+            if(document.cookie = "") InitialLoad();
             RefreshInventoryDisplayedData();
-
             btnNew = document.getElementById("btnNew");
             // On button click retrieve data, add data, store data.
             btnNew.addEventListener("click", function(){
@@ -63,6 +49,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "items.html"){
+            if(document.cookie = "") InitialLoad();
             RefreshItemsDisplayedData();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
@@ -103,6 +90,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "ordering.html"){
+            if(document.cookie = "") InitialLoad();
             refreshOrders();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
@@ -151,7 +139,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "suppliers.html"){
-            console.log("Test")
+            if(document.cookie = "") InitialLoad();
             RefreshSuppliers();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
@@ -189,6 +177,19 @@ document.onreadystatechange = function () {
             })
         }
     }
+}
+
+function InitialLoad(){
+    itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+    Store("itemsOnHand", itemsOnHand, 1);
+    Store("items", items, 1);
+    Store("suppliers", Suppliers, 1);
+    Store("orders", orders, 1)
+
+    itemsOnHand = Retrieve("itemsOnHand");
+    items = Retrieve("items");
+    Suppliers = Retrieve("suppliers");
+    orders = Retrieve("orders");
 }
 
 function ButtonFunctionality(){
