@@ -408,6 +408,7 @@ function refreshOrders(){
     document.getElementById("Invoice#Header").addEventListener("click", function(){
         sortAsc = !sortAsc;
         orders = SortInventoryOnHand(orders, sortAsc, "InvoiceID");
+        Store("orders", orders, 1);
         refreshOrders();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -417,6 +418,7 @@ function refreshOrders(){
     document.getElementById("DatePlacedHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         orders = SortInventoryOnHand(orders, sortAsc, "OrderDate");
+        Store("orders", orders, 1);
         refreshOrders();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
