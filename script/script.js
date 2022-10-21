@@ -2,19 +2,21 @@ let sortAsc = true;
 document.onreadystatechange = function () {
     // Get name of HTML page.
     var pageName = window.location.pathname.split("/").pop();
-    if (document.readyState == "interactive") {
-        if(pageName == "index.html"){
-            itemsOnHand = JoinDB(onHandInventory, items, "UPC");
-            Store("itemsOnHand", itemsOnHand, 1);
-            Store("items", items, 1);
-            Store("suppliers", Suppliers, 1);
-            Store("orders", orders, 1)
+    if(pageName == "index.html"){
+        itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+        Store("itemsOnHand", itemsOnHand, 1);
+        Store("items", items, 1);
+        Store("suppliers", Suppliers, 1);
+        Store("orders", orders, 1)
 
-            itemsOnHand = Retrieve("itemsOnHand");
-            items = Retrieve("items");
-            Suppliers = Retrieve("suppliers");
-            orders = Retrieve("orders");
-        }
+        itemsOnHand = Retrieve("itemsOnHand");
+        items = Retrieve("items");
+        Suppliers = Retrieve("suppliers");
+        orders = Retrieve("orders");
+    }
+    
+    if (document.readyState == "interactive") {
+        
 
 
         if(pageName == "inventory.html"){
@@ -358,7 +360,7 @@ function refreshOrders(){
     if(document.cookie == ""){
     }
     else{
-        items = Retrieve("orders");
+        orders = Retrieve("orders");
     }
 
     // Foreach item on hand
@@ -390,7 +392,7 @@ function refreshOrders(){
     // Add the row to the table.
     tblOrders.innerHTML += itemRow;   
     // Store the cookies.
-    Store("orders", items, 1);
+    Store("orders", orders, 1);
     ButtonFunctionality();
     // Sort Functionality
     document.getElementById("Invoice#Header").addEventListener("click", function(){
@@ -439,7 +441,7 @@ function RefreshSuppliers(){
     if(document.cookie == ""){
     }
     else{
-        Suppliers = Retrieve("Suppliers");
+        Suppliers = Retrieve("suppliers");
     }
 
     // Foreach item on hand
@@ -462,7 +464,7 @@ function RefreshSuppliers(){
     // Add the row to the table.
     tblSuppliers.innerHTML += itemRow;   
     // Store the cookies.
-    Store("Suppliers", Suppliers, 1);
+    Store("suppliers", Suppliers, 1);
     ButtonFunctionality();
     // Sort Functionality
     // document.getElementById("Invoice#Header").addEventListener("click", function(){
@@ -554,7 +556,7 @@ function sendToEdit(){
         if(document.cookie == ""){
         }
         else{
-            Suppliers = Retrieve("orders");
+            Suppliers = Retrieve("suppliers");
         }
         var selectedItem = Suppliers[parseInt(this.className)];
 
