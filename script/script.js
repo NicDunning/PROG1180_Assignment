@@ -6,7 +6,7 @@ document.onreadystatechange = function () {
     if (document.readyState == "interactive") {
         
         if(pageName == "inventory.html"){
-            if(document.cookie = "") InitialLoad();
+            if(document.cookie = ""){InitialLoad()};
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");
             // On button click retrieve data, add data, store data.
@@ -49,7 +49,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "items.html"){
-            if(document.cookie = "") InitialLoad();
+            if(document.cookie = ""){InitialLoad()};
             RefreshItemsDisplayedData();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
@@ -90,7 +90,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "ordering.html"){
-            if(document.cookie = "") InitialLoad();
+            if(document.cookie = ""){InitialLoad()};
             refreshOrders();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
@@ -139,7 +139,7 @@ document.onreadystatechange = function () {
         }
 
         if(pageName == "suppliers.html"){
-            if(document.cookie = "") InitialLoad();
+            if(document.cookie = ""){InitialLoad()};
             RefreshSuppliers();
             btnNew.addEventListener("click", function(){
                 if(document.cookie == ""){
