@@ -4,7 +4,8 @@ d = new Date();
 datestring = d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + d.getDate().toString().padStart(2, '0');
 contactUs = "If you think this is incorrect please contact your Database Administrator.";
 missing = "Entry fields cannot be blank. Please check your field to make sure they contain values.";
-itemExists = "An Item already exists with that UPC. Did you make a typo?";
+itemExists = "An Item already exists with at least one of those unique values. Did you make a typo?";
+upcLength = "UPC's are exactly 12 numbers in length"
 
 items = [
     {
@@ -275,6 +276,9 @@ function addInventoryItem(UPC, qtyOnHand, cost, dateReceived, invoiceID = -1, in
     if(index == -1){
         return "There are no items currently that exist with that UPC code. Please check to make sure your items exists or if your data is correct. " + contactUs;
     }
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
 
     
     
@@ -344,6 +348,12 @@ function editInventoryItem(UPC, qtyOnHand, cost, dateReceived,  invoiceID = -1, 
     if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
     // let onHandItem = onHandInv.slice(index, index + 1)
 
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
+
+
+
     onHandInv[index] = 
     {
         "UPC" : UPC,
@@ -403,14 +413,21 @@ function addProduct(UPC, status, name, details, manFactID, serialNum) {
         if(item["UPC"] == UPC){
             index = carriedItems.indexOf(item);
         }
+        if(item["SerialNum"] == serialNum){
+            index = carriedItems.indexOf(item); 
+        }
     })
 
     if(index != -1){
-        return itemExists + ' ' + contactUs;
+        return itemExists + ' (UPC or Serial Number) ' + contactUs;
     }
     if(UPC == "" || status == "" || name == "" ||  details == "" || manFactID == "" || serialNum == ""){
         return missing + ' ' + contactUs;
     };
+
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
 
     // construct new item
     let newItem = {
@@ -458,6 +475,10 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
         }
     })
     if (index === -1) {return("editInventoryItem indexing error in OnHandInv table.")}
+
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
 
     // slice product from array
     products[index] =
@@ -515,6 +536,10 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
     if(invoiceID == "" || UPC == "" || itemQuantity == "" ||  orderDate == "" || customerFirst == "" || customerLast == ""){
         return missing + ' ' + contactUs;
     };
+
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
 
     // Not sure why this doesnt work
     console.log(undefined in UPC);
@@ -576,6 +601,9 @@ function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custo
         }
     })
     if (index === -1) {return("indexing error in orders table.")}
+    if(UPC.length !=12){
+        return upcLength + ' ' + contactUs;
+    }
 
     // slice product from array
     orders[index] =
@@ -622,6 +650,17 @@ function addManufacturer(supID, supName, supStreet, supCity, supProv, supPost, s
     //     let funcStatus = "This manufacturer is already in the system."
     //     return funcStatus
     // }
+    index = -1;
+    Suppliers.forEach( item => {
+        // console.log(item, supID, supName);
+        if((item["SupplierID"] == supID || item["Name"] == supName)){
+            index = Suppliers.indexOf(item);
+        }
+    })
+
+    if(index != -1){
+        return "A Manufacturer already exists with some of those unique values (Supplier ID, or Supplier Name) " + contactUs;
+    }
 
     // build new object
     let newSupplier = 
