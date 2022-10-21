@@ -4,51 +4,58 @@
     <meta charset="utf-8">
     <title>Megaventory</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style3.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">   
     <script src="script\Database.js"></script>
     <script src="script\script.js"></script>
 </head>
-<body style="background-color: #838996">
-<header>
-        <h1>ComicSans Megaventory System</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="inventory.html">Inventory</a>
-            <a href="ordering.html">Ordering</a>
-            <a href="items.html">Edit Items</a>
-            <a href="test.html">DataTestingPage</a>
-        </nav>
-</header>
+<body style="background-color: #fff4e6">
+    <header>
+        <div class="logo">
+        <a href="index.html">
+            <img src= "photos\Logo-modified.png">      
+        </a>
+        <a href="index.html">
+        <p>INVSYS</p>
+        </a>
+        </div>
+            <h1 style="margin-left: -325px;">ComicSans INVSYS System</h1>
+            <nav style="margin-left: 550px;">
+                <a href="ordering.html">Ordering</a>
+                <a href="inventory.html">Inventory</a>
+                <a href="items.html">Edit Items</a>
+                <a href="suppliers.html">Manufacturers</a>
+            </nav>
+    </header>
 <div class="main">
     <div class="row">
-        <div class="column-inv" style="background-color: #838996;">
-            <h2>Current Inventory</h2>
+        <div class="column-inv style-table">
+            <h2>Current Items</h2>
             <table border="1" id="tbInventory">
             </table>
         </div>
     </div>
-    <div class="row2" style="background-color: #838996">
-        <div class="column-inv" style="background-color: #838996">
+    <div class="row2" style="background-color: #fff4e6">
+        <div class="column-inv" style="background-color: #fff4e6">
             <h2>Edit Or Add Items Here</h2>
-            <label for="upc">UPC</label><br>
+            <label for="upc">UPC</label>
             <input type="text" id="upc" name="upc"><br>
             <label for="status">Carried</label>
             <input type="checkbox" id="status" name="status"><br>
-            <label for="pname">Product Name</label><br>
+            <label for="pname">Product Name</label>
             <input type="text" id="pname" name="pname"><br>
-            <label for="itemdesc">Item Description</label><br>
+            <label for="itemdesc">Item Description</label>
             <input type="text" id="itemdesc" name="itemdesc"><br>
-            <label for="manfactid">Manufacturer ID</label><br>
+            <label for="manfactid">Manufacturer ID</label>
             <!-- Will be a dropdown -->
             <input type="text" id="manfactid" name="manfactid"><br>
-            <label for="serialnum">Serial Number</label><br>
+            <label for="serialnum">Serial Number</label>
             <input type="text" id="serialnum" name="serialnum"><br>
             
             
-            <input type="submit" value="Commit Changes" id="btnCommit">
+            <input type="submit" value="Commit Changes" id="btnCommit"><br>
             <input type="submit" value="New Entry" id="btnNew">
         </div>
     </div>

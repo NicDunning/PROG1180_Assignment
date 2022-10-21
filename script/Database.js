@@ -21,8 +21,17 @@ items = [
         "Status" : false,
         "Name" : "Screw Driver",
         "Details" : "Phillips Head Size 2",
-        "ManFactID" : 2,
+        "ManFactID" : 1,
         "SerialNum" : 20000
+    }
+    ,
+    {
+        "UPC" : 123456789014,
+        "Status" : true,
+        "Name" : "Screw",
+        "Details" : "Philips Head Size 2",
+        "ManFactID" : 2,
+        "SerialNum" : 30000
     }
     // Template for items
     // ,
@@ -32,30 +41,50 @@ items = [
     //     "Name" : "",
     //     "Details" : "",
     //     "ManFactID" : ,
-    //     "SerialNum" : ,
-    //     "Quantity" : ,
-    //     "Cost" :
+    //     "SerialNum" : 
     // }
 ]
 
-manufacturers = [
+Suppliers = [
     {
-        "ID" : "0",
+        "SupplierID" : 0,
         "Name" : "WrenchGuyz",
-        "Details" : "Sells Wrenches"
+        "Street" : "Jacobson Way",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
     }
     ,
     {
-        "ID" : "1",
+        "SupplierID" : 1,
         "Name" : "DriverBoyz",
-        "Details" : "Sells Screwdrivers"
+        "Street" : "Alabama Court",
+        "City" : "Buffalo",
+        "Province" : "Saskachewan",
+        "PostCode" : "A1D4S2",
+        "PhoneNumber" : "987-654-3210"
     }
-    // Template for manufacturers
+    ,
+    {
+        "SupplierID" : 2,
+        "Name" : "ScrewBallz",
+        "Street" : "Mackay Avenue",
+        "City" : "TimbuckToo",
+        "Province" : "Quebec",
+        "PostCode" : "D2R9V4",
+        "PhoneNumber" : "132-435-4657"
+    }
+    // Template for Suppliers
     // ,
     // {
-    //     "ID" : "",
-    //     "Name" : "",
-    //     "Details" : ""
+    //     "SupplierID" : 2,
+    //     "Name" : "ScrewBallz",
+    //     "Street" : "Mackay Avenue",
+    //     "City" : "TimbuckToo",
+    //     "Province" : "Quebec",
+    //     "PostCode" : "D2R9V4",
+    //     "PhoneNumber" : "132-435-4657"
     // }
 ]
 
@@ -75,7 +104,7 @@ onHandInventory = [
         "Cost" : 2.5
     },
     {
-        "UPC" : 123456789012,
+        "UPC" : 123456789014,
         "QtyOnHand" : 4,
         "DateReceived" : d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + (d.getDate()-1).toString().padStart(2, '0'),
         "Cost" : 3
@@ -91,38 +120,38 @@ onHandInventory = [
     // }
 ]
 
-invoice = [
+orders = [
     {
-        "InvoiceID" : "1000",
-        "OrderDate" : datestring,
-        "AltSysCode" : "31342",
-        "CustomerID" : "00001",
-        "EmployeeID" : "004",
-        "EquipmentID" : "00001"
+        "InvoiceID" : 1001,
+        "OrderDate" : d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + (d.getDate()-1).toString().padStart(2, '0'),
+        "CustomerFirst" : "James",
+        "CustomerLast" : "Jones",
+        "ItemUPC" : ["123456789012", "123456789013"],
+        "ItemQuantity" : [4, 2]
     },
     {
-        "InvoiceID" : "1001",
+        "InvoiceID" : 1002,
         "OrderDate" : datestring,
-        "AltSysCode" : "24313",
-        "CustomerID" : "00002",
-        "EmployeeID" : "002",
-        "EquipmentID" : "00003"
+        "CustomerFirst" : "John",
+        "CustomerLast" : "Jackson",
+        "ItemUPC" : ["123456789013"],
+        "ItemQuantity" : [2]
     },
     {
-        "InvoiceID" : "1002",
+        "InvoiceID" : 1004,
         "OrderDate" : datestring,
-        "AltSysCode" : "12452",
-        "CustomerID" : "00003",
-        "EmployeeID" : "003",
-        "EquipmentID" : "00012"
+        "CustomerFirst" : "Jamie",
+        "CustomerLast" : "Jameson",
+        "ItemUPC" : ["123456789012"],
+        "ItemQuantity" : [2]
     }
     // {
     //     "InvoiceID" : "",
     //     "OrderDate" : "",
-    //     "AltSysCode" : "",
     //     "CustomerID" : "",
-    //     "EmployeeID" : "",
-    //     "EquipmentID" : ""
+    //     "ItemUPC" : "",
+    //     "ItemQuantity" : ,
+    //     "OrderDetails" : ""
     // }
 ]
 
@@ -149,6 +178,35 @@ function Retrieve(key){
     }
     return "";
 }
+
+function SortByUPC(list, sort){
+    list.sort(function comparefn(a, b){
+        if(a["UPC"] > b["UPC"]){return sort ? 1 : -1}
+        if(b["UPC"] > a["UPC"]){return sort ? -1 : 1}
+        if(a["UPC"] = b["UPC"]){return 0}
+    });
+    return list;
+}
+
+function SortByDate(list, sort){
+    list.sort(function comparefn(a, b){
+        if(a["DateReceived"] > b["DateReceived"]){return sort ? 1 : -1}
+        if(b["DateReceived"] > a["DateReceived"]){return sort ? -1 : 1}
+        if(a["DateReceived"] = b["DateReceived"]){return 0}
+    });
+    return list;
+}
+
+function SortInventoryOnHand(list, sort, sortBy){
+    list.sort(function comparefn(a, b){
+        if(a[sortBy] > b[sortBy]){return sort ? 1 : -1}
+        if(b[sortBy] > a[sortBy]){return sort ? -1 : 1}
+        if(a[sortBy] = b[sortBy]){return 0}
+    });
+    return list;
+}
+
+
 
 function Delete(key){
     document.cookie = key +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -429,6 +487,204 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
     }
     // if (success) {
     funcStatus = "Product updated successfully."
+    // }
+    return funcStatus
+}
+
+function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, customerLast) {
+    let funcStatus = "Failed to add order."
+
+    // pull down array of Orders
+    if(document.cookie != ""){
+        orders = Retrieve("orders");
+    }
+    else{
+    }
+
+    // check for duplicate invoice
+    // Validation
+    index = -1;
+    orders.forEach( item => {
+        if((item["InvoiceID"] == invoiceID)){
+            index = orders.indexOf(item);
+        }
+    })
+    if(index != -1){
+        return "That Invoice already Exists. Please enter a different number " + contactUs;
+    }
+    if(invoiceID == "" || UPC == "" || itemQuantity == "" ||  orderDate == "" || customerFirst == "" || customerLast == ""){
+        return missing + ' ' + contactUs;
+    };
+
+    // Not sure why this doesnt work
+    console.log(undefined in UPC);
+
+    UPC.forEach(value => {
+        if((typeof value) != String){
+            return `You are missing 1 or more UPCs Please make sure you've entered your data correctly. `+ contactUs;
+        }
+    });
+
+    itemQuantity.forEach(value => {
+        if((typeof value) != String){
+            return `You are missing 1 or more Item Quantities Please make sure you've entered your data correctly. `+ contactUs;
+        }
+    });
+        
+
+    // build new object
+    let newOrder = 
+    {
+        "InvoiceID" : invoiceID,
+        "OrderDate" : orderDate,
+        "CustomerFirst" : customerFirst,
+        "CustomerLast" : customerLast,
+        "ItemUPC" : UPC,
+        "ItemQuantity" : itemQuantity
+    };
+
+    // add to invoices array
+    orders.push(newOrder)
+    if(document.cookie == ""){
+    }
+    else{
+        Store("orders", orders, 1);
+    }
+    
+
+    // return array to JSON
+    // idk man make Nic do it lol
+    // if (success) {
+        funcStatus = "Invoice added successfully."
+    // }
+    return funcStatus
+}
+
+function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, customerLast) {
+    let funcStatus = "Failed to edit product."
+    // pull down array of Orders
+    if(document.cookie != ""){
+        orders = Retrieve("orders");
+    }
+    else{
+    }
+    // check for missing product in array and store index for slice
+    index = -1;
+    orders.forEach( order => {
+        if((order["InvoiceID"] == invoiceID)){
+            index = orders.indexOf(order);
+        }
+    })
+    if (index === -1) {return("indexing error in orders table.")}
+
+    // slice product from array
+    orders[index] =
+    {
+        "InvoiceID" : invoiceID,
+        "OrderDate" : orderDate,
+        "CustomerFirst" : customerFirst,
+        "CustomerLast" : customerLast,
+        "ItemUPC" : UPC,
+        "ItemQuantity" : itemQuantity
+    };
+
+    
+    // // update product, ignoring any nulls
+    // product["Status"] = status != null ? status : product["Status"]
+    // product["Name"] = name != null ? name : product["Name"]
+    // product["Details"] = details != null ? details : product["Details"]
+    // product["ManFactID"] = manFactID != null ? manFactID : product["ManFactID"]
+    // product["SerialNum"] = serialNum != null ? serialNum : product["SerialNum"]
+
+    // return array to JSON
+    if(document.cookie == ""){
+    }
+    else{
+        Store("orders", orders, 1);
+    }
+    // if (success) {
+    funcStatus = "Product updated successfully."
+    // }
+    return funcStatus
+}
+
+function addManufacturer(supID, supName, supStreet, supCity, supProv, supPost, supPhone) {
+    let funcStatus = "Failed to add manufacturer."
+
+    // pull down array of manufacturers
+    if(document.cookie != ""){
+        Suppliers = Retrieve("suppliers");
+    }
+    else{
+    }
+    // check for duplicate manufacturer
+    // if (manufacturers.getIndex(manufacturer => manufacturer["Name"] === name) != -1) {
+    //     let funcStatus = "This manufacturer is already in the system."
+    //     return funcStatus
+    // }
+
+    // build new object
+    let newSupplier = 
+    {   "SupplierID" : supID,
+        "Name" : supName,
+        "Street" : supStreet,
+        "City" : supCity,
+        "Province" : supProv,
+        "PostCode" : supPost,
+        "PhoneNumber" : supPhone
+    }
+
+    // add to manufacturers array
+    Suppliers.push(newSupplier);
+
+    // return array to JSON
+    // idk man make Nic do it lol
+    if(document.cookie == ""){
+    }
+    else{
+        Store("suppliers", Suppliers, 1);
+    }
+    // if (success) {
+        funcStatus = "Manufacturer added successfully."
+    // }
+    return funcStatus
+}
+
+function editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, supPhone) {
+    let funcStatus = "Failed to edit manufacturer."
+    // pull down array of manufacturers
+    if(document.cookie != ""){
+        Suppliers = Retrieve("suppliers");
+    }
+    else{
+    }
+    // check for missing manufacturer in array and store index for slice
+    let index = Suppliers.findIndex(supplier => supplier["SupplierID"] == supID)
+    if (index === -1) {
+        funcStatus = "The manufacturer you are trying to edit does not exist."
+        return funcStatus
+    }
+
+
+    // update manufacturer, ignoring any nulls
+    Suppliers[index]= 
+    {   "SupplierID" : supID,
+        "Name" : supName,
+        "Street" : supStreet,
+        "City" : supCity,
+        "Province" : supProv,
+        "PostCode" : supPost,
+        "PhoneNumber" : supPhone
+    }
+    // return array to JSON
+    // idk man make Nic do it lol
+    if(document.cookie == ""){
+    }
+    else{
+        Store("suppliers", Suppliers, 1);
+    }
+    // if (success) {
+    funcStatus = "Manufacturer updated successfully."
     // }
     return funcStatus
 }

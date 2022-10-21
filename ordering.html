@@ -4,29 +4,73 @@
     <meta charset="utf-8">
     <title>Megaventory</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style3.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">  
+    <script src="script\Database.js"></script>
+    <script src="script\script.js"></script>  
 </head>
 <body>
-<header>
-        <h1>ComicSans Megaventory System</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="inventory.html">Inventory</a>
-            <a href="ordering.html">Ordering</a>
-            <a href="items.html">Edit Items</a>
-            <a href="test.html">DataTestingPage</a>
-        </nav>
-</header>
+    <header>
+        <div class="logo">
+        <a href="index.html">
+            <img src= "photos\Logo-modified.png">      
+        </a>
+        <a href="index.html">
+        <p>INVSYS</p>
+        </a>
+        </div>
+            <h1 style="margin-left: -325px;">ComicSans INVSYS System</h1>
+            <nav style="margin-left: 550px;">
+                <a href="ordering.html">Ordering</a>
+                <a href="inventory.html">Inventory</a>
+                <a href="items.html">Edit Items</a>
+                <a href="suppliers.html">Manufacturers</a>
+            </nav>
+    </header>
+
+<div class="main">
+    <div class="row">
+        <div class="column-inv style-table">
+            <h2>Current Orders</h2>
+            <table border="1" id="tbOrders">
+            </table>
+        </div>
+    </div>
+    <div class="row2" style="background-color: #fff4e6">
+        <div class="column-inv toHide input-style" style="background-color: #fff4e6">
+            <div class="cust-info">
+            <h2 >Customer Information</h2>
+            <label for="custFirst" >First Name</label>
+            <input type="text" id="custFirst" name="custFirst" ><br>
+            <label for="custLast">Last Name</label>
+            <input type="text" id="custLast" name="custLast"><br>
+            <label for="custInv">Invoice Number</label>
+            <input type="text" id="custInv" name="custInv"><br>
+            <!-- <label for="custSpec">Special Order</label>
+            <input type="checkbox" id="custSpec" name="custSpec"> -->
+            <h2>Order Details</h2>
+            <label for="ordUPC">UPC(s)</label>
+            <input type="text" id="ordUPC" name="ordUPC" placeholder='1xUPC1,4xUPC2,2xUPC3, ...'><br>
+            <label for ="ordItem">Date Ordered</label>
+            <input type="date" id="ordDate" name="ordDate" ><br><br>
+            <input type="submit" value="Commit Changes" id="btnCommit" class="toHide"><br>
+            <input type="submit" value="New Entry" id="btnNew" class="toHide">
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
 
 
-
+Altsystemcode,
+UPC,
+OrderedDate,
+And InvoiceId
 
 
 
