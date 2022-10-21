@@ -3,7 +3,19 @@ document.onreadystatechange = function () {
     // Get name of HTML page.
     var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
-        
+        if(pageName == "index.html"){
+            Store("itemsOnHand", itemsOnHand, 1);
+            Store("items", items, 1);
+            Store("suppliers", Suppliers, 1);
+            Store("orders", orders, 1)
+
+            itemsOnHand = Retrieve("itemsOnHand");
+            items = Retrieve("items");
+            Suppliers = Retrieve("suppliers");
+            orders = Retrieve("orders");
+        }
+
+
         if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
 
@@ -17,6 +29,7 @@ document.onreadystatechange = function () {
                     itemsOnHand = Retrieve("itemsOnHand");
                     items = Retrieve("items");
                     Suppliers = Retrieve("suppliers");
+                    orders = Retrieve("orders");
                 }
                 // Do the adding to DB.
                 
