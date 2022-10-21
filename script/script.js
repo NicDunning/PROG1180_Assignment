@@ -4,6 +4,7 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     if (document.readyState == "interactive") {
         if(pageName == "index.html"){
+            itemsOnHand = JoinDB(onHandInventory, items, "UPC");
             Store("itemsOnHand", itemsOnHand, 1);
             Store("items", items, 1);
             Store("suppliers", Suppliers, 1);
