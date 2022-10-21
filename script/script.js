@@ -186,10 +186,12 @@ function InitialLoad(){
     Store("suppliers", Suppliers, 1);
     Store("orders", orders, 1)
 
-    itemsOnHand = Retrieve("itemsOnHand");
-    items = Retrieve("items");
-    Suppliers = Retrieve("suppliers");
-    orders = Retrieve("orders");
+    if(document.cookie != ''){
+        itemsOnHand = Retrieve("itemsOnHand");
+        items = Retrieve("items");
+        Suppliers = Retrieve("suppliers");
+        orders = Retrieve("orders");
+    }
 }
 
 function ButtonFunctionality(){
@@ -284,7 +286,7 @@ function RefreshInventoryDisplayedData(){
 function RefreshItemsDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
-    var tblInventoryHeaders = ["UPC", "Carry?", "Name", "Details", "ManFactID", "SerialNum", "Modify"];
+    var tblInventoryHeaders = ["UPC", "Carry?", "Name", "Details", "Manufacturer", "SerialNum", "Modify"];
     var tblInventoryHTML = "<tr>";
     const blacklist = ["Status", "ManFactID", "SerialNum", "DateReceived"];
     tblInventory.innerHTML = "";
@@ -301,16 +303,23 @@ function RefreshItemsDisplayedData(){
         items = Retrieve("items");
     }
     
+    
     // Foreach item on hand
     var counter = 0;
     items.forEach(item => {
+        selectedSupplier = {};
+        Suppliers.forEach(supplier => {
+            if(supplier["SupplierID"] == item["ManFactID"]){
+                selectedSupplier = supplier;
+            }
+        })
         itemRow += `<tr>`;
 
         itemRow += `<td>${item["UPC"]}</td>`
         +`<td>${item["Status"]}</td>`
         +`<td>${item["Name"]}</td>`
         +`<td>${item["Details"]}</td>`
-        +`<td>${item["ManFactID"]}</td>`
+        +`<td>${selectedSupplier["Name"]}</td>`
         +`<td>${item["SerialNum"]}</td>`
         +`<td><input type="submit" value="Edit" class="${counter} edit">` 
         +`<input type="submit" value="Delete" class="${counter} delete"></td></tr>`
