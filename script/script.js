@@ -257,6 +257,7 @@ function RefreshInventoryDisplayedData(){
     document.getElementById("UPCHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "UPC");
+        Store("itemsOnHand", itemsOnHand, 1);
         RefreshInventoryDisplayedData();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -266,6 +267,7 @@ function RefreshInventoryDisplayedData(){
     document.getElementById("ProductHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "Name");
+        Store("itemsOnHand", itemsOnHand, 1);
         RefreshInventoryDisplayedData();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -275,6 +277,7 @@ function RefreshInventoryDisplayedData(){
     document.getElementById("DateReceivedHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "DateReceived");
+        Store("itemsOnHand", itemsOnHand, 1);
         RefreshInventoryDisplayedData();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -336,6 +339,7 @@ function RefreshItemsDisplayedData(){
     document.getElementById("UPCHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         items = SortInventoryOnHand(items, sortAsc, "UPC");
+        Store("items", items, 1);
         RefreshItemsDisplayedData();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -345,6 +349,7 @@ function RefreshItemsDisplayedData(){
     document.getElementById("NameHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         items = SortInventoryOnHand(items, sortAsc, "Name");
+        Store("items", items, 1);
         RefreshItemsDisplayedData();
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
@@ -479,24 +484,26 @@ function RefreshSuppliers(){
     Store("suppliers", Suppliers, 1);
     ButtonFunctionality();
     // Sort Functionality
-    // document.getElementById("Invoice#Header").addEventListener("click", function(){
-    //     sortAsc = !sortAsc;
-    //     Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "InvoiceID");
-    //     refreshSuppliers();
-    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
-    //         buttonValue = this.value;
-    //     }
-    //     document.getElementById("Invoice#Header").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
-    // });
-    // document.getElementById("DatePlacedHeader").addEventListener("click", function(){
-    //     sortAsc = !sortAsc;
-    //     Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "OrderDate");
-    //     refreshSuppliers();
-    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
-    //         buttonValue = this.value;
-    //     }
-    //     document.getElementById("DatePlacedHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
-    // });
+    document.getElementById("SupplierIDHeader").addEventListener("click", function(){
+        sortAsc = !sortAsc;
+        Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "SupplierID");
+        Store("suppliers", Suppliers, 1);
+        RefreshSuppliers();
+        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+            buttonValue = this.value;
+        }
+        document.getElementById("SupplierIDHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    });
+    document.getElementById("NameHeader").addEventListener("click", function(){
+        sortAsc = !sortAsc;
+        Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "Name");
+        Store("suppliers", Suppliers, 1);
+        RefreshSuppliers();
+        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+            buttonValue = this.value;
+        }
+        document.getElementById("NameHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    });
     // document.getElementById("DateReceivedHeader").addEventListener("click", function(){
     //     sortAsc = !sortAsc;
     //     itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "DateReceived");
