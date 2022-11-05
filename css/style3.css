@@ -1,3 +1,4 @@
+/*Original CSS*/
 .cust-info h2{
 	float: center;
 }
@@ -49,7 +50,7 @@
 	margin: auto;
 	width: 25%;
 }
-.logo a{
+.logo .img-anc{
 	float:left;
 	width: 100px;
 }
@@ -143,7 +144,7 @@
 	width:150px
 }
 
-.container{
+/* .container{
 	box-sizing: border-box;
 	margin: auto;
 	width:50%;
@@ -152,8 +153,9 @@
 	grid-row: auto auto;
 	grid-column-gap: 300px;
 	grid-row-gap: 40px;
-}
-.container img{
+} */
+
+.home-tiles img{
 	height: 150;
 	width: 150px;
 }
@@ -197,14 +199,12 @@ h1{
 	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 	font-weight: lighter;
 	text-align: center;
-	width: 90%;
 
 }
 header{
 	background-color: #be9b7b ;
 	color: #000;
 	height: auto;
-	margin-bottom: 50px;
 	height: 150px;
 	padding: 10px;
 	text-align: center;
@@ -289,4 +289,73 @@ nav{
   /* Where it stops */
 }
 
+/*******************
+* Alex's Additions *
+*******************/
 
+/*Nav Bar Grid Stuff*/
+.nav-ord {grid-area: nav-ord;}
+.nav-inv {grid-area: nav-inv;}
+.nav-sup {grid-area: nav-sup;}
+.nav-itm {grid-area: nav-itm;}
+.nav-cus {grid-area: nav-cus;}
+.nav-sal {grid-area: nav-sal;}
+
+.nav-ord, .nav-inv, .nav-sup, .nav-itm, .nav-cus, .nav-sal {
+	width: 250px;
+}
+
+.nav-ord, .nav-inv, .nav-sup {
+	padding-bottom: 10px;
+}
+
+
+.nav-tiles {
+	height: 90px;
+	margin-top: 30px;
+	text-align: center;
+	display: grid;
+	grid-template-areas: 
+		'nav-ord nav-inv nav-sup'
+		'nav-itm nav-cus nav-sal';
+}
+
+h1 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+/*This makes the nav bar centering ignore the logo*/
+.logo {
+	position: absolute;
+}
+
+/*Home Page Grid Stuff*/
+.home-ord {grid-area: home-ord;}
+.home-inv {grid-area: home-inv;}
+.home-sup {grid-area: home-sup;}
+.home-itm {grid-area: home-itm;}
+.home-cus {grid-area: home-cus;}
+.home-sal {grid-area: home-sal;}
+
+.home-ord, .home-inv, .home-sup, .home-itm, .home-cus, .home-sal {
+	width: 250px;
+}
+
+.home-ord, .home-inv, .home-sup {
+	padding-bottom: 10px;
+}
+
+.home-tiles {
+	margin: auto;
+	text-align: center;
+	display: grid;
+	grid-template-areas: 
+		'home-ord home-inv home-sup'
+		'home-itm home-cus home-sal';
+	width: 80%;
+}
+
+.box {margin: 50px 50px 0px 50px;}
+
+footer {margin: 50px;}
