@@ -13,35 +13,35 @@
 </head>
 <body style="background-color: #fff4e6">
     <header>
-            <div class="logo">
-            <a class="img-anc" href="index.html">
-                <img alt="Home" src= "photos\Logo-modified.png">
-            </a>
-            <a href="index.html">
-                <p>INVSYS</p>  
-            </a>
-            </div>
-                <nav class="nav-tiles">
-                    <div class="nav-ord">
-                        <a href="ordering.html">Ordering</a>
-                    </div>
-                    <div class="nav-inv">
-                        <a href="inventory.html">Inventory</a>
-                    </div>
-                    <div class="nav-sup">
-                        <a href="suppliers.html">Suppliers</a>
-                    </div>
-                    <div class="nav-itm">
-                        <a href="items.html">Items</a>
-                    </div>
-                    <div class="nav-cus">
-                        <a href="customers.html">Customers</a>
-                    </div>
-                    <div class="nav-sal">
-                        <a href="sales.html">Sales</a>
-                    </div>
-                </nav>
-        </header>
+        <div class="logo">
+        <a class="img-anc" href="index.html">
+            <img alt="Home" src= "photos\Logo-modified.png">
+        </a>
+        <a href="index.html">
+            <p>INVSYS</p>  
+        </a>
+        </div>
+            <nav class="nav-tiles">
+                <div class="nav-ord">
+                    <a href="ordering.html">Ordering</a>
+                </div>
+                <div class="nav-inv">
+                    <a href="inventory.html">Inventory</a>
+                </div>
+                <div class="nav-sup">
+                    <a href="suppliers.html">Suppliers</a>
+                </div>
+                <div class="nav-itm">
+                    <a href="items.html">Items</a>
+                </div>
+                <div class="nav-cus">
+                    <a href="customers.html">Customers</a>
+                </div>
+                <div class="nav-sal">
+                    <a href="sales.html">Sales</a>
+                </div>
+            </nav>
+    </header>
 <div class="main">
     <div class="row">
         <div class="column-inv style-table">
@@ -52,24 +52,71 @@
     </div>
     <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv input-style" style="background-color: #fff4e6">
-            <h2>Edit Or Add Items Here</h2>
-            <label for="upc">UPC</label>
-            <input type="text" id="upc" name="upc"><br>
-            <label for="status">Carried</label>
-            <input type="checkbox" id="status" name="status"><br>
-            <label for="pname">Product Name</label>
-            <input type="text" id="pname" name="pname"><br>
-            <label for="itemdesc">Item Description</label>
-            <input type="text" id="itemdesc" name="itemdesc"><br>
-            <label for="manfactid">Manufacturer</label>
-            <!-- Will be a dropdown -->
-            <input type="text" id="manfactid" name="manfactid"><br>
-            <label for="serialnum">Serial Number</label>
-            <input type="text" id="serialnum" name="serialnum"><br>
-            
-            
-            <input type="submit" value="Commit Changes" id="btnCommit"><br>
-            <input type="submit" value="New Entry" id="btnNew">
+            <h2>Edit Or Add Items </h2>
+            <div>
+                <label for="upc">UPC</label>
+                <img onclick="ToggleUPCHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <input type="text" id="upc" name="upc">
+            </div>
+            <div id="upc-help" style="display: none;" class="help">
+                <p>Please provide the 12-digit UPC code for the item. <br>
+                   Only numbers may be included.</p>
+            </div>
+            <br>
+            <div>
+                <label for="status">Carried</label>
+                <img onclick="ToggleCarriedHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <input type="checkbox" id="status" name="status">
+            </div>
+            <div id="carried-help" style="display: none;" class="help">
+                <p>Please indicate whether the item is currently maintained in inventory.<br>
+                   A checked box indicates the item is maintained in inventory.</p>
+            </div>
+            <br>
+            <div>
+                <label for="pname">Product Name</label>
+                <img onclick="ToggleProductNameHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <input type="text" id="pname" name="pname">
+            </div>
+            <div id="product-name-help" style="display: none;" class="help">
+                <p>Please provide the product name.<br>
+                   Maximum length is 30 characters.</p>
+            </div>
+            <br>
+            <div>
+                <label for="itemdesc">Item Description</label>
+                <img onclick="ToggleDescriptionHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <input type="text" id="itemdesc" name="itemdesc">
+            </div>
+            <div id="description-help" style="display: none;" class="help">
+                <p>Please provide a description of the item.<br>
+                   Maximum length is 100 characters.</p>
+            </div>
+            <br>
+            <div>
+                <label for="manfactid">Supplier</label>
+                <img onclick="ToggleSupplierHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <!-- Will be a dropdown -->
+                <input type="text" id="manfactid" name="manfactid">
+            </div>
+            <div id="supplier-help" style="display: none;" class="help">
+                <p>Please provide the name of the item's supplier.</p>
+            </div>
+            <br>
+            <div>
+                <label for="serialnum">Serial Number</label>
+                <img onclick="ToggleSerialNumberHelp()" title="Help" alt="Help" src="photos/Help.png">
+                <input type="text" id="serialnum" name="serialnum">
+            </div>
+            <div id="serial-number-help" style="display: none;" class="help">
+                <p>Please provide the serial number for the item.<br>
+                   Only letters and number are allowed in the serial number.</p>
+            </div>
+            <br>
+            <div class="commits">
+                <input type="submit" value="Commit Changes" id="btnCommit"><br>
+                <input type="submit" value="New Entry" id="btnNew">
+            </div>
         </div>
     </div>
 </div>
