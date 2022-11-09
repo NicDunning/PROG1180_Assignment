@@ -13,61 +13,100 @@
 </head>
 <body style="background-color: #fff4e6">
     <header>
-            <div class="logo">
-            <a class="img-anc" href="index.html">
-                <img alt="Home" src= "photos\Logo-modified.png">
-            </a>
-            <a href="index.html">
-                <p>INVSYS</p>  
-            </a>
-            </div>
-                <nav class="nav-tiles">
-                    <div class="nav-ord">
-                        <a href="ordering.html">Ordering</a>
-                    </div>
-                    <div class="nav-inv">
-                        <a href="inventory.html">Inventory</a>
-                    </div>
-                    <div class="nav-sup">
-                        <a href="suppliers.html">Suppliers</a>
-                    </div>
-                    <div class="nav-itm">
-                        <a href="items.html">Items</a>
-                    </div>
-                    <div class="nav-cus">
-                        <a href="customers.html">Customers</a>
-                    </div>
-                    <div class="nav-sal">
-                        <a href="sales.html">Sales</a>
-                    </div>
-                </nav>
-        </header>
-<div class="main">
-    <div class="row">
+        <div class="logo">
+          <a title="INVSYS Home" class="img-anc" href="index.html">
+            <img style="margin-left: -20px;" alt="Home" src="photos\Logo-modified.png">
+          </a>
+          <a title="INVSYS Home" href="index.html">
+            <p>INVSYS</p>
+          </a>
+        </div>
+        <nav class="nav-tiles">
+          <div class="nav-ord">
+            <a title="Ordering" href="ordering.html">Ordering</a>
+          </div>
+          <div class="nav-inv">
+            <a title="Inventory" href="inventory.html">Inventory</a>
+          </div>
+          <div class="nav-sup">
+            <a title="Suppliers" href="suppliers.html">Suppliers</a>
+          </div>
+          <div class="nav-itm">
+            <a title="Items" href="items.html">Items</a>
+          </div>
+          <div class="nav-cus">
+            <a title="Customers" href="customers.html">Customers</a>
+          </div>
+          <div class="nav-sal">
+            <a title="Sales" href="sales.html">Sales</a>
+          </div>
+        </nav>
+      </header>
+    <div class="main">
+      <div class="row">
         <div class="column-inv style-table">
-            <h2>Current Inventory</h2>
-            <table border="1" id="tbInventory">
-            </table>
+          <h2>Current Inventory</h2>
+          <table border="1" id="tbInventory"></table>
         </div>
-    </div>
-    <div class="row2" style="background-color: #fff4e6">
+      </div>
+      <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-            <h2 >Edit Or Add Inventory Here</h2>
-            <label for="upc" >UPC</label>
-            <input type="text" id="upc" name="upc" ><br>
-            <label for="date" >DateRecieved</label>
-            <input type="date" id="date" name="date" ><br>
-            <label for="quan" >Quanitity</label>
-            <input type="text" id="quan" name="quan" ><br>
-            <label for="cost" >Cost</label>
-            <input type="text" id="cost" name="cost" ><br>
-            <input type="submit" value="Commit Changes" id="btnSubmit" class="toHide"><br>
-            <input type="submit" value="New Entry" id="btnNew" class="toHide">
+          <div>
+          <h2>Edit Or Add Inventory </h2>
+          <!-- <div class="first-name">
+            <label for="custFirst">First Name</label>
+            <img title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="custFirst" name="custFirst">
+          </div> -->
+          <div class="upc">
+            <label for="upc">UPC</label>
+            <img onclick="ToggleUPCHelp()" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="upc" name="upc">
+          </div>
+          <div id="upc-help" style="display: none;" class="upc-help help">
+            <p>Please provide the 12-digit UPC code for the item. <br>
+               Only numbers may be included.</p>
+          </div>
+          <br>
+          <div>
+            <label for="date">DateRecieved</label>
+            <img onclick="ToggleDateReceivedHelp()" title="Help" alt="Help" src="photos/Help.png">
+            <input type="date" id="date" name="date">
+          </div>
+          <div id="date-received-help" style="display: none;" class="date-received-help help">
+            <p>Please use the date picker to select the date on which the item was/is being received. </p>
+          </div>
+          <br>
+          <div>
+            <label for="quan">Quanitity</label>
+            <img onclick="ToggleQuantityHelp()" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="quan" name="quan">
+          </div>
+          <div id="quantity-help" style="display: none;" class="quantity-help help">
+            <p>Please provide the quantity of item received.<br>
+               Only numbers may be included. </p>
+          </div>
+          <br>
+          <div>
+            <label for="cost">Cost</label>
+            <img onclick="ToggleCostHelp()" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="cost" name="cost">
+          </div>
+          <div id="cost-help" style="display: none;" class="cost-help help">
+            <p>Please provide the per-item cost at which this item was purchased. <br>
+               Only numbers may be provided with up to one decimal point.
+            </p>
+          </div>
+          <br>
+          <div class="commits">
+          <input type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+          <br>
+          <input type="submit" value="New Entry" id="btnNew" class="toHide">
+          </div>  
         </div>
+        </div>
+      </div>
     </div>
-</div>
-<footer>
-    PROG1180 ComicSans INVSYS 
-</footer>
-</body>
+    <footer> PROG1180 ComicSans INVSYS </footer>
+  </body>
 </html>
