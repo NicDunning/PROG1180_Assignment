@@ -646,4 +646,108 @@ function ArchiveRecord(){
 //     form.addEventListener('submit', handleForm);
 // });
 
+/* Alex's Additions */
+function ToggleFirstNameHelp() {
+    var h = document.getElementById("first-name-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
 
+function ToggleLastNameHelp() {
+    var h = document.getElementById("last-name-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleInvoiceCodeHelp() {
+    var h = document.getElementById("invoice-code-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleUPCsHelp() {
+    var h = document.getElementById("upcs-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleDateOrderedHelp() {
+    var h = document.getElementById("date-ordered-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleUPCHelp() {
+    var h = document.getElementById("upc-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleDateReceivedHelp() {
+    var h = document.getElementById("date-received-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleQuantityHelp() {
+    var h = document.getElementById("quantity-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleCostHelp() {
+    var h = document.getElementById("cost-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleSupplierIDHelp() {
+    var h = document.getElementById("supplier-id-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleSupplierNameHelp() {
+    var h = document.getElementById("supplier-name-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleStreetHelp() {
+    var h = document.getElementById("street-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleCityHelp() {
+    var h = document.getElementById("city-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function TogglePostCodeHelp() {
+    var h = document.getElementById("post-code-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleProvinceHelp() {
+    var h = document.getElementById("province-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function TogglePhoneHelp() {
+    var h = document.getElementById("phone-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleCarriedHelp() {
+    var h = document.getElementById("carried-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleProductNameHelp() {
+    var h = document.getElementById("product-name-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleDescriptionHelp() {
+    var h = document.getElementById("description-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleSupplierHelp() {
+    var h = document.getElementById("supplier-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
+
+function ToggleSerialNumberHelp() {
+    var h = document.getElementById("serial-number-help");
+    h.style.display = h.style.display == "none" ? "block" : "none";
+}
