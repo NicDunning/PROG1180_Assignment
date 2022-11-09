@@ -13,68 +13,106 @@
 </head>
 <body>
     <header>
-            <div class="logo">
-            <a class="img-anc" href="index.html">
-                <img alt="Home" src= "photos\Logo-modified.png">
-            </a>
-            <a href="index.html">
-                <p>INVSYS</p>  
-            </a>
-            </div>
-                <nav class="nav-tiles">
-                    <div class="nav-ord">
-                        <a href="ordering.html">Ordering</a>
-                    </div>
-                    <div class="nav-inv">
-                        <a href="inventory.html">Inventory</a>
-                    </div>
-                    <div class="nav-sup">
-                        <a href="suppliers.html">Suppliers</a>
-                    </div>
-                    <div class="nav-itm">
-                        <a href="items.html">Items</a>
-                    </div>
-                    <div class="nav-cus">
-                        <a href="customers.html">Customers</a>
-                    </div>
-                    <div class="nav-sal">
-                        <a href="sales.html">Sales</a>
-                    </div>
-                </nav>
-        </header>
-<div class="main">
-    <div class="row">
+      <div class="logo">
+        <a title="INVSYS Home" class="img-anc" href="index.html">
+          <img style="margin-left: -20px;" alt="Home" src="photos\Logo-modified.png">
+        </a>
+        <a title="INVSYS Home" href="index.html">
+          <p>INVSYS</p>
+        </a>
+      </div>
+      <nav class="nav-tiles">
+        <div class="nav-ord">
+          <a title="Ordering" href="ordering.html">Ordering</a>
+        </div>
+        <div class="nav-inv">
+          <a title="Inventory" href="inventory.html">Inventory</a>
+        </div>
+        <div class="nav-sup">
+          <a title="Suppliers" href="suppliers.html">Suppliers</a>
+        </div>
+        <div class="nav-itm">
+          <a title="Items" href="items.html">Items</a>
+        </div>
+        <div class="nav-cus">
+          <a title="Customers" href="customers.html">Customers</a>
+        </div>
+        <div class="nav-sal">
+          <a title="Sales" href="sales.html">Sales</a>
+        </div>
+      </nav>
+    </header>
+    <div class="main">
+      <div class="row">
         <div class="column-inv style-table">
-            <h2>Current Orders</h2>
-            <table border="1" id="tbOrders">
-            </table>
+          <h2>Current Orders</h2>
+          <table border="1" id="tbOrders"></table>
         </div>
-    </div>
-    <div class="row2" style="background-color: #fff4e6">
+      </div>
+      <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-            <div class="cust-info">
-            <h2 >Customer Information</h2>
-            <label for="custFirst" >First Name</label>
-            <input type="text" id="custFirst" name="custFirst" ><br>
-            <label for="custLast">Last Name</label>
-            <input type="text" id="custLast" name="custLast"><br>
-            <label for="custInv">Invoice Number</label>
-            <input type="text" id="custInv" name="custInv"><br>
-            <!-- <label for="custSpec">Special Order</label>
-            <input type="checkbox" id="custSpec" name="custSpec"> -->
-            <h2>Order Details</h2>
-            <label for="ordUPC">UPC(s)</label>
-            <input type="text" id="ordUPC" name="ordUPC" placeholder='1xUPC1,4xUPC2,2xUPC3, ...'><br>
-            <label for ="ordItem">Date Ordered</label>
-            <input type="date" id="ordDate" name="ordDate" ><br><br>
-            <input type="submit" value="Commit Changes" id="btnCommit" class="toHide"><br>
-            <input type="submit" value="New Entry" id="btnNew" class="toHide">
+          <div class="cust-info">
+            <h2>Customer Information</h2>
+            <div>
+              <label for="custFirst">First Name</label>
+              <img onclick="ToggleFirstNameHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custFirst" name="custFirst">
             </div>
+            <div id="first-name-help" style="display: none;" class="first-name-help help">
+              <p>Please provide the customer's first (given) name. <br>
+                 Maximum length is 50 characters. </p>
+            </div>
+            <br>
+            <div class="last-name">
+              <label for="custLast">Last Name</label>
+              <img onclick="ToggleLastNameHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custLast" name="custLast">
+            </div>
+            <div id="last-name-help" style="display: none;" class="last-name-help help">
+              <p>Please provide the customer's last (family) name. <br>
+                 Maximum length is 100 characters.</p>
+            </div>
+            <br>
+            <div class="invoice-code">
+              <label for="custInv">Invoice Code</label>
+              <img onclick="ToggleInvoiceCodeHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custInv" name="custInv">
+            </div>
+            <div id="invoice-code-help" style="display: none;" class="invoice-code-help help">
+              <p>Please provide a unique invoice code.</p>
+            </div>
+            <br>
+            <h2>Order Details</h2>
+            <div class="upcs">
+              <label for="ordUPC">UPC(s)</label>
+              <img onclick="ToggleUPCsHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="ordUPC" name="ordUPC" placeholder='1xUPC1,4xUPC2,2xUPC3, ...'>
+            </div>
+            <div id="upcs-help" style="display: none;" class="upcs-help help">
+              <p>Please provide the quantity and UPC(s) of the item(s) included in the order. <br>
+                Format example:<br>
+                "1x123456789012, 3x123456789013"<br>
+                The above would represent 1 of the first item and 3 of the second.</p>
+            </div>
+            <br>
+            <div class="date-ordered">
+              <label for="ordItem">Date Ordered</label>
+              <img onclick="ToggleDateOrderedHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <input type="date" id="ordDate" name="ordDate">
+            </div>
+            <div id="date-ordered-help" style="display: none;" class="date-ordered-help help">
+              <p>Please use the date picker to select the date the order was/is being placed.</p>
+            </div>
+            <br>
+            <div class="commits">
+              <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
+              <br>
+              <input type="submit" value="New Entry" id="btnNew" class="toHide">
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-<footer>
-    PROG1180 ComicSans INVSYS 
- </footer>
-</body>
+    <footer> PROG1180 ComicSans INVSYS </footer>
+  </body>
 </html>
