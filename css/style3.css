@@ -359,3 +359,54 @@ h1 {
 .box {margin: 50px 50px 0px 50px;}
 
 footer {margin: 50px;}
+
+.column-inv {
+	margin: 0;
+	float:right;
+	width: auto;
+}
+
+input {
+	font-size: 15pt;
+	margin: 0;
+}
+
+td {
+	font-size: 15pt;
+	padding: 0px 10px;
+}
+th {
+	width: 100%;
+	padding: 10px;	
+}
+
+table input[type="submit"] { 
+	margin: 0;
+	min-width: 100%;
+}
+
+.column-inv input {
+	float: right;
+	width: 50%;}
+
+.commits input[type="submit"] {
+	min-width: none;
+	float: none;
+	width: 50%;
+}
+
+.row {width: 70%;}
+
+.row2 img {
+	height: 15pt;
+	width: 15pt;
+	display: inline-block;
+	padding-bottom: 10px;
+}
+
+.input-style label, input {
+	margin: 0;
+    font-size: 18pt;
+}
+
+.help {font-style: italic;}
