@@ -58,39 +58,39 @@
             <img title="Help" alt="Help" src="photos/Help.png">
             <input type="text" id="custFirst" name="custFirst">
           </div> -->
-          <div class="upc">
+          <div class="upc" style="position: relative;">
             <label for="upc">UPC</label>
-            <img onclick="ToggleUPCHelp()" title="Help" alt="Help" src="photos/Help.png">
-            <input type="text" id="upc" name="upc">
+            <img onclick="ToggleHelp('upc-help')" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="upc" name="upc" placeholder='ex: 123456789012'>
           </div>
           <div id="upc-help" style="display: none;" class="upc-help help">
             <p>Please provide the 12-digit UPC code for the item. <br>
                Only numbers may be included.</p>
           </div>
           <br>
-          <div>
+          <div style="position: relative;">
             <label for="date">DateRecieved</label>
-            <img onclick="ToggleDateReceivedHelp()" title="Help" alt="Help" src="photos/Help.png">
+            <img onclick="ToggleHelp('date-received-help')" title="Help" alt="Help" src="photos/Help.png">
             <input type="date" id="date" name="date">
           </div>
           <div id="date-received-help" style="display: none;" class="date-received-help help">
-            <p>Please use the date picker to select the date on which the item was/is being received. </p>
+            <p>Please use the date picker to select the date on <br> which the item was/is being received. </p>
           </div>
           <br>
-          <div>
+          <div style="position: relative;">
             <label for="quan">Quanitity</label>
-            <img onclick="ToggleQuantityHelp()" title="Help" alt="Help" src="photos/Help.png">
-            <input type="text" id="quan" name="quan">
+            <img onclick="ToggleHelp('quantity-help')" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="quan" name="quan" placeholder='ex: 13'>
           </div>
           <div id="quantity-help" style="display: none;" class="quantity-help help">
             <p>Please provide the quantity of item received.<br>
                Only numbers may be included. </p>
           </div>
           <br>
-          <div>
+          <div style="position: relative;">
             <label for="cost">Cost</label>
-            <img onclick="ToggleCostHelp()" title="Help" alt="Help" src="photos/Help.png">
-            <input type="text" id="cost" name="cost">
+            <img onclick="ToggleHelp('cost-help')" title="Help" alt="Help" src="photos/Help.png">
+            <input type="text" id="cost" name="cost" placeholder='ex: 14.5'>
           </div>
           <div id="cost-help" style="display: none;" class="cost-help help">
             <p>Please provide the per-item cost at which this item was purchased. <br>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <title>INVSYS System</title>
+      <meta content="width=device-width, initial-scale=1" name="viewport">
+      <link rel="stylesheet" href="css/style3.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">   
+      <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a> 
+      <a href="https://www.flaticon.com/free-icons/ux" title="ux icons">Ux icons created by Freepik - Flaticon</a>
+      <a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Anggara - Flaticon</a> -->
+      <script src="script\Database.js"></script>
+      <script src="script\script.js"></script>  
+  </head>
+  <body>
+      <header>
+          <div class="logo">
+          <a title="INVSYS Home" class="img-anc" href="index.html">
+              <img style="margin-left: -20px;" alt="Home" src= "photos\Logo-modified.png">
+          </a>
+          <a title="INVSYS Home" href="index.html">
+              <p>INVSYS</p>  
+          </a>
+          </div>
+              <nav class="nav-tiles">
+                  <div class="nav-ord">
+                      <a title="Ordering" href="ordering.html">Ordering</a>
+                  </div>
+                  <div class="nav-inv">
+                      <a title="Inventory" href="inventory.html">Inventory</a>
+                  </div>
+                  <div class="nav-sup">
+                      <a title="Suppliers" href="suppliers.html">Suppliers</a>
+                  </div>
+                  <div class="nav-itm">
+                      <a title="Items" href="items.html">Items</a>
+                  </div>
+                  <div class="nav-cus">
+                      <a title="Customers" href="customers.html">Customers</a>
+                  </div>
+                  <div class="nav-sal">
+                      <a title="Sales" href="sales.html">Sales</a>
+                  </div>
+              </nav>
+      </header>
+      <div class="main">
+          <div class="row">
+            <div class="column-inv style-table">
+              <h2>Add to Order</h2>
+              <table border="1" id="tbInventory"></table>
+            </div>
+          </div>
+          <div class="row2" style="background-color: #fff4e6">
+            <div class="column-inv toHide input-style" style="background-color: #fff4e6">
+              <div class="cust-info">
+                <h2>Customer Information</h2>
+                <div>
+                  <div>
+                  <label for="custFull">Full Name</label>
+                  <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
+                  <input type="text" id="custFirst" name="custFirst" placeholder='ex: Jason Sloan'>
+                </div>
+                <div id="full-name-help" style="display: none;" class="first-name-help help">
+                  <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
+                      Maximum length is 50 characters. </p>
+                </div>
+                <br>
+                <div class="invoice-code">
+                  <label for="custInv">Invoice Number</label>
+                  <img onclick="ToggleHelp('invoice-num-help')" title="Help" alt="Help" src="photos/Help.png">
+                  <input type="text" id="custInv" name="custInv" placeholder="12345">
+                </div>
+                <br>
+                <div id="invoice-num-help" style="display: none;" class="invoice-code-help help">
+                  <p>Please provide a unique invoice number..</p><br>
+                </div>
+                <div class="alternate code">
+                  <label for="custAlt">Alternate Code</label>
+                  <img onclick="ToggleHelp('alt-code-help')" title="Help" alt="Help" src="photos/Help.png">
+                  <input type="text" id="custAlt" name="custALt" placeholder="123">
+                </div>
+                <br>
+                <div id="alt-code-help" style="display: none;" class="invoice-code-help help">
+                  <p>Please provide a unique alternate code.</p><br>
+                </div>
+                <h2>Order Details</h2>
+                <div>
+                  <label for="ordItem">Date Ordered</label>
+                  <img onclick="ToggleHelp('date-ordered-help')" title="Help" alt="Help" src="photos/Help.png">
+                  <input type="date" id="ordDate" name="ordDate">
+                </div>
+                <div id="date-ordered-help" style="display: none;" class="date-ordered-help help">
+                  <p>Please use the date picker to select the date the order was/is being placed.</p>
+                </div>
+                <br>
+                  <div class="column-inv style-table cust-table">
+                    <!-- <h2>On Order</h2> -->
+                    <table border="1" id="tbCustOrder"></table>
+                    <br>
+                  </div>
+                </div>
+                <div class="commits">
+                  <input type="submit" value="Submit Sale" id="btnSale" class="toHide">
+                  <br>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <footer> 
+        PROG1180 ComicSans INVSYS 
+      </footer>
+  </body>
+</html>

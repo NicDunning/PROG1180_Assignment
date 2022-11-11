@@ -53,56 +53,56 @@
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
           <div class="cust-info">
             <h2>Customer Information</h2>
-            <div>
-              <label for="custFirst">First Name</label>
-              <img onclick="ToggleFirstNameHelp()" title="Help" alt="Help" src="photos/Help.png">
-              <input type="text" id="custFirst" name="custFirst">
+            <div  style="position: relative;">
+              <label for="custFull">Full Name</label>
+              <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custFirst" name="custFirst" placeholder='ex: John Smith'>
             </div>
-            <div id="first-name-help" style="display: none;" class="first-name-help help">
-              <p>Please provide the customer's first (given) name. <br>
+            <div id="full-name-help" style="display: none;" class="first-name-help help">
+              <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
                  Maximum length is 50 characters. </p>
             </div>
             <br>
-            <div class="last-name">
-              <label for="custLast">Last Name</label>
-              <img onclick="ToggleLastNameHelp()" title="Help" alt="Help" src="photos/Help.png">
-              <input type="text" id="custLast" name="custLast">
-            </div>
-            <div id="last-name-help" style="display: none;" class="last-name-help help">
-              <p>Please provide the customer's last (family) name. <br>
-                 Maximum length is 100 characters.</p>
-            </div>
-            <br>
-            <div class="invoice-code">
-              <label for="custInv">Invoice Code</label>
-              <img onclick="ToggleInvoiceCodeHelp()" title="Help" alt="Help" src="photos/Help.png">
-              <input type="text" id="custInv" name="custInv">
+            <div class="invoice-code"  style="position: relative;">
+              <label for="custInv">Invoice Number</label>
+              <img onclick="ToggleHelp('invoice-code-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custInv" name="custInv" placeholder='ex: 123456789012'>
             </div>
             <div id="invoice-code-help" style="display: none;" class="invoice-code-help help">
               <p>Please provide a unique invoice code.</p>
             </div>
             <br>
             <h2>Order Details</h2>
-            <div class="upcs">
-              <label for="ordUPC">UPC(s)</label>
-              <img onclick="ToggleUPCsHelp()" title="Help" alt="Help" src="photos/Help.png">
-              <input type="text" id="ordUPC" name="ordUPC" placeholder='1xUPC1,4xUPC2,2xUPC3, ...'>
-            </div>
-            <div id="upcs-help" style="display: none;" class="upcs-help help">
-              <p>Please provide the quantity and UPC(s) of the item(s) included in the order. <br>
-                Format example:<br>
-                "1x123456789012, 3x123456789013"<br>
-                The above would represent 1 of the first item and 3 of the second.</p>
-            </div>
-            <br>
-            <div class="date-ordered">
+            <div class="date-ordered"  style="position: relative;">
               <label for="ordItem">Date Ordered</label>
-              <img onclick="ToggleDateOrderedHelp()" title="Help" alt="Help" src="photos/Help.png">
+              <img onclick="ToggleHelp('date-ordered-help')" title="Help" alt="Help" src="photos/Help.png">
               <input type="date" id="ordDate" name="ordDate">
             </div>
             <div id="date-ordered-help" style="display: none;" class="date-ordered-help help">
               <p>Please use the date picker to select the date the order was/is being placed.</p>
             </div>
+            <br>
+            <div class="Item-0"  style="position: relative;">
+              <label for="ordUPC">Item</label>
+              <img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="button" id="clear-delete" value="delete" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
+              <input type="text" id="ordUPC" name="ordUPC" placeholder='ex: 2x123456789023' style="max-width: 185px;">
+              <input type="button" id="add-item" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
+            </div>
+            <br>
+            <div class="Item-0"  style="position: relative;">
+              <label for="ordUPC">Item</label>
+              <img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="button" id="clear-delete" value="delete" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
+              <input type="text" id="ordUPC" name="ordUPC" placeholder='ex: 1x210987654321' style="max-width: 185px;">
+              <input type="button" id="add-item" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
+            </div>
+            <!-- <div id="upcs-help" style="display: none;" class="upcs-help help">
+              <p>Please provide the quantity and UPC(s) of the item(s) included in the order. <br>
+                Format example:<br>
+                "1x123456789012, 3x123456789013"<br>
+                The above would represent 1 of the first item and 3 of the second.</p>
+            </div> -->
             <br>
             <div class="commits">
               <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">

@@ -252,6 +252,7 @@ function RefreshInventoryDisplayedData(){
     Store("itemsOnHand", itemsOnHand, 1);
     Store("items", items, 1);
     Store("suppliers", Suppliers, 1);
+    RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
     document.getElementById("UPCHeader").addEventListener("click", function(){
@@ -289,7 +290,7 @@ function RefreshInventoryDisplayedData(){
 function RefreshItemsDisplayedData(){
     // Init Variables
     const tblInventory = document.getElementById("tbInventory");
-    var tblInventoryHeaders = ["UPC", "Carry?", "Name", "Details", "Manufacturer", "SerialNum", "Modify"];
+    var tblInventoryHeaders = ["UPC", "Carry?", "Name", "Details", "Supplier", "SerialNum", "Modify"];
     var tblInventoryHTML = "<tr>";
     const blacklist = ["Status", "ManFactID", "SerialNum", "DateReceived"];
     tblInventory.innerHTML = "";
@@ -310,19 +311,19 @@ function RefreshItemsDisplayedData(){
     // Foreach item on hand
     var counter = 0;
     items.forEach(item => {
-        selectedSupplier = {};
-        Suppliers.forEach(supplier => {
-            if(supplier["SupplierID"] == item["ManFactID"]){
-                selectedSupplier = supplier;
-            }
-        })
+        // selectedSupplier = {};
+        // Suppliers.forEach(supplier => {
+        //     if(supplier["SupplierID"] == item["ManFactID"]){
+        //         selectedSupplier = supplier;
+        //     }
+        // })
         itemRow += `<tr>`;
 
         itemRow += `<td>${item["UPC"]}</td>`
         +`<td>${item["Status"]}</td>`
         +`<td>${item["Name"]}</td>`
         +`<td>${item["Details"]}</td>`
-        +`<td>${selectedSupplier["Name"]}</td>`
+        +`<td>${item["ManFactID"]}</td>`
         +`<td>${item["SerialNum"]}</td>`
         +`<td><input type="submit" value="Edit" class="${counter} edit">` 
         +`<input type="submit" value="Delete" class="${counter} delete"></td></tr>`
@@ -334,6 +335,7 @@ function RefreshItemsDisplayedData(){
     // Store the cookies.
     Store("items", items, 1);
     Store("suppliers", Suppliers, 1);
+    RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
     document.getElementById("UPCHeader").addEventListener("click", function(){
@@ -408,6 +410,7 @@ function refreshOrders(){
     tblOrders.innerHTML += itemRow;   
     // Store the cookies.
     Store("orders", orders, 1);
+    RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
     document.getElementById("Invoice#Header").addEventListener("click", function(){
@@ -482,6 +485,7 @@ function RefreshSuppliers(){
     tblSuppliers.innerHTML += itemRow;   
     // Store the cookies.
     Store("suppliers", Suppliers, 1);
+    RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
     document.getElementById("SupplierIDHeader").addEventListener("click", function(){
@@ -639,6 +643,40 @@ function ArchiveRecord(){
     
 }
 
+function RefreshAutoCompletes(){
+    var pageName = window.location.pathname.split("/").pop();
+    if(pageName == "inventory.html"){
+        autocomplete(document.getElementById("upc"), generateListForAutocomplete(itemsOnHand, "UPC"));
+        autocomplete(document.getElementById("date"), generateListForAutocomplete(itemsOnHand, "DateRecieved"));
+        autocomplete(document.getElementById("quan"), generateListForAutocomplete(itemsOnHand, "QtyOnHand"));
+        autocomplete(document.getElementById("cost"), generateListForAutocomplete(itemsOnHand, "Cost"));
+    }
+    if(pageName == "items.html"){
+        autocomplete(document.getElementById("upc"), generateListForAutocomplete(items, "UPC"));
+        autocomplete(document.getElementById("pname"), generateListForAutocomplete(items, "Name"));
+        autocomplete(document.getElementById("itemdesc"), generateListForAutocomplete(items, "Details"));
+        autocomplete(document.getElementById("manfactid"), generateListForAutocomplete(items, "ManFactID"));
+        autocomplete(document.getElementById("serialnum"), generateListForAutocomplete(items, "SerialNum"));
+    }
+    if(pageName == "suppliers.html"){
+        autocomplete(document.getElementById("supID"), generateListForAutocomplete(Suppliers, "SupplierID"));
+        autocomplete(document.getElementById("supName"), generateListForAutocomplete(Suppliers, "Name"));
+        autocomplete(document.getElementById("supStreet"), generateListForAutocomplete(Suppliers, "Street"));
+        autocomplete(document.getElementById("supCity"), generateListForAutocomplete(Suppliers, "City"));
+        autocomplete(document.getElementById("supPost"), generateListForAutocomplete(Suppliers, "PostCode"));
+        autocomplete(document.getElementById("supProv"), generateListForAutocomplete(Suppliers, "Province"));
+        autocomplete(document.getElementById("supPhone"), generateListForAutocomplete(Suppliers, "PhoneNumber"));
+    }
+    if(pageName == "ordering.html"){
+        autocomplete(document.getElementById("custFirst"), generateListForAutocomplete(orders, "CustomerFirst"));
+        autocomplete(document.getElementById("custLast"), generateListForAutocomplete(orders, "CustomerLast"));
+        autocomplete(document.getElementById("custInv"), generateListForAutocomplete(orders, "InvoiceID"));
+        // autocomplete(document.getElementById("ordUPC"), generateListForAutocomplete(orders, "ManFactID"));
+        autocomplete(document.getElementById("ordDate"), generateListForAutocomplete(orders, "OrderDate"));
+    }
+}
+
+
 // Prevent forms from reloading page.
 // var forms = document.getElementsByTagName("form");
 // function handleForm(event) { event.preventDefault(); } 
@@ -646,108 +684,7 @@ function ArchiveRecord(){
 //     form.addEventListener('submit', handleForm);
 // });
 
-/* Alex's Additions */
-function ToggleFirstNameHelp() {
-    var h = document.getElementById("first-name-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleLastNameHelp() {
-    var h = document.getElementById("last-name-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleInvoiceCodeHelp() {
-    var h = document.getElementById("invoice-code-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleUPCsHelp() {
-    var h = document.getElementById("upcs-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleDateOrderedHelp() {
-    var h = document.getElementById("date-ordered-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleUPCHelp() {
-    var h = document.getElementById("upc-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleDateReceivedHelp() {
-    var h = document.getElementById("date-received-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleQuantityHelp() {
-    var h = document.getElementById("quantity-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleCostHelp() {
-    var h = document.getElementById("cost-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleSupplierIDHelp() {
-    var h = document.getElementById("supplier-id-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleSupplierNameHelp() {
-    var h = document.getElementById("supplier-name-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleStreetHelp() {
-    var h = document.getElementById("street-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleCityHelp() {
-    var h = document.getElementById("city-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function TogglePostCodeHelp() {
-    var h = document.getElementById("post-code-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleProvinceHelp() {
-    var h = document.getElementById("province-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function TogglePhoneHelp() {
-    var h = document.getElementById("phone-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleCarriedHelp() {
-    var h = document.getElementById("carried-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleProductNameHelp() {
-    var h = document.getElementById("product-name-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleDescriptionHelp() {
-    var h = document.getElementById("description-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleSupplierHelp() {
-    var h = document.getElementById("supplier-help");
-    h.style.display = h.style.display == "none" ? "block" : "none";
-}
-
-function ToggleSerialNumberHelp() {
-    var h = document.getElementById("serial-number-help");
+function ToggleHelp(elementID) {
+    var h = document.getElementById(elementID);
     h.style.display = h.style.display == "none" ? "block" : "none";
 }
