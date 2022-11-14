@@ -56,13 +56,15 @@
             if(Retrieve(accounts) != ""){
                 accounts = Retrieve(accounts);
             }
+            var log = false;
             accounts.forEach(account => {
                 console.log(account["username"] , usernameLogin.value , account["password"] , passwordLogin.value );
                 if(account["username"] == usernameLogin.value && account["password"] == passwordLogin.value){
                     account["isloggedin"] = true;
                     Store("accounts", accounts, 1);
+                    log = true;
                     window.location.replace("./index.html");
-                    var log = true;
+                    
                 }
             });
             if(!log){
