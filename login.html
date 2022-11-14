@@ -63,10 +63,8 @@
                     Store("accounts", accounts, 1);
                     window.location.replace("./index.html");
                 }
-                else{
-                    alert("Username and Password are either blank or the combination does not exist. Please Try again. If this persists please contact your database admin.")
-                }
             });
+            alert("Username and Password are either blank or the combination does not exist. Please Try again. If this persists please contact your database admin.");
         };
         create.addEventListener("click", function(){
             if(Retrieve(accounts) != ""){
