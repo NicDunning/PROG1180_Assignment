@@ -60,7 +60,7 @@
                 console.log(account["username"] , usernameLogin.value , account["password"] , passwordLogin.value );
                 if(account["username"] == usernameLogin.value && account["password"] == passwordLogin.value){
                     account["isloggedin"] = true;
-                    Store(accounts, "accounts", 1);
+                    Store("accounts", accounts, 1);
                     window.location.replace("./index.html");
                 }
                 else{
@@ -89,7 +89,7 @@
                             isloggedin : false
                         }
                     );
-                    Store(accounts, "accounts", 1)
+                    Store("accounts", accounts, 1)
                     swapVisible();
                     document.getElementById("username-create").value = "";
                     document.getElementById("password-create").value = "";

@@ -4,6 +4,7 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
+    if(document.cookie == ""){InitialLoad()};
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
@@ -26,7 +27,7 @@ document.onreadystatechange = function () {
         });
         
         if(pageName == "inventory.html"){
-            if(document.cookie == ""){InitialLoad()};
+            
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");
             // On button click retrieve data, add data, store data.
@@ -205,6 +206,7 @@ function InitialLoad(){
     Store("items", items, 1);
     Store("suppliers", Suppliers, 1);
     Store("orders", orders, 1)
+    Store("accounts", accounts, 1)
 
     if(document.cookie != ''){
         itemsOnHand = Retrieve("itemsOnHand");
