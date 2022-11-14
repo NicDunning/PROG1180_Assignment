@@ -222,6 +222,14 @@ function InitialLoad(){
     }
 }
 
+function logoutUser(){
+    accounts.forEach(account => {
+        if(account["isloggedin"]){
+            account["isloggedin"] = false;
+        }
+    });
+}
+
 function ButtonFunctionality(){
     // buttons in table have OnClick
     editButtons = document.querySelectorAll("td > input.edit");
