@@ -54,7 +54,7 @@
         login.addEventListener("click", loginAction);
         function loginAction(){
             if(Retrieve("accounts") != ""){
-                accounts = Retrieve(accounts);
+                accounts = Retrieve("accounts");
             }
             var log = false;
             accounts.forEach(account => {
@@ -73,7 +73,7 @@
         };
         create.addEventListener("click", function(){
             if(Retrieve(accounts) != ""){
-                accounts = Retrieve(accounts);
+                accounts = Retrieve("accounts");
             }
             console.log(accounts);
             accounts.forEach(account => {
