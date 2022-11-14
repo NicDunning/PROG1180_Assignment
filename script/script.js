@@ -18,7 +18,7 @@ document.onreadystatechange = function () {
     }
 
     if (document.readyState == "interactive") {
-
+        if(document.cookie == ""){InitialLoad()};
         var logout = document.getElementById("logout");
         logout.addEventListener("click", function(){
             logoutUser();
