@@ -228,6 +228,7 @@ function logoutUser(){
             account["isloggedin"] = false;
         }
     });
+    Store("accounts", accounts, 1);
 }
 
 function ButtonFunctionality(){
