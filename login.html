@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="script\Database.js"></script>
+    
+</head>
+<body>
+    <div class="login-page">
+      <div class="form">
+        <div class="register-form" onsubmit="event.preventDefault();">
+          <input id="username-create" type="text" placeholder="Enter Username Here"/>
+          <input id="password-create" type="password" placeholder="Enter Password Here" />
+          <button id="create">create</button>
+          <p class="message">Already registered? <a href="#" onclick="swapVisible();">Sign In</a></p>
+        </div>
+        <div class="login-form" onsubmit="return false;">
+          <input id="username-login" type="text" placeholder="Enter Username Here"/>
+          <input id="password-login" type="password" placeholder="Enter Password Here"/>
+          <button id="login">login</button>
+          <p class="message">Not registered? <a href="#" onclick="swapVisible();" >Create an account</a></p>
+        </div>
+      </div>
+    </div>
+    <script>
+        var registerbox = document.getElementsByClassName("register-form");
+        var loginbox = document.getElementsByClassName("login-form");
+        var login = document.getElementById("login");
+        var create = document.getElementById("create");
+        var usernameLogin = document.getElementById("username-login");
+        var passwordLogin = document.getElementById("password-login");
+        function swapVisible(){
+            if(window.getComputedStyle(registerbox[0]).display === "none"){
+                registerbox[0].style.display = "block";
+                loginbox[0].style.display = "none";
+            }
+            else{
+                registerbox[0].style.display = "none";
+                loginbox[0].style.display = "block";
+            }
+        }
+        function checkKeyPressed(evt) {
+            if (evt.keyCode == "13") {
+                loginAction();
+            }
+        }
+
+        usernameLogin.addEventListener("keydown", checkKeyPressed, false);
+        passwordLogin.addEventListener("keydown", checkKeyPressed, false);
+        login.addEventListener("click", loginAction);
+        function loginAction(){
+            if(Retrieve(accounts) != ""){
+                accounts = Retrieve(accounts);
+            }
+            accounts.forEach(account => {
+                console.log(account["username"] , usernameLogin.value , account["password"] , passwordLogin.value );
+                if(account["username"] == usernameLogin.value && account["password"] == passwordLogin.value){
+                    account["isloggedin"] = true;
+                    Store(accounts, "accounts", 1);
+                    window.location.replace("./index.html");
+                }
+                else{
+                    alert("Username and Password are either blank or the combination does not exist. Please Try again. If this persists please contact your database admin.")
+                }
+            });
+        };
+        create.addEventListener("click", function(){
+            if(Retrieve(accounts) != ""){
+                accounts = Retrieve(accounts);
+            }
+            console.log(accounts);
+            accounts.forEach(account => {
+                if(account["username"].toLowerCase() == document.getElementById("username-create").value.toLowerCase()){
+                    alert("An account already exists with that Username. Please use a different Username")
+                    document.getElementById("username-create").value = "";
+                    document.getElementById("password-create").value = "";
+                }
+                else{
+                    accounts.push(
+                        {
+                            username : document.getElementById("username-create").value,
+                            password : document.getElementById("password-create").value,
+                            lastlogin : "",
+                            lastlogout : "",
+                            isloggedin : false
+                        }
+                    );
+                    Store(accounts, "accounts", 1)
+                    swapVisible();
+                    document.getElementById("username-create").value = "";
+                    document.getElementById("password-create").value = "";
+                    alert("Account " + usernameLogin.value + " has been succesfully created.")
+                }
+            }); 
+        });
+    </script>
+</body>
+</html>

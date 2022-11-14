@@ -180,6 +180,18 @@ orders = [
     // }
 ]
 
+accounts = [
+    {
+        username : "nicd123",
+        password : "passw0rd",
+        lastlogin : "",
+        lastlogout : "",
+        isloggedin : true
+    }
+]
+
+
+
 function Store(key, data, expireDays){
     const date = new Date();
     date.setTime(date.getTime() + (expireDays*24*60*60*1000));

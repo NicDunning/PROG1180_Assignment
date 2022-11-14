@@ -2,8 +2,28 @@ let sortAsc = true;
 document.onreadystatechange = function () {
     // Get name of HTML page.
     var pageName = window.location.pathname.split("/").pop();
-    
+    var chklogin = false;
+    var welcomeMessage = document.getElementById("welcome");
+    accounts.forEach(account => {
+        if(pageName != "login.html"){
+            if(account["isloggedin"]){
+                welcomeMessage.innerHTML = "Welcome "+ account["username"];
+                chklogin = true;
+            }
+        }
+    })
+
+    if(!chklogin){
+        window.location.replace("./login.html");
+    }
+
     if (document.readyState == "interactive") {
+
+        var logout = document.getElementById("logout");
+        logout.addEventListener("click", function(){
+            logoutUser();
+            window.location.replace("./login.html");
+        });
         
         if(pageName == "inventory.html"){
             if(document.cookie == ""){InitialLoad()};
