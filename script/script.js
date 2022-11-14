@@ -4,8 +4,12 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
-    if(document.cookie == ""){InitialLoad()};
-    else{accounts = Retrieve("accounts");}
+    if(document.cookie == ""){
+        InitialLoad();
+    }
+    else{
+        accounts = Retrieve("accounts");
+    }
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
