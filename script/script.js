@@ -188,39 +188,163 @@ document.onreadystatechange = function () {
         if(pageName == "suppliers.html"){
             if(document.cookie == ""){InitialLoad()};
             RefreshSuppliers();
-            btnNew.addEventListener("click", function(){
-                if(document.cookie == ""){
 
+            if(document.cookie == ""){
+
+            }
+            else{
+                Suppliers = Retrieve("suppliers");
+            }
+            
+            btnNew = document.getElementById("btnNew");
+            btnNew.addEventListener("click", function(){
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
                 }
                 else{
-                    Suppliers = Retrieve("suppliers");
+                    clearInputs();
+                    unlockFields();
                 }
-                // Do the adding to DB.
-                var newSupplier = {};
-                
-                newSupplier["SupplierID"] = document.getElementById("supID").value;
-                newSupplier["Name"] = document.getElementById("supName").value;;
-                newSupplier["Street"] = document.getElementById("supStreet").value;
-                newSupplier["City"] = document.getElementById("supCity").value;
-                newSupplier["Province"] = document.getElementById("supProv").value;
-                newSupplier["PostCode"] = document.getElementById("supPost").value;
-                newSupplier["PhoneNumber"] = document.getElementById("supPhone").value;
 
 
-                alert(addManufacturer(newSupplier["SupplierID"], newSupplier["Name"], newSupplier["Street"], newSupplier["City"], newSupplier["Province"], newSupplier["PostCode"], newSupplier["PhoneNumber"]));
-                RefreshSuppliers();
             });
             btnCommit.addEventListener("click", function(){
-                
-                supID = document.getElementById("supID").value;
                 supName = document.getElementById("supName").value;;
                 supStreet = document.getElementById("supStreet").value;
                 supCity = document.getElementById("supCity").value;
                 supProv = document.getElementById("supProv").value;
                 supPost = document.getElementById("supPost").value;
                 supPhone = document.getElementById("supPhone").value;
-                alert(editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, supPhone));
+                add = true;
+                checkitem = 
+                {
+                    "supName" : supName,
+                    "supStreet": supStreet,
+                    "supCity": supCity,
+                    "supProv": supProv,
+                    "supPost": supPost,
+                    "supPhone": supPhone
+                };
+                Suppliers.forEach(item => {
+                    if(item["Name"] == checkitem["supName"]){add = false;}
+                });
+                if(add){alert(addManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone));}
+                else{alert(editManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone));}
                 RefreshSuppliers();
+                lockFields();
+                RefreshSuppliers();
+            })
+        }
+
+        if(pageName == "customers.html"){
+            if(document.cookie == ""){InitialLoad()};
+            RefreshCustomers();
+
+            if(document.cookie == ""){
+
+            }
+            else{
+                customers = Retrieve("customers");
+            }
+            
+            btnNew = document.getElementById("btnNew");
+            btnNew.addEventListener("click", function(){
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
+                }
+                else{
+                    clearInputs();
+                    unlockFields();
+                }
+
+
+            });
+            btnCommit.addEventListener("click", function(){
+                custName = document.getElementById("custName").value;;
+                custStreet = document.getElementById("custStreet").value;
+                custCity = document.getElementById("custCity").value;
+                custProv = document.getElementById("custProv").value;
+                custPost = document.getElementById("custPost").value;
+                custPhone = document.getElementById("custPhone").value;
+                add = true;
+                checkitem = 
+                {
+                    "Name" : custName,
+                    "Street": custStreet,
+                    "City": custCity,
+                    "Prov": custProv,
+                    "Post": custPost,
+                    "Phone": custPhone
+                };
+                customers.forEach(item => {
+                    if(item["Name"] == checkitem["Name"]){add = false;}
+                });
+                if(add){alert(addCustomer(custName, custStreet, custCity, custProv, custPost, custPhone));}
+                else{alert(editCustomer(custName, custStreet, custCity, custProv, custPost, custPhone));}
+                RefreshCustomers();
+                lockFields();
+                RefreshCustomers();
+            })
+        }
+
+        if(pageName == "sales.html"){
+            if(document.cookie == ""){InitialLoad()};
+            refreshSales();
+            if(document.cookie == ""){
+
+            }
+            else{
+                sales = Retrieve("sales");
+                customers = Retrieve("customers");
+                items = Retrieve("items");
+            }
+            btnNew = document.getElementById("btnNew");
+            btnNew.addEventListener("click", function(){
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
+                }
+                else{
+                    clearInputs();
+                    unlockFields();
+                }
+            });
+
+            btnCommit.addEventListener("click", function(){
+                UPCsandQuant = document.querySelectorAll("#ordUPC");
+                UPCs = [];
+                Quants = [];
+                UPCsandQuant.forEach(pair => {
+                    if(pair.value != ""){
+                        UPCs.push(pair.value.split("x")[1]);
+                        Quants.push(pair.value.split("x")[0]);
+                    }
+                })
+                invoiceID = document.getElementById("custInv").value;
+                orderdate = document.getElementById("ordDate").value;
+                customername = document.getElementById("custFirst").value;
+                altcode = document.getElementById("custAlt").value;
+
+                add = true;
+                checkitem = 
+                {
+                    "InvoiceID" : invoiceID,
+                    "OrderDate" : orderdate,
+                    "CustomerName" : customername,
+                    "ItemUPC" : UPCs,
+                    "ItemQuantity" : Quants,
+                    "AltCode": altcode
+                };
+                sales.forEach(item => {
+                    if(item["InvoiceID"] == checkitem["InvoiceID"]){add = false;}
+                });
+                if(add){alert(addSale(invoiceID, UPCs, Quants, orderdate, customername, altcode));}
+                else{alert(editSale(invoiceID, UPCs, Quants, orderdate, customername, altcode));}
+                refreshSales();
+                lockFields();
+                refreshSales();
             })
         }
     }
@@ -543,7 +667,7 @@ function refreshOrders(){
 function RefreshSuppliers(){
     // Init Variables
     const tblSuppliers = document.getElementById("tbSupplier");
-    var tblSuppliersHeaders = ["SupplierID", "Name", "Street", "City", "Province" , "PostCode" , "PhoneNumber" , "Modify"];
+    var tblSuppliersHeaders = ["Name", "Street", "City", "Province" , "PostCode" , "PhoneNumber" , "Modify"];
     var tblSuppliersHTML = "<tr>";
     tblSuppliers.innerHTML = "";
     // Foreach value in headers make a column.
@@ -565,8 +689,7 @@ function RefreshSuppliers(){
     Suppliers.forEach(item => {
         itemRow += `<tr>`;
 
-        itemRow += `<td>${item["SupplierID"]}</td>`
-        +`<td>${item["Name"]}</td>`
+        itemRow += `<td>${item["Name"]}</td>`
         +`<td>${item["Street"]}</td>`
         +`<td>${item["City"]}</td>`
         +`<td>${item["Province"]}</td>`
@@ -584,16 +707,16 @@ function RefreshSuppliers(){
     RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
-    document.getElementById("SupplierIDHeader").addEventListener("click", function(){
-        sortAsc = !sortAsc;
-        Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "SupplierID");
-        Store("suppliers", Suppliers, 1);
-        RefreshSuppliers();
-        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
-            buttonValue = this.value;
-        }
-        document.getElementById("SupplierIDHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
-    });
+    // document.getElementById("SupplierIDHeader").addEventListener("click", function(){
+    //     sortAsc = !sortAsc;
+    //     Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "SupplierID");
+    //     Store("suppliers", Suppliers, 1);
+    //     RefreshSuppliers();
+    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+    //         buttonValue = this.value;
+    //     }
+    //     document.getElementById("SupplierIDHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    // });
     document.getElementById("NameHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "Name");
@@ -614,6 +737,166 @@ function RefreshSuppliers(){
     //     document.getElementById("DateReceivedHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
     // });
 }
+
+function RefreshCustomers(){
+    // Init Variables
+    const tblCustomers = document.getElementById("tbSupplier");
+    var tblCustomersHeaders = ["Name", "Street", "City", "Province" , "PostCode" , "PhoneNumber" , "Modify"];
+    var tblCustomersHTML = "<tr>";
+    tblCustomers.innerHTML = "";
+    // Foreach value in headers make a column.
+    tblCustomersHeaders.forEach(header => {
+        tblCustomersHTML += `<th><input type="submit" id="${header}Header" value="${header}" style="width:100%"></th>`;
+    });
+    // Set innerHTML add table header.
+    tblCustomers.innerHTML += tblCustomersHTML + "</tr>";
+    var itemRow = "";
+
+    if(document.cookie == ""){
+    }
+    else{
+        customers = Retrieve("customers");
+    }
+
+    // Foreach item on hand
+    var counter = 0;
+    customers.forEach(item => {
+        itemRow += `<tr>`;
+
+        itemRow += `<td>${item["Name"]}</td>`
+        +`<td>${item["Street"]}</td>`
+        +`<td>${item["City"]}</td>`
+        +`<td>${item["Province"]}</td>`
+        +`<td>${item["PostCode"]}</td>`
+        +`<td>${item["PhoneNumber"]}</td>`
+        +`<td><input type="submit" value="Edit" class="${counter} edit">` 
+        +`<input type="submit" value="Delete" class="${counter} delete"></td></tr>`;
+        counter++;
+    });
+    
+    // Add the row to the table.
+    tblCustomers.innerHTML += itemRow;   
+    // Store the cookies.
+    Store("customers", customers, 1);
+    RefreshAutoCompletes();
+    ButtonFunctionality();
+    // Sort Functionality
+    // document.getElementById("SupplierIDHeader").addEventListener("click", function(){
+    //     sortAsc = !sortAsc;
+    //     Suppliers = SortInventoryOnHand(Suppliers, sortAsc, "SupplierID");
+    //     Store("suppliers", Suppliers, 1);
+    //     RefreshSuppliers();
+    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+    //         buttonValue = this.value;
+    //     }
+    //     document.getElementById("SupplierIDHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    // });
+    document.getElementById("NameHeader").addEventListener("click", function(){
+        sortAsc = !sortAsc;
+        customers = SortInventoryOnHand(customers, sortAsc, "Name");
+        Store("customers", customers, 1);
+        RefreshCustomers();
+        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+            buttonValue = this.value;
+        }
+        document.getElementById("NameHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    });
+    // document.getElementById("DateReceivedHeader").addEventListener("click", function(){
+    //     sortAsc = !sortAsc;
+    //     itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "DateReceived");
+    //     RefreshInventoryDisplayedData();
+    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+    //         buttonValue = this.value;
+    //     }
+    //     document.getElementById("DateReceivedHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    // });
+}
+
+function refreshSales(){
+    // Init Variables
+    const tblSales = document.getElementById("tbSales");
+    var tblSalesHeaders = ["Invoice#", "Name", "DatePlaced", "ItemUPC(s)", "Quantity", "AltCode", "Modify"];
+    var tblSalesHTML = "<tr>";
+    tblSales.innerHTML = "";
+    // Foreach value in headers make a column.
+    tblSalesHeaders.forEach(header => {
+        tblSalesHTML += `<th><input type="submit" id="${header}Header" value="${header}" style="width:100%"></th>`;
+    });
+    // Set innerHTML add table header.
+    tblSales.innerHTML += tblSalesHTML + "</tr>";
+    var itemRow = "";
+
+    if(document.cookie == ""){
+    }
+    else{
+        sales = Retrieve("sales");
+    }
+
+    // Foreach item on hand
+    var counter = 0;
+    sales.forEach(item => {
+        itemRow += `<tr>`;
+
+        itemRow += `<td>${item["InvoiceID"]}</td>`
+        +`<td>${item["CustomerName"]}</td>`
+        +`<td>${item["OrderDate"]}</td><td>`
+        item["ItemUPC"].forEach(upc => {
+            itemRow += `${upc}`
+            if(item["ItemUPC"].indexOf(upc) != item["ItemUPC"].length-1){
+                itemRow += '\n'
+            }
+        });
+        itemRow += "</td><td>";
+        item["ItemQuantity"].forEach(quantity => {
+            itemRow += `${quantity}<br>`
+        });
+        itemRow += "</td>"
+        itemRow += `<td>${item["AltCode"]}</td>`
+        +`<td><input type="submit" value="Edit" class="${counter} edit">` 
+        +`<input type="submit" value="Delete" class="${counter} delete">`
+        +`<input type="submit" value="Print Prieview" class="${counter} print"></td></tr>`;
+        counter++;
+    });
+    
+    // Add the row to the table.
+    tblSales.innerHTML += itemRow;   
+    // Store the cookies.
+    Store("sales", sales, 1);
+    createItems(2);
+    RefreshAutoCompletes();
+    ButtonFunctionality();
+    // Sort Functionality
+    document.getElementById("Invoice#Header").addEventListener("click", function(){
+        sortAsc = !sortAsc;
+        sales = SortInventoryOnHand(sales, sortAsc, "InvoiceID");
+        Store("sales", sales, 1);
+        refreshSales();
+        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+            buttonValue = this.value;
+        }
+        document.getElementById("Invoice#Header").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    });
+    document.getElementById("DatePlacedHeader").addEventListener("click", function(){
+        sortAsc = !sortAsc;
+        sales = SortInventoryOnHand(sales, sortAsc, "OrderDate");
+        Store("sales", sales, 1);
+        refreshSales();
+        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+            buttonValue = this.value;
+        }
+        document.getElementById("DatePlacedHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    });
+    // document.getElementById("DateReceivedHeader").addEventListener("click", function(){
+    //     sortAsc = !sortAsc;
+    //     itemsOnHand = SortInventoryOnHand(itemsOnHand, sortAsc, "DateReceived");
+    //     RefreshInventoryDisplayedData();
+    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+    //         buttonValue = this.value;
+    //     }
+    //     document.getElementById("DateReceivedHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    // });
+}
+
 
 function sendToEdit(){
     var pageName = window.location.pathname.split("/").pop();
@@ -694,13 +977,63 @@ function sendToEdit(){
         }
         var selectedItem = Suppliers[parseInt(this.className)];
 
-        document.getElementById("supID").value = selectedItem["SupplierID"];
         document.getElementById("supName").value = selectedItem["Name"];
         document.getElementById("supStreet").value = selectedItem["Street"];
         document.getElementById("supCity").value = selectedItem["City"];
         document.getElementById("supProv").value = selectedItem["Province"];
         document.getElementById("supPost").value = selectedItem["PostCode"];
         document.getElementById("supPhone").value = selectedItem["PhoneNumber"];
+    }
+    else if (pageName == "customers.html"){
+        // Generate DB
+        if(document.cookie == ""){
+        }
+        else{
+            customers = Retrieve("customers");
+        }
+        var selectedItem = customers[parseInt(this.className)];
+
+        document.getElementById("custName").value = selectedItem["Name"];
+        document.getElementById("custStreet").value = selectedItem["Street"];
+        document.getElementById("custCity").value = selectedItem["City"];
+        document.getElementById("custProv").value = selectedItem["Province"];
+        document.getElementById("custPost").value = selectedItem["PostCode"];
+        document.getElementById("custPhone").value = selectedItem["PhoneNumber"];
+    }
+    else if (pageName == "sales.html"){
+        // Generate DB
+        if(document.cookie == ""){
+        }
+        else{
+            sales = Retrieve("sales");
+        }
+        var selectedItem = sales[parseInt(this.className)];
+        count = 0;
+        UPCsandQuant = []
+        selectedItem["ItemUPC"].forEach(upc => {
+            UPCsandQuant.push(`${selectedItem["ItemQuantity"][count]}x${upc}`);
+            count++;
+        })
+        createItems(UPCsandQuant.length);
+        var things = document.querySelectorAll(".ordUPC")
+        count = 0;
+        things.forEach(thing => {
+            if(count > UPCsandQuant.length){
+                return;
+            }
+            if(UPCsandQuant[count] == undefined){
+                thing.value = "";
+            }
+            else{
+                thing.value = UPCsandQuant[count];
+            }
+            count++;
+        })
+
+        document.getElementById("custFirst").value = selectedItem["CustomerName"];
+        document.getElementById("custInv").value = selectedItem["InvoiceID"];
+        document.getElementById("custAlt").value = selectedItem["AltCode"];
+        document.getElementById("ordDate").value = String(selectedItem["OrderDate"]);
     }
 
 };
@@ -865,7 +1198,6 @@ function RefreshAutoCompletes(){
         autocomplete(document.getElementById("serialnum"), generateListForAutocomplete(items, "SerialNum"));
     }
     if(pageName == "suppliers.html"){
-        autocomplete(document.getElementById("supID"), generateListForAutocomplete(Suppliers, "SupplierID"));
         autocomplete(document.getElementById("supName"), generateListForAutocomplete(Suppliers, "Name"));
         autocomplete(document.getElementById("supStreet"), generateListForAutocomplete(Suppliers, "Street"));
         autocomplete(document.getElementById("supCity"), generateListForAutocomplete(Suppliers, "City"));

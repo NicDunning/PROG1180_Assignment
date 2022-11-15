@@ -65,18 +65,9 @@
                 <div class="column-inv toHide input-style" style="background-color: #fff4e6">
                     <h2 >Edit Or Add Customers</h2>
                     <div>
-                        <label for="custID" >Customer ID</label>
-                        <img onclick="ToggleHelp('cust-id-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supID" name="supID" placeholder="999">
-                    </div>
-                    <div id="cust-id-help" style="display: none;" class="invoice-code-help help">
-                        <p>Please provide a unique customer ID.</p>
-                    </div>
-                    <br>
-                    <div>
-                        <label for="custFullName" >Customer First Name</label>
+                        <label for="custFullName" >Customer Full Name</label>
                         <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supName" name="supName" placeholder="Jim Browning">
+                        <input type="text" id="custName" name="custName" placeholder="ex: Jim Browning" disabled>
                     </div>
                     <div id="full-name-help" style="display: none;" class="first-name-help help">
                         <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
@@ -86,7 +77,7 @@
                     <div>
                         <label for="custStreet">Street</label>
                         <img onclick="ToggleHelp('street-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supStreet" name="supStreet" placeholder="First Street">
+                        <input type="text" id="custStreet" name="custStreet" placeholder="ex: First Street" disabled>
                     </div>
                     <div id="street-help" style="display: none;" class="invoice-code-help help">
                         <p>Please provide the customer's building number, street name, and optional unit number.<br>
@@ -96,7 +87,7 @@
                     <div>
                         <label for="custCity">City</label>
                         <img onclick="ToggleHelp('city-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supCity" name="supCity" placeholder="Metropolis">
+                        <input type="text" id="custCity" name="custCity" placeholder="ex: Metropolis" disabled>
                     </div>
                     <div id="city-help" style="display: none;" class="invoice-code-help help">
                         <p>Please provide the customer's city.<br>
@@ -106,7 +97,7 @@
                     <div>
                         <label for="custPost" >Postal Code</label>
                         <img onclick="ToggleHelp('post-code-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supPost" name="supPost" placeholder="A1B 2C3">
+                        <input type="text" id="custPost" name="custPost" placeholder="ex: A1B 2C3" disabled>
                     </div>
                     <div id="post-code-help" style="display: none;" class="invoice-code-help help">
                         <p>Please provide the customer's postal code.<br>
@@ -118,7 +109,7 @@
                     <div>
                         <label for="custProv" >Province</label>
                         <img onclick="ToggleHelp('province-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supProv" name="supProv" placeholder="ON">
+                        <input type="text" id="custProv" name="custProv" placeholder="ex: ON" disabled>
                     </div>
                     <div id="province-help" style="display: none;" class="invoice-code-help help">
                         <p>Please provide the customer's province code.<br>
@@ -129,7 +120,7 @@
                     <div>
                         <label for="custPhone" >Phone #</label>
                         <img onclick="ToggleHelp('phone-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="supPhone" name="supPhone" placeholder="555-123-4567">
+                        <input type="text" id="custPhone" name="custPhone" placeholder="ex: 555-123-4567" disabled>
                     </div>
                     <div id="phone-help" style="display: none;" class="invoice-code-help help">
                         <p>Please provide the customer's phone number.<br>

@@ -177,6 +177,25 @@ orders = [
     // }
 ]
 
+customers = [
+    {
+        "Name" : "Will Smith",
+        "Street" : "1411 Jacobson Parkway",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
+    },
+    {
+        "Name" : "Tom Hanks",
+        "Street" : "123 Walloughby Way",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
+    }
+]
+
 accounts = [
     {
         username : "nicd123",
@@ -187,6 +206,34 @@ accounts = [
     }
 ]
 
+sales = [
+    {
+        "InvoiceID" : 1002,
+        "CustomerName" : "John Jackson",
+        "OrderDate" : datestring,
+        "ItemUPC" : [123456789013],
+        "ItemQuantity" : [2],
+        "AltCode" : "1002"
+    },
+    {
+        "InvoiceID" : 1001,
+        "CustomerName" : "James Jones",
+        "OrderDate" : d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + (d.getDate()-1).toString().padStart(2, '0'),
+        "ItemUPC" : [123456789013],
+        "ItemQuantity" : [2],
+        "AltCode" : "1001"
+    },
+    {
+        "InvoiceID" : 1004,
+        "CustomerName" : "Jamie Jameson",
+        "OrderDate" : datestring,
+        "ItemUPC" : ["123456789012"],
+        "ItemQuantity" : [2],
+        "AltCode" : "1003"
+    }
+
+    
+]
 
 
 function Store(key, data, expireDays){
@@ -819,7 +866,7 @@ function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst) {
     return funcStatus
 }
 
-function addManufacturer(supID, supName, supStreet, supCity, supProv, supPost, supPhone) {
+function addManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone) {
     let funcStatus = "Failed to add manufacturer."
 
     // pull down array of manufacturers
@@ -836,18 +883,18 @@ function addManufacturer(supID, supName, supStreet, supCity, supProv, supPost, s
     index = -1;
     Suppliers.forEach( item => {
         // console.log(item, supID, supName);
-        if((item["SupplierID"] == supID || item["Name"] == supName)){
+        if((item["Name"] == supName)){
             index = Suppliers.indexOf(item);
         }
     })
 
     if(index != -1){
-        return "A Manufacturer already exists with some of those unique values (Supplier ID, or Supplier Name) " + contactUs;
+        return "A Manufacturer already exists with that Supplier Name " + contactUs;
     }
 
     // build new object
     let newSupplier = 
-    {   "SupplierID" : supID,
+    {
         "Name" : supName,
         "Street" : supStreet,
         "City" : supCity,
@@ -872,7 +919,7 @@ function addManufacturer(supID, supName, supStreet, supCity, supProv, supPost, s
     return funcStatus
 }
 
-function editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, supPhone) {
+function editManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone) {
     let funcStatus = "Failed to edit manufacturer."
     // pull down array of manufacturers
     if(document.cookie != ""){
@@ -881,7 +928,7 @@ function editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, 
     else{
     }
     // check for missing manufacturer in array and store index for slice
-    let index = Suppliers.findIndex(supplier => supplier["SupplierID"] == supID)
+    let index = Suppliers.findIndex(supplier => supplier["Name"] == supName)
     if (index === -1) {
         funcStatus = "The manufacturer you are trying to edit does not exist."
         return funcStatus
@@ -890,7 +937,7 @@ function editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, 
 
     // update manufacturer, ignoring any nulls
     Suppliers[index]= 
-    {   "SupplierID" : supID,
+    {
         "Name" : supName,
         "Street" : supStreet,
         "City" : supCity,
@@ -907,6 +954,242 @@ function editManufacturer(supID, supName, supStreet, supCity, supProv, supPost, 
     }
     // if (success) {
     funcStatus = "Manufacturer updated successfully."
+    // }
+    return funcStatus
+}
+
+function addCustomer(custName, custStreet, custCity, custProv, custPost, custPhone) {
+    let funcStatus = "Failed to add customer."
+
+    // pull down array of manufacturers
+    if(document.cookie != ""){
+        customers = Retrieve("customers");
+    }
+    else{
+    }
+    // check for duplicate manufacturer
+    // if (manufacturers.getIndex(manufacturer => manufacturer["Name"] === name) != -1) {
+    //     let funcStatus = "This manufacturer is already in the system."
+    //     return funcStatus
+    // }
+    index = -1;
+    customers.forEach( item => {
+        // console.log(item, custID, custName);
+        if((item["Name"] == custName)){
+            index = customers.indexOf(item);
+        }
+    })
+
+    // if(index != -1){
+    //     return "A Custmer already exists with that Name " + contactUs;
+    // }
+
+    // build new object
+    let newcustplier = 
+    {
+        "Name" : custName,
+        "Street" : custStreet,
+        "City" : custCity,
+        "Province" : custProv,
+        "PostCode" : custPost,
+        "PhoneNumber" : custPhone
+    }
+
+    // add to manufacturers array
+    customers.push(newcustplier);
+
+    // return array to JSON
+    // idk man make Nic do it lol
+    if(document.cookie == ""){
+    }
+    else{
+        Store("customers", customers, 1);
+    }
+    // if (success) {
+        funcStatus = "Customer added successfully."
+    // }
+    return funcStatus
+}
+
+function editCustomer(custName, custStreet, custCity, custProv, custPost, custPhone) {
+    let funcStatus = "Failed to edit customer."
+    // pull down array of manufacturers
+    if(document.cookie != ""){
+        customers = Retrieve("customers");
+    }
+    else{
+    }
+    // check for missing manufacturer in array and store index for slice
+    let index = customers.findIndex(customer => customer["Name"] == custName)
+    if (index === -1) {
+        funcStatus = "The customer you are trying to edit does not exist."
+        return funcStatus
+    }
+
+
+    // update manufacturer, ignoring any nulls
+    customers[index]= 
+    {
+        "Name" : custName,
+        "Street" : custStreet,
+        "City" : custCity,
+        "Province" : custProv,
+        "PostCode" : custPost,
+        "PhoneNumber" : custPhone
+    }
+    // return array to JSON
+    // idk man make Nic do it lol
+    if(document.cookie == ""){
+    }
+    else{
+        Store("customers", customers, 1);
+    }
+    // if (success) {
+    funcStatus = "Customer updated successfully."
+    // }
+    return funcStatus
+}
+
+function addSale(invoiceID, UPC, itemQuantity, orderDate, customerName, altcode) {
+    let funcStatus = "Failed to add sale."
+
+    // pull down array of Sales
+    if(document.cookie != ""){
+        sales = Retrieve("sales");
+    }
+    else{
+    }
+
+    // check for duplicate invoice
+    // Validation
+    index = -1;
+    sales.forEach( item => {
+        if((item["InvoiceID"] == invoiceID)){
+            index = sales.indexOf(item);
+        }
+    })
+    if(index != -1){
+        return "That Invoice already Exists. Please enter a different number " + contactUs;
+    }
+    if(invoiceID == "" || UPC == "" || itemQuantity == "" ||  orderDate == "" || customerName == ""){
+        return missing + ' ' + contactUs;
+    };
+
+    var today = new Date()
+    var date = new Date(orderDate)
+
+
+    if (date.getFullYear() > today.getFullYear()) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() > today.getMonth())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+    if ((date.getFullYear() == today.getFullYear()) && (date.getMonth() == today.getMonth()) && (date.getDate() > today.getDate())) {
+        funcStatus = "Invalid date. Please input a date no later than today."
+        return funcStatus
+    }
+
+    // if(UPC.length !=12){
+    //     return upcLength + ' ' + contactUs;
+    // }
+
+    // Not sure why this doesnt work
+    console.log(undefined in UPC);
+
+    UPC.forEach(value => {
+        if((typeof value) != String){
+            return `You are missing 1 or more UPCs Please make sure you've entered your data correctly. `+ contactUs;
+        }
+    });
+
+    itemQuantity.forEach(value => {
+        if((typeof value) != String){
+            return `You are missing 1 or more Item Quantities Please make sure you've entered your data correctly. `+ contactUs;
+        }
+    });
+        
+
+    // build new object
+    let newSale = 
+    {
+        "InvoiceID" : invoiceID,
+        "OrderDate" : orderDate,
+        "CustomerName" : customerName,
+        "ItemUPC" : UPC,
+        "ItemQuantity" : itemQuantity,
+        "AltCode": altcode
+    };
+
+    // add to invoices array
+    sales.push(newSale)
+    if(document.cookie == ""){
+    }
+    else{
+        Store("sales", sales, 1);
+    }
+    
+
+    // return array to JSON
+    // idk man make Nic do it lol
+    // if (success) {
+        funcStatus = "Invoice added successfully."
+    // }
+    return funcStatus
+}
+
+function editSale(invoiceID, UPC, itemQuantity, orderDate, customerFirst, altcode) {
+    let funcStatus = "Failed to edit product."
+    // pull down array of Sales
+    if(document.cookie != ""){
+        sales = Retrieve("sales");
+    }
+    else{
+    }
+    // check for missing product in array and store index for slice
+    index = -1;
+    sales.forEach( sale => {
+        if((sale["InvoiceID"] == invoiceID)){
+            index = sales.indexOf(sale);
+        }
+    })
+    if (index === -1) {return("indexing error in sales table.")}
+    UPC.forEach(c => {
+        if(c.length !=12){
+            return upcLength + ' ' + contactUs;
+        }
+    })
+    
+
+    // slice product from array
+    sales[index] =
+    {
+        "InvoiceID" : invoiceID,
+        "OrderDate" : orderDate,
+        "CustomerName" : customerFirst,
+        "ItemUPC" : UPC,
+        "ItemQuantity" : itemQuantity,
+        "AltCode" : altcode
+    };
+
+    
+    // // update product, ignoring any nulls
+    // product["Status"] = status != null ? status : product["Status"]
+    // product["Name"] = name != null ? name : product["Name"]
+    // product["Details"] = details != null ? details : product["Details"]
+    // product["ManFactID"] = manFactID != null ? manFactID : product["ManFactID"]
+    // product["SerialNum"] = serialNum != null ? serialNum : product["SerialNum"]
+
+    // return array to JSON
+    if(document.cookie == ""){
+    }
+    else{
+        Store("sales", sales, 1);
+    }
+    // if (success) {
+    funcStatus = "Product updated successfully."
     // }
     return funcStatus
 }

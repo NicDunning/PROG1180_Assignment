@@ -52,14 +52,26 @@
       <div class="main">
           <div class="row">
             <div class="column-inv style-table">
-              <h2>Add to Order</h2>
-              <table border="1" id="tbInventory"></table>
+              <h2>Sales</h2>
+              <table border="1" id="tbSales"></table>
+              <tr>
+              </tr>
             </div>
           </div>
           <div class="row2" style="background-color: #fff4e6">
             <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-              <div class="cust-info">
-                <h2>Customer Information</h2>
+              <div id="cust-info">
+                <h2>Sale Details</h2>
+                
+                <div class="invoice-code">
+                  <label for="custInv">Invoice Number</label>
+                  <img onclick="ToggleHelp('invoice-num-help')" title="Help" alt="Help" src="photos/Help.png">
+                  <input type="text" id="custInv" name="custInv" placeholder="12345">
+                </div>
+                <br>
+                <div id="invoice-num-help" style="display: none;" class="invoice-code-help help">
+                  <p>Please provide a unique invoice number..</p><br>
+                </div>
                 <div>
                   <div>
                   <label for="custFull">Full Name</label>
@@ -71,15 +83,6 @@
                       Maximum length is 50 characters. </p>
                 </div>
                 <br>
-                <div class="invoice-code">
-                  <label for="custInv">Invoice Number</label>
-                  <img onclick="ToggleHelp('invoice-num-help')" title="Help" alt="Help" src="photos/Help.png">
-                  <input type="text" id="custInv" name="custInv" placeholder="12345">
-                </div>
-                <br>
-                <div id="invoice-num-help" style="display: none;" class="invoice-code-help help">
-                  <p>Please provide a unique invoice number..</p><br>
-                </div>
                 <div class="alternate code">
                   <label for="custAlt">Alternate Code</label>
                   <img onclick="ToggleHelp('alt-code-help')" title="Help" alt="Help" src="photos/Help.png">
@@ -89,7 +92,6 @@
                 <div id="alt-code-help" style="display: none;" class="invoice-code-help help">
                   <p>Please provide a unique alternate code.</p><br>
                 </div>
-                <h2>Order Details</h2>
                 <div>
                   <label for="ordItem">Date Ordered</label>
                   <img onclick="ToggleHelp('date-ordered-help')" title="Help" alt="Help" src="photos/Help.png">
@@ -101,15 +103,17 @@
                 <br>
                   <div class="column-inv style-table cust-table">
                     <!-- <h2>On Order</h2> -->
-                    <table border="1" id="tbCustOrder"></table>
+                    <table border="1" id="tbSales"></table>
                     <br>
                   </div>
                 </div>
-                <div class="commits">
-                  <input type="submit" value="Submit Sale" id="btnSale" class="toHide">
-                  <br>
-                </div>
               </div>
+              <div class="commits" id="commits">
+                <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
+                <br>
+                <input type="submit" value="New Entry" id="btnNew" class="toHide">
+              </div>
+            </div>
           </div>
         </div>
       </div>
