@@ -355,14 +355,18 @@ function InitialLoad(){
     Store("itemsOnHand", itemsOnHand, 1);
     Store("items", items, 1);
     Store("suppliers", Suppliers, 1);
-    Store("orders", orders, 1)
-    Store("accounts", accounts, 1)
+    Store("orders", orders, 1);
+    Store("accounts", accounts, 1);
+    Store("customers", customers, 1);
+    Store("sales", sales, 1);
 
     if(document.cookie != ''){
         itemsOnHand = Retrieve("itemsOnHand");
         items = Retrieve("items");
         Suppliers = Retrieve("suppliers");
         orders = Retrieve("orders");
+        customers = Retrieve("customers");
+        sales = Retrieve("sales");
     }
 }
 
