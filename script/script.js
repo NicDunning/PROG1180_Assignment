@@ -4,12 +4,7 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
-    if(document.cookie == ""){
-        InitialLoad();
-    }
-    else{
-        accounts = Retrieve("accounts");
-    }
+    if(document.cookie == ""){InitialLoad()};
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
@@ -20,8 +15,8 @@ document.onreadystatechange = function () {
     })
 
     if(!chklogin){
-        //console.log("problem");
-        window.location.replace("./login.html");
+        console.log("problem");
+        //window.location.replace("./login.html");
     }
 
     if (document.readyState == "interactive") {
@@ -33,31 +28,29 @@ document.onreadystatechange = function () {
         });
         
         if(pageName == "inventory.html"){
-            
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");
-            // On button click retrieve data, add data, store data.
             btnNew.addEventListener("click", function(){
-                if(document.cookie == ""){
-                    itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
                 }
                 else{
-                    itemsOnHand = Retrieve("itemsOnHand");
-                    items = Retrieve("items");
-                    Suppliers = Retrieve("suppliers");
-                    orders = Retrieve("orders");
+                    clearInputs();
+                    unlockFields();
                 }
-                // Do the adding to DB.
-                
-                var newOnHandItem = {};
-                newOnHandItem["UPC"] = document.getElementById("upc").value;
-                newOnHandItem["QtyOnHand"] = document.getElementById("quan").value;
-                newOnHandItem["DateReceived"] = document.getElementById("date").value;
-                newOnHandItem["Cost"] = document.getElementById("cost").value;
-                alert(addInventoryItem(newOnHandItem["UPC"], newOnHandItem["QtyOnHand"], newOnHandItem["Cost"], newOnHandItem["DateReceived"]));
-                RefreshInventoryDisplayedData();
-            });
 
+
+            });
+            if(document.cookie == ""){
+                itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+            }
+            else{
+                itemsOnHand = Retrieve("itemsOnHand");
+                items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
+            }
             btnCommit = document.getElementById("btnSubmit");
             // On btn click retrieve stored data, modify data, redisplay data
             btnCommit.addEventListener("click", function(){
@@ -65,10 +58,21 @@ document.onreadystatechange = function () {
                 quantity = document.getElementById("quan").value;
                 dateReceived = document.getElementById("date").value;
                 cost = document.getElementById("cost").value;
-                
-
-                alert(editInventoryItem(upc, quantity, cost, dateReceived));
+                add = true;
+                checkitem = 
+                {
+                    "UPC" : upc,
+                    "QtyOnHand": quantity,
+                    "DateReceived": dateReceived,
+                    "Cost" : cost
+                };
+                itemsOnHand.forEach(item => {
+                    if(item["UPC"] == checkitem["UPC"] && item["DateReceived"] == checkitem["DateReceived"]){add = false;}
+                });
+                if(add){alert(addInventoryItem(upc, quantity, cost, dateReceived));}
+                else{alert(editInventoryItem(upc, quantity, cost, dateReceived));}
                 RefreshInventoryDisplayedData();
+                lockFields();
             })
         
             // buttons in table have OnClick
@@ -78,29 +82,24 @@ document.onreadystatechange = function () {
         if(pageName == "items.html"){
             if(document.cookie == ""){InitialLoad()};
             RefreshItemsDisplayedData();
+            if(document.cookie == ""){
+            }
+            else{
+                itemsOnHand = Retrieve("itemsOnHand");
+                items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+            }
+            btnNew = document.getElementById("btnNew");
             btnNew.addEventListener("click", function(){
-                if(document.cookie == ""){
-
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
                 }
                 else{
-                    itemsOnHand = Retrieve("itemsOnHand");
-                    items = Retrieve("items");
-                    Suppliers = Retrieve("suppliers");
+                    clearInputs();
+                    unlockFields();
                 }
-                // Do the adding to DB.
-                
-                var newItem = {};
-                newItem["UPC"] = document.getElementById("upc").value;
-                newItem["Status"] = document.getElementById("status").checked;
-                newItem["Name"] = document.getElementById("pname").value;
-                newItem["Details"] = document.getElementById("itemdesc").value;
-                newItem["ManFactID"] = document.getElementById("manfactid").value;
-                newItem["SerialNum"] = document.getElementById("serialnum").value;
-                
-                alert(addProduct(newItem["UPC"], newItem["Status"], newItem["Name"], newItem["Details"], newItem["ManFactID"], newItem["SerialNum"]));
-                RefreshItemsDisplayedData();
             });
-
             btnCommit.addEventListener("click", function(){
                 upc = document.getElementById("upc").value;
                 Status = document.getElementById("status").checked;
@@ -108,8 +107,23 @@ document.onreadystatechange = function () {
                 details = document.getElementById("itemdesc").value;
                 manfactid = document.getElementById("manfactid").value;
                 serialnum = document.getElementById("serialnum").value;
-
-                alert(editProduct(upc, Status, Name, details, manfactid, serialnum));
+                add = true;
+                checkitem = 
+                {
+                    "UPC" : upc,
+                    "Status": Status,
+                    "Name": Name,
+                    "Details": details,
+                    "ManFactID": manfactid,
+                    "SerialNum": serialnum
+                };
+                items.forEach(item => {
+                    if(item["UPC"] == checkitem["UPC"]){add = false;}
+                });
+                if(add){alert(addProduct(upc, Status, Name, details, manfactid, serialnum));}
+                else{alert(editProduct(upc, Status, Name, details, manfactid, serialnum));}
+                RefreshItemsDisplayedData();
+                lockFields();
                 RefreshItemsDisplayedData();
             })
             RefreshItemsDisplayedData();
@@ -119,48 +133,54 @@ document.onreadystatechange = function () {
         if(pageName == "ordering.html"){
             if(document.cookie == ""){InitialLoad()};
             refreshOrders();
-            btnNew.addEventListener("click", function(){
-                if(document.cookie == ""){
+            if(document.cookie == ""){
 
+            }
+            else{
+                itemsOnHand = Retrieve("orders");
+                items = Retrieve("items");
+            }
+            btnNew = document.getElementById("btnNew");
+            btnNew.addEventListener("click", function(){
+                if(this.value == "Clear Fields"){
+                    clearInputs();
+                    this.value = "New Entry";
                 }
                 else{
-                    itemsOnHand = Retrieve("orders");
-                    items = Retrieve("items");
+                    clearInputs();
+                    unlockFields();
                 }
-                // Do the adding to DB.
-                var newOrder = {};
-                UPCsandQuant = document.getElementById("ordUPC").value.split(",");
-                UPCs = [];
-                Quants = [];
-                UPCsandQuant.forEach(pair => {
-                    UPCs.push(pair.split("x")[1]);
-                    Quants.push(pair.split("x")[0]);
-                })
-                newOrder["InvoiceID"] = document.getElementById("custInv").value;
-                newOrder["UPC"] = UPCs;
-                newOrder["OrderDate"] = document.getElementById("ordDate").value;
-                newOrder["CustomerFirst"] = document.getElementById("custFirst").value;
-                newOrder["CustomerLast"] = document.getElementById("custLast").value;
-                newOrder["ItemQuantity"] = Quants;
-
-                alert(addOrder(newOrder["InvoiceID"], newOrder["UPC"], newOrder["ItemQuantity"], newOrder["OrderDate"], newOrder["CustomerFirst"], newOrder["CustomerLast"]));
-                refreshOrders();
             });
             btnCommit.addEventListener("click", function(){
-                var newOrder = {};
-                UPCsandQuant = document.getElementById("ordUPC").value.split(",");
+                UPCsandQuant = document.querySelectorAll("#ordUPC");
                 UPCs = [];
                 Quants = [];
                 UPCsandQuant.forEach(pair => {
-                    UPCs.push(pair.split("x")[1]);
-                    Quants.push(pair.split("x")[0]);
+                    if(pair.value != ""){
+                        UPCs.push(pair.value.split("x")[1]);
+                        Quants.push(pair.value.split("x")[0]);
+                    }
                 })
                 invoiceID = document.getElementById("custInv").value;
                 orderdate = document.getElementById("ordDate").value;
-                customerfirst = document.getElementById("custFirst").value;
-                customerlast = document.getElementById("custLast").value;
+                customername = document.getElementById("custFirst").value;
 
-                alert(editOrder(invoiceID, UPCs, Quants, orderdate, customerfirst, customerlast));
+                add = true;
+                checkitem = 
+                {
+                    "InvoiceID" : invoiceID,
+                    "OrderDate" : orderdate,
+                    "CustomerName" : customername,
+                    "ItemUPC" : UPCs,
+                    "ItemQuantity" : Quants
+                };
+                orders.forEach(item => {
+                    if(item["InvoiceID"] == checkitem["InvoiceID"]){add = false;}
+                });
+                if(add){alert(addOrder(invoiceID, UPCs, Quants, orderdate, customername));}
+                else{alert(editOrder(invoiceID, UPCs, Quants, orderdate, customername));}
+                refreshOrders();
+                lockFields();
                 refreshOrders();
             })
         }
@@ -228,7 +248,6 @@ function logoutUser(){
             account["isloggedin"] = false;
         }
     });
-    Store("accounts", accounts, 1);
 }
 
 function ButtonFunctionality(){
@@ -236,11 +255,51 @@ function ButtonFunctionality(){
     editButtons = document.querySelectorAll("td > input.edit");
     editButtons.forEach( button => {
         button.addEventListener("click", sendToEdit);
+        button.addEventListener("click", unlockFields);
     })
     deleteButtons = document.querySelectorAll("td > input.delete");
     deleteButtons.forEach( button => {
         button.addEventListener("click", ArchiveRecord);
     })
+}
+
+function unlockFields(){
+    var inputs = document.querySelectorAll("div > input");
+    inputs.forEach(input => {
+        input.disabled = false;
+        if(input.value == "New Entry"){
+            input.value = "Clear Fields";
+        }
+        else if(input.value == "Clear Fields"){
+            input.value = "New Entry";
+        }
+    })
+    disableInputsOrders();
+}
+
+function lockFields(){
+    var inputs = document.querySelectorAll("div > input");
+    inputs.forEach(input => {
+        if((input.type != "submit") && (input.type != "button")){
+            input.disabled = true;
+        }
+        if(input.value == "New Entry"){
+            input.value = "Clear Fields";
+        }
+        else if(input.value == "Clear Fields"){
+            input.value = "New Entry";
+        }
+    })
+}
+
+function clearInputs(){
+    inputs = document.querySelectorAll("div > input");
+    inputs.forEach(input => {
+        if((input.type != "submit") && (input.type != "button")){
+            input.value = "";
+            input.disabled = true;
+        }
+    });
 }
 
 function RefreshInventoryDisplayedData(){
@@ -400,7 +459,7 @@ function RefreshItemsDisplayedData(){
 function refreshOrders(){
     // Init Variables
     const tblOrders = document.getElementById("tbOrders");
-    var tblOrdersHeaders = ["Invoice#", "CustomerFName", "CustomerLName" ,  "DatePlaced", "ItemUPC(s)", "Quantity" , "Modify"];
+    var tblOrdersHeaders = ["Invoice#", "CustomerName",  "DatePlaced", "ItemUPC(s)", "Quantity" , "Modify"];
     var tblOrdersHTML = "<tr>";
     tblOrders.innerHTML = "";
     // Foreach value in headers make a column.
@@ -423,8 +482,7 @@ function refreshOrders(){
         itemRow += `<tr>`;
 
         itemRow += `<td>${item["InvoiceID"]}</td>`
-        +`<td>${item["CustomerFirst"]}</td>`
-        +`<td>${item["CustomerLast"]}</td>`
+        +`<td>${item["CustomerName"]}</td>`
         +`<td>${item["OrderDate"]}</td><td>`
         item["ItemUPC"].forEach(upc => {
             itemRow += `${upc}`
@@ -447,6 +505,7 @@ function refreshOrders(){
     tblOrders.innerHTML += itemRow;   
     // Store the cookies.
     Store("orders", orders, 1);
+    createItems(2);
     RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
@@ -604,12 +663,27 @@ function sendToEdit(){
             UPCsandQuant.push(`${selectedItem["ItemQuantity"][count]}x${upc}`);
             count++;
         })
+        createItems(UPCsandQuant.length);
+        var things = document.querySelectorAll(".ordUPC")
+        count = 0;
+        things.forEach(thing => {
+            if(count > UPCsandQuant.length){
+                return;
+            }
+            if(UPCsandQuant[count] == undefined){
+                thing.value = "";
+            }
+            else{
+                thing.value = UPCsandQuant[count];
+            }
+            count++;
+        })
 
-        document.getElementById("custFirst").value = selectedItem["CustomerFirst"];
-        document.getElementById("custLast").value = selectedItem["CustomerLast"];
+        document.getElementById("custFirst").value = selectedItem["CustomerName"];
         document.getElementById("custInv").value = selectedItem["InvoiceID"];
-        document.getElementById("ordUPC").value = UPCsandQuant;
-        document.getElementById("ordDate").value = selectedItem["OrderDate"];
+        
+        //document.getElementById("ordUPC").value = UPCsandQuant;
+        document.getElementById("ordDate").value = String(selectedItem["OrderDate"]);
     }
     else if (pageName == "suppliers.html"){
         // Generate DB
@@ -630,6 +704,101 @@ function sendToEdit(){
     }
 
 };
+
+function createItems(count){
+    var custinfo = document.getElementById("cust-info");
+    var btns = document.getElementById("commits");
+    var things = document.querySelectorAll("div > .Item");
+    var breaks = document.querySelectorAll("div > .remove");
+    if(things.length > 1){
+        things.forEach(item => {
+            item.remove();
+        });
+    }
+    if(breaks.length > 1){
+        breaks.forEach(item => {
+            item.remove();
+        });
+    }
+
+    tempinfo = custinfo.innerHTML;
+    for(i=0; i<count +1; i++){
+        custinfo.innerHTML += `<div class="Item ${i}"  style="position: relative;">`
+        +`<img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">`
+        +`<input type="button" class="clear ${i}" value="clear" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small" disabled>`
+        +`<input type="text" class="ordUPC" id="ordUPC" name="ordUPC" placeholder='ex: 1x210987654321' style="max-width: 185px;" disabled>`
+        +`<input type="button" class="add ${i}" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">`
+        +`</div>`
+        +`<br class="remove">`
+    }
+
+    var clears = document.querySelectorAll(".clear");
+    clears.forEach(c => {
+        c.addEventListener("click", function(){
+            ordUPCs = document.querySelectorAll(".ordUPC");
+            ordUPCs[this.className.split(" ")[1]].value = "";
+        });
+    });
+
+    var adds = document.querySelectorAll(".add");
+    count = 0;
+    adds.forEach(a => {
+        a.addEventListener("click", recursiveFunction)
+    })
+
+    disableInputsOrders();
+}
+
+function recursiveFunction(){
+    var custinfo = document.getElementById("cust-info");
+    var newI = document.querySelectorAll(".add").length+1;
+    var name = document.getElementById("custFirst").value;
+    var inv = document.getElementById("custInv").value;
+    var date = document.getElementById("ordDate").value;
+    var upcslist = document.querySelectorAll(".ordUPC");
+    var upclist = [];
+    upcslist.forEach(upc => {
+        upclist.push(upc);
+    });
+
+
+
+    custinfo.innerHTML += `<div class="Item ${newI}"  style="position: relative;">`
+    +`<img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">`
+    +`<input type="button" class="clear ${newI}" value="clear" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">`
+    +`<input type="text" class="ordUPC" id="ordUPC" name="ordUPC" placeholder='ex: 1x210987654321' style="max-width: 185px;">`
+    +`<input type="button" class="add ${newI}" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">`
+    +`</div>`
+    +`<br class="remove">`
+    adds = document.querySelectorAll(`.add`);
+    adds.forEach(newAdd => {
+        newAdd.addEventListener("click", recursiveFunction);
+        if(newAdd.className.split(" ")[1] != newI){
+            newAdd.disabled = true;
+        }
+    })
+
+    document.getElementById("custFirst").value = name;
+    document.getElementById("custInv").value = inv;
+    document.getElementById("ordDate").value = String(date);
+    var count = 0;
+    document.querySelectorAll(".ordUPC").forEach(item => {
+        item.value = upclist[count].value;
+        count++;
+    })
+
+
+}
+
+function disableInputsOrders(){
+    var newI = document.querySelectorAll(".add").length;
+    adds = document.querySelectorAll(`.add`);
+    adds.forEach(newAdd => {
+        if(newAdd.className.split(" ")[1] != newI-1){
+            newAdd.disabled = true;
+        }
+    })
+}
 
 function ArchiveRecord(){
     let archivedRecords = [];
@@ -705,8 +874,7 @@ function RefreshAutoCompletes(){
         autocomplete(document.getElementById("supPhone"), generateListForAutocomplete(Suppliers, "PhoneNumber"));
     }
     if(pageName == "ordering.html"){
-        autocomplete(document.getElementById("custFirst"), generateListForAutocomplete(orders, "CustomerFirst"));
-        autocomplete(document.getElementById("custLast"), generateListForAutocomplete(orders, "CustomerLast"));
+        autocomplete(document.getElementById("custFirst"), generateListForAutocomplete(orders, "CustomerName"));
         autocomplete(document.getElementById("custInv"), generateListForAutocomplete(orders, "InvoiceID"));
         // autocomplete(document.getElementById("ordUPC"), generateListForAutocomplete(orders, "ManFactID"));
         autocomplete(document.getElementById("ordDate"), generateListForAutocomplete(orders, "OrderDate"));

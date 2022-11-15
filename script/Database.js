@@ -149,24 +149,21 @@ orders = [
     {
         "InvoiceID" : 1001,
         "OrderDate" : d.getFullYear().toString().padStart(4, '0') + '-' + (d.getMonth()+1).toString().padStart(2, '0') + '-' + (d.getDate()-1).toString().padStart(2, '0'),
-        "CustomerFirst" : "James",
-        "CustomerLast" : "Jones",
+        "CustomerName" : "James Jones",
         "ItemUPC" : ["123456789012", "123456789013"],
         "ItemQuantity" : [4, 2]
     },
     {
         "InvoiceID" : 1002,
         "OrderDate" : datestring,
-        "CustomerFirst" : "John",
-        "CustomerLast" : "Jackson",
+        "CustomerName" : "John Jackson",
         "ItemUPC" : ["123456789013"],
         "ItemQuantity" : [2]
     },
     {
         "InvoiceID" : 1004,
         "OrderDate" : datestring,
-        "CustomerFirst" : "Jamie",
-        "CustomerLast" : "Jameson",
+        "CustomerName" : "Jamie Jameson",
         "ItemUPC" : ["123456789012"],
         "ItemQuantity" : [2]
     }
@@ -186,7 +183,7 @@ accounts = [
         password : "passw0rd",
         lastlogin : "",
         lastlogout : "",
-        isloggedin : false
+        isloggedin : true
     }
 ]
 
@@ -680,7 +677,7 @@ function editProduct(UPC, status, name, details, manFactID, serialNum) {
     return funcStatus
 }
 
-function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, customerLast) {
+function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerName) {
     let funcStatus = "Failed to add order."
 
     // pull down array of Orders
@@ -701,7 +698,7 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
     if(index != -1){
         return "That Invoice already Exists. Please enter a different number " + contactUs;
     }
-    if(invoiceID == "" || UPC == "" || itemQuantity == "" ||  orderDate == "" || customerFirst == "" || customerLast == ""){
+    if(invoiceID == "" || UPC == "" || itemQuantity == "" ||  orderDate == "" || customerName == ""){
         return missing + ' ' + contactUs;
     };
 
@@ -747,8 +744,7 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
     {
         "InvoiceID" : invoiceID,
         "OrderDate" : orderDate,
-        "CustomerFirst" : customerFirst,
-        "CustomerLast" : customerLast,
+        "CustomerName" : customerName,
         "ItemUPC" : UPC,
         "ItemQuantity" : itemQuantity
     };
@@ -770,7 +766,7 @@ function addOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custom
     return funcStatus
 }
 
-function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, customerLast) {
+function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst) {
     let funcStatus = "Failed to edit product."
     // pull down array of Orders
     if(document.cookie != ""){
@@ -786,17 +782,19 @@ function editOrder(invoiceID, UPC, itemQuantity, orderDate, customerFirst, custo
         }
     })
     if (index === -1) {return("indexing error in orders table.")}
-    if(UPC.length !=12){
-        return upcLength + ' ' + contactUs;
-    }
+    UPC.forEach(c => {
+        if(c.length !=12){
+            return upcLength + ' ' + contactUs;
+        }
+    })
+    
 
     // slice product from array
     orders[index] =
     {
         "InvoiceID" : invoiceID,
         "OrderDate" : orderDate,
-        "CustomerFirst" : customerFirst,
-        "CustomerLast" : customerLast,
+        "CustomerName" : customerFirst,
         "ItemUPC" : UPC,
         "ItemQuantity" : itemQuantity
     };
