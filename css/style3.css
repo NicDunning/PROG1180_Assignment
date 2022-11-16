@@ -310,7 +310,7 @@ nav{
 .nav-sal {grid-area: nav-sal;}
 
 .nav-ord, .nav-inv, .nav-sup, .nav-itm, .nav-cus, .nav-sal {
-	width: 350px;
+	width: 250px;
 }
 
 .nav-ord, .nav-inv, .nav-sup {
