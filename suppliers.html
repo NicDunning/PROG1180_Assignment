@@ -15,9 +15,9 @@
     <script src="script\script.js"></script>
 </head>
 <body>
-  <div id="account" style="padding-bottom: 40px;">
-    <p id="welcome" style="float: left; font-size: small; margin:13px 0px; padding: 0px;">Welcome User</p>
-    <a id="logout" href="./login.html" style="float: right; font-size:small; margin:13px 0px; padding:0px; text-align: center;">Logout</a>
+  <div id="account">
+    <p id="welcome">Welcome User</p>
+    <a id="logout" href="./login.html">Logout</a>
   </div>
     <header>
       <div class="logo">
@@ -62,18 +62,9 @@
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
             <h2 >Edit Or Add Suppliers </h2>
             <div  style="position: relative;">
-                <label for="supID" >Supplier ID</label>
-                <img onclick="ToggleHelp('supplier-id-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supID" name="supID" disabled="disabled">
-            </div>
-            <div id="supplier-id-help" style="display: none;" class="invoice-code-help help">
-                <p>Please provide a unique supplier ID code.</p>
-            </div>
-            <br>
-            <div  style="position: relative;">
                 <label for="supName" >Supplier Name</label>
                 <img onclick="ToggleHelp('supplier-name-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supName" name="supName" placeholder='ex: BladeBoyz Inc'>
+                <input type="text" id="supName" name="supName" placeholder='ex: BladeBoyz Inc' disabled>
             </div>
             <div id="supplier-name-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's name.<br>
@@ -83,7 +74,7 @@
             <div  style="position: relative;">
                 <label for="supStreet">Street</label>
                 <img onclick="ToggleHelp('street-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supStreet" name="supStreet" placeholder='ex: 102 Walloughby Way'>
+                <input type="text" id="supStreet" name="supStreet" placeholder='ex: 102 Walloughby Way' disabled>
             </div>
             <div id="street-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's building number, street name, and optional unit number.<br>
@@ -93,7 +84,7 @@
             <div  style="position: relative;">
                 <label for="supCity">City</label>
                 <img onclick="ToggleHelp('city-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supCity" name="supCity" placeholder='ex: Toronto'>
+                <input type="text" id="supCity" name="supCity" placeholder='ex: Toronto' disabled>
             </div>
             <div id="city-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's city.<br>
@@ -103,7 +94,7 @@
             <div  style="position: relative;">
                 <label for="supPost" >Postal Code</label>
                 <img onclick="ToggleHelp('post-code-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supPost" name="supPost" placeholder='ex: L3J0C4'>
+                <input type="text" id="supPost" name="supPost" placeholder='ex: L3J0C4' disabled>
             </div>
             <div id="post-code-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's postal code.<br>
@@ -115,7 +106,7 @@
             <div  style="position: relative;">
                 <label for="supProv" >Province</label>
                 <img onclick="ToggleHelp('province-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supProv" name="supProv" placeholder='ex: ON'>
+                <input type="text" id="supProv" name="supProv" placeholder='ex: ON' disabled>
             </div>
             <div id="province-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's province code.<br>
@@ -126,7 +117,7 @@
             <div  style="position: relative;">
                 <label for="supPhone" >Phone #</label>
                 <img onclick="ToggleHelp('phone-help')" title="Help" alt="Help" src="photos/Help.png">
-                <input type="text" id="supPhone" name="supPhone" placeholder='ex: 905-294-1234'>
+                <input type="text" id="supPhone" name="supPhone" placeholder='ex: 905-294-1234' disabled>
             </div>
             <div id="phone-help" style="display: none;" class="invoice-code-help help">
                 <p>Please provide the supplier's phone number.<br>

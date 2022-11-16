@@ -1,0 +1,94 @@
+.tiles {
+	width: 21%;
+	padding: 10px;
+	margin: auto;
+	height: 250px;
+	font-size: 30px;
+	text-align: center;
+	border: 1px dashed black;
+} 
+
+  
+.column-inv{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	text-align: center; 
+}
+
+.row::after{
+	clear:both;
+	content:"";
+	display: table;
+	
+}
+.row{
+	display: flex;
+	height: auto;
+	margin: auto;
+	width: 90%;
+	padding: 10px;
+}
+.highlight{
+	background: yellow;
+}
+
+.main{
+	display: inline-flex;
+	width: 100%;
+}
+
+a{
+	font-size: 35px;
+	padding: 25px;
+	width: 50px;
+}
+
+header{
+	background-color: rgb(124, 124, 124);
+	color: #fff;
+	height: auto;
+	margin-bottom: 25px;
+	padding: 10px;
+	text-align: center;
+	width: 100%;;
+
+
+}
+body{
+	display: block;
+}
+form{
+	font-size: 25px;
+}
+input{
+	font-size: 25px;
+}
+footer{
+	text-align: center;
+}
+
+table{
+	background-color: beige;
+	padding: 5px;
+	margin: 5px;
+}
+th{font-size: 35px;}
+td{font-size: 25px;}
+tr {cursor: default;}
+img{
+	max-width: 100px;
+	max-height: 100px;
+  }
+.edit{
+	margin: 2px;
+	width: 130px;
+}
+.delete{
+	margin: 2px;
+	width: 130px;
+}
+
+
+
+

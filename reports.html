@@ -15,9 +15,9 @@
         <script src="script\script.js"></script>  
     </head>
     <body>
-        <div id="account">
-            <p id="welcome">Welcome User</p>
-            <a id="logout" href="./login.html">Logout</a>
+        <div id="account" style="padding-bottom: 40px;">
+            <p id="welcome" style="float: left; font-size: small; margin:13px 0px; padding: 0px;">Welcome User</p>
+            <a id="logout" href="./login.html" style="float: right; font-size:small; margin:13px 0px; padding:0px; text-align: center;">Logout</a>
         </div>
         <header>
             <div class="logo">
@@ -51,42 +51,38 @@
                     </div>
                 </nav>
         </header>
-        <div class="home-tiles">
-            <div class="box home-ord">
-                <a title="Ordering" href="ordering.html">
-                <img alt="Ordering" src="photos\Ordering.png">
-                <p style="margin-left: -10px;">Ordering</p>
-                </a>
-            </div>
-            <div class="box home-inv">
-                <a title="Inventory" href="inventory.html">
-                <img alt="Inventory" src="photos\Inventory.png">
-                <p style="margin-left: -20px;">Inventory</p>
-                </a>     
-            </div>
-            <div class="box home-sup">
-                <a title="Suppliers" href="suppliers.html">
-                <img alt="Suppliers" src="photos\Manufacture.png">
-                <p style="margin-left: -20px;">Suppliers</p>
-                </a>
-            </div>
-            <div class="box home-itm">
-                <a title="Items" href="items.html">
-                <img alt="Items" style="margin-left: 12px;" src="photos\Edit.png">
-                <p >Items</p>
-                </a>
-            </div>
-            <div class="box home-cus">
-                <a title="Customers" href="customers.html">
-                <img alt="Customers" src="photos\target.png">
-                <p style="margin-left: -20px;">Customers</p>
-                </a>
-            </div>
-            <div class="box home-sal">
-                <a title="Sales" href="sales.html">
-                <img alt="Sales" src="photos\Sales.png">
-                <p>Sales</p>
-                </a>
+        <div style="padding: 5%;">
+            <div style="width: 100%; border: 5px solid black; height:30rem;">
+                <div style="height: 100px;">
+                    <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
+                        <label style="font-size: 16px;">Report for :</label>
+                        <select style="font-size: 16px;">
+                            <option>Choose an Option</option>
+                            <option>Invoices</option>
+                            <option>Orders</option>
+                        </select>
+                        <label style="font-size: 16px;">Placed </label>
+                        <select style="font-size: 16px;">
+                            <option>Choose an Option</option>
+                            <option>Before</option>
+                            <option>After</option>
+                            <option>On</option>
+                        </select>
+                        <input type="date" style="font-size: 16px;">
+                        <select style="font-size: 16px;">
+                            <option>Containing Item : </option>
+                            <option>Ordered By Customer :</option>
+                        </select>
+                        <input type="text" style="font-size: 16px;">
+                        
+                    </div>
+                    <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
+                        <input type="button" value="Generate Report" style="margin: 20px;">
+                    </div>
+                    <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
+                        Report goes here
+                    </div>
+                </div>
             </div>
         </div>
         <footer>

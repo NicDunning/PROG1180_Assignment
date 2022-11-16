@@ -227,16 +227,16 @@ body{
 form{
 	font-size: 25px;
 }
-input{
+input, select{
 	font-size: 25px;
 }
-input:hover{
+input:hover, select:hover{
 	background-color: yellow;
 }
-input[type="submit"]{
+input[type="submit"], select{
 	margin: 10px;
 }
-input[type="text"]{
+input[type="text"], select, input[type="date"]{
 	border-style: solid;
 	border-width: 5px;
 }
@@ -454,3 +454,23 @@ table input[type="submit"] {
 	background-color: DodgerBlue !important;
 	color: #ffffff;
 }  
+
+#account{
+	background-color: #be9b7b;
+	padding: 0;
+}
+
+#welcome{
+	float: left;
+	font-size: small;
+	margin:13px 0px;
+	padding-left: 15px;
+}
+
+#logout{
+	float: right;
+	font-size:small;
+	margin:13px 0px;
+	padding:0px;
+	text-align: center;
+}
