@@ -347,7 +347,7 @@ h1 {
 .home-sal {grid-area: home-sal;}
 
 .home-ord, .home-inv, .home-sup, .home-itm, .home-cus, .home-sal {
-	width: 250px;
+	width: 350px;
 }
 
 .home-ord, .home-inv, .home-sup {
