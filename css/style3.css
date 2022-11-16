@@ -310,7 +310,7 @@ nav{
 .nav-sal {grid-area: nav-sal;}
 
 .nav-ord, .nav-inv, .nav-sup, .nav-itm, .nav-cus, .nav-sal {
-	width: 250px;
+	width: 350px;
 }
 
 .nav-ord, .nav-inv, .nav-sup {
@@ -347,7 +347,7 @@ h1 {
 .home-sal {grid-area: home-sal;}
 
 .home-ord, .home-inv, .home-sup, .home-itm, .home-cus, .home-sal {
-	width: 350px;
+	width: 150px;
 }
 
 .home-ord, .home-inv, .home-sup {
@@ -479,7 +479,7 @@ table input[type="submit"] {
 * Sea's Additions *
 *******************/
 
-.home-ord, .home-inv, .home-sup, .home-itm, .home-cus, .home-sal {
+.nav-ord, .nav-inv, .nav-sup, .nav-itm, .nav-cus, .nav-sal {
 	border-style: solid;
     	padding: 5px;
     	border-radius: 10px;
