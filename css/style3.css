@@ -474,3 +474,16 @@ table input[type="submit"] {
 	padding:0px;
 	text-align: center;
 }
+
+/*******************
+* Sea's Additions *
+*******************/
+
+.home-ord, .home-inv, .home-sup, .home-itm, .home-cus, .home-sal {
+	border-style: solid;
+    	padding: 5px;
+    	border-radius: 10px;
+}
+.nav-tiles {
+	grid-gap: 5px;
+}
