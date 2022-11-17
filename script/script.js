@@ -373,6 +373,17 @@ document.onreadystatechange = function () {
         }
         if(pageName == "pp.html"){
 
+            if(document.cookie == ""){
+                itemsOnHand = JoinDB(onHandInventory, items, "UPC");
+            }
+            else{
+                sales = Retrieve("sales");
+                itemsOnHand = Retrieve("itemsOnHand");
+                items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
+                customers = Retrieve("customers");
+            }
             if(Retrieve("pp") != ""){
                 fakepp = Retrieve("pp");
             }
