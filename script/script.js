@@ -412,7 +412,7 @@ document.onreadystatechange = function () {
                         itemCost = onhand["Cost"];
                     }
                 })
-                itemFields += `<tr>\n`
+                itemFields = `<tr>\n`
                 +`<td>${fakepp[3][count]}</td>\n`
                 +`<td>${item["Details"]}</td>\n`
                 +`<td>${item["SerialNum"]}</td>\n`
@@ -458,7 +458,7 @@ document.onreadystatechange = function () {
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Balance Due</td>`
-            + `<td>$${total + total * 0.13}</td></tr>`
+            + `<td>${total + total * 0.13}</td></tr>`
 
             alt = document.getElementById("altcode");
             date = document.getElementById("date");
