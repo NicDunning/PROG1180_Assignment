@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>INVSYS System</title>
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link rel="stylesheet" href="css/style3.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">   
+        <!-- <a href="https://www.flaticon.com/free-icons/settings" title="settings icons">Settings icons created by Freepik - Flaticon</a> 
+        <a href="https://www.flaticon.com/free-icons/ux" title="ux icons">Ux icons created by Freepik - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/ui" title="ui icons">Ui icons created by Anggara - Flaticon</a> -->
+        <script src="script\Database.js"></script>
+        <script src="script\script.js"></script>  
+    </head>
+    <body class="print-preview" style="background-color:white">
+        <h1 id="altcode">AltCode</h1>
+        <div>
+            <h1>Invoice</h1>
+        </div>
+        <div class="row-print" id="row-print">
+            <div class="column">
+                <p>Emma's Small Engines</p>
+                <p>123 Grand Falcon Ave</p>
+                <p>Fonthill, ON W3E 4R5</p>
+                <p>Phone: (206) 555-1163</p>
+                <p>Fax: (206) 555-1164</p>
+            </div>
+            <div class="column">
+                <p style="font-weight: bold;" id="date">Date: </p>
+                <p style="font-weight: bold;" id="InvoiceNum">Invoice #: </p>
+            </div>
+        </div>
+        <h2>Bill To:</h2>
+        <div class="row-print" id="row-print2">
+        </div>  
+        <table border="2">
+            <tbody id="tbPrint">
+            <tr>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Item #</th>
+                <th>Price</th>
+                <th>Amount</th>
+            </tr>
+        </tbody>
+        </table>
+    </body>
+</html>

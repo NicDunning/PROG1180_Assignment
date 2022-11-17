@@ -193,6 +193,22 @@ customers = [
         "Province" : "Ontario",
         "PostCode" : "L3S2R4",
         "PhoneNumber" : "123-456-7890"
+    },
+    {
+        "Name" : "John Jackson",
+        "Street" : "1411 Jacobson Parkway",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
+    },
+    {
+        "Name" : "Jamie Jameson",
+        "Street" : "123 Walloughby Way",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
     }
 ]
 
@@ -202,7 +218,7 @@ accounts = [
         password : "passw0rd",
         lastlogin : "",
         lastlogout : "",
-        isloggedin : false
+        isloggedin : true
     }
 ]
 
@@ -235,6 +251,33 @@ sales = [
     
 ]
 
+fakepp = [
+    {
+        "InvoiceID" : 1002,
+        "CustomerName" : "John Jackson",
+        "OrderDate" : datestring,
+        "ItemUPC" : [123456789013],
+        "ItemQuantity" : [2],
+        "AltCode" : "1002"
+    },
+    {
+        "Name" : "John Jackson",
+        "Street" : "1411 Jacobson Parkway",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
+    },
+    [{
+        "UPC" : 123456789013,
+        "Status" : false,
+        "Name" : "Screw Driver",
+        "Details" : "Phillips Head Size 2",
+        "ManFactID" : "DriverBoyz",
+        "SerialNum" : 20000
+    }],
+    [2]
+]
 
 function Store(key, data, expireDays){
     const date = new Date();

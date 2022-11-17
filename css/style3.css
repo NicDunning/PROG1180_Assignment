@@ -12,10 +12,15 @@
 	
 }
 
+/* .column for print preview page */
+.column {
+	margin-left: 50px;
+	width: 25%;
+  }
+
 .column-inv{
 	margin-left: auto;
 	margin-right: auto;
-
 	width: 50%;
 	text-align: center; 
 }
@@ -69,6 +74,11 @@
 	margin-top: 60px;
 	
 }
+.row-print:after {
+	content: "";
+	display: table;
+	clear: both;
+}
 .row::after{
 	clear:both;
 	content:"";
@@ -77,6 +87,68 @@
 }
 .order-details{
 	font-size: 30px;
+}
+/*Style Print Preview Page*/
+#altcode{
+	float: left;
+	padding-left: 10%;
+}
+
+.print-preview{
+	float:left;
+	margin: 50px;
+	margin-left: 25px;
+	width: 80%;
+	border: 2px solid black;
+	padding: 10px;
+}
+
+
+
+.print-preview h2{
+	background-color: #a5644e;
+	color: white;
+	height:40px;
+	padding-left: 10px;
+	padding-top: 10px;
+	border: 2px solid black;
+}
+
+.row-print .column{
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 100%;
+}
+
+.print-preview h1{
+	display:flex;
+	justify-content: flex-end;
+	padding-right: 10%;
+	padding-top: 10px;
+}
+.print-preview p{
+	font-size: 18px;
+}
+/* .print-preview table{
+	width: 55%;
+} */
+.print-preview td{
+	text-align: center;
+	height: 30px;
+}
+.print-preview th{
+	background-color: #a5644e;
+	color:white;
+	font-size: 20px;
+	max-width: 50%;
+	text-align: center;
+}
+.print-preview tr:nth-of-type(even){
+	background-color: #eddfda;
+}
+.row-print{
+	display:flex;
+	width: 100%;
 }
 .row{
 	display: flex;
@@ -487,3 +559,7 @@ table input[type="submit"] {
 .nav-tiles {
 	grid-gap: 5px;
 }
+
+/* .print-preview p, .print-preview th, .print-preview td{
+	font-size: 25px;
+} */

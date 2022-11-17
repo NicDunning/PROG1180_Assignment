@@ -5,29 +5,33 @@ document.onreadystatechange = function () {
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
     if(document.cookie == ""){InitialLoad()};
-    accounts = Retrieve("accounts");
+    //accounts = Retrieve("accounts");
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
-                welcomeMessage.innerHTML = "Welcome "+ account["username"];
-                chklogin = true;
+                if(pageName != "pp.html"){
+                    welcomeMessage.innerHTML = "Welcome "+ account["username"];
+                    chklogin = true;
+                }
+
             }
         }
     })
 
     if(!chklogin){
         console.log("problem");
-        window.location.replace("./login.html");
+        //window.location.replace("./login.html");
     }
 
     if (document.readyState == "interactive") {
         if(document.cookie == ""){InitialLoad()};
         var logout = document.getElementById("logout");
-        logout.addEventListener("click", function(){
-            logoutUser();
-            window.location.replace("./login.html");
-        });
-        
+        if(pageName != "pp.html"){  
+            logout.addEventListener("click", function(){
+                logoutUser();
+                window.location.replace("./login.html");
+            });
+        }
         if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");
@@ -348,6 +352,92 @@ document.onreadystatechange = function () {
                 refreshSales();
             })
         }
+        if(pageName == "pp.html"){
+
+            if(Retrieve("pp") != ""){
+                fakepp = Retrieve("pp");
+            }
+
+            rowPrint = document.getElementById("row-print2");
+            tbPrint = document.getElementById("tbPrint");
+            customerFields = `<div class="column">`
+            + `<p>${fakepp[1]["Name"]}</p>`
+            + `<p>${fakepp[1]["Street"]}</p>`
+            + `</div>`
+            + '<div class="column">'
+            + `<p>${fakepp[1]["City"]} ${fakepp[1]["Province"]} ${fakepp[1]["PostCode"]}</p>`
+            + `<p>${fakepp[1]["PhoneNumber"]}</p>`
+            + '</div>'
+            + '</div>'
+            rowPrint.innerHTML += customerFields;
+
+            var itemFields = ``
+            var count = 0;
+            var total = 0;
+
+            fakepp[2].forEach( item => {
+                var itemCost = 0;
+                itemsOnHand.forEach( onhand => {
+                    if(onhand["UPC"] == item["UPC"]){
+                        itemCost = onhand["Cost"];
+                    }
+                })
+                itemFields += `<tr>\n`
+                +`<td>${fakepp[3][count]}</td>\n`
+                +`<td>${item["Details"]}</td>\n`
+                +`<td>${item["SerialNum"]}</td>\n`
+                +`<td>${itemCost}</td>\n`
+                +`<td>${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
+                +`</tr>`;
+                
+                total += parseFloat(fakepp[3][count]) * parseFloat(itemCost);
+                tbPrint.innerHTML += itemFields;
+            })
+
+            tbPrint.innerHTML += `<tr>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `</tr>`
+
+            tbPrint.innerHTML += `<tr>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td style="font-weight: bold;">Subtotal : </td>`
+            + `<td>$${total}</td></tr>`;
+
+            tbPrint.innerHTML += `<tr>`
+            + `<td>Thank you for your business!</td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td style="font-weight: bold;">Tax</td>`
+            + `<td>$${total * 0.13}</td></tr>`
+
+            tbPrint.innerHTML += `<tr>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td style="font-weight: bold;">Additional discount</td>`
+            + `<td>0%</td></tr>`
+
+            tbPrint.innerHTML += `<tr>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td></td>`
+            + `<td style="font-weight: bold;">Balance Due</td>`
+            + `<td>${total + total * 0.13}</td></tr>`
+
+            alt = document.getElementById("altcode");
+            date = document.getElementById("date");
+            invoice = document.getElementById("InvoiceNum");
+
+            alt.innerHTML = "AltCode : " + fakepp[0]["AltCode"];
+            date.innerHTML = "Date : " + fakepp[0]["OrderDate"];
+            invoice.innerHTML = "Invoice # : " + fakepp[0]["InvoiceID"];
+        }
     }
 }
 
@@ -389,6 +479,10 @@ function ButtonFunctionality(){
     deleteButtons = document.querySelectorAll("td > input.delete");
     deleteButtons.forEach( button => {
         button.addEventListener("click", ArchiveRecord);
+    })
+    ppButtons = document.querySelectorAll("td > input.print")
+    ppButtons.forEach( button => {
+        button.addEventListener("click", sendToPP);
     })
 }
 
@@ -1043,6 +1137,29 @@ function sendToEdit(){
 
 };
 
+function sendToPP(){
+    var selectedSale = sales[parseInt(this.className)];
+    var selectedCustomer;
+    var selectedItems = [];
+    var selectedQuantities = selectedSale["ItemQuantity"];
+    customers.forEach(customer => {
+        if(customer["Name"] == selectedSale["CustomerName"]){
+            selectedCustomer = customer;
+        }
+    })
+    selectedSale["ItemUPC"].forEach( upc => {
+        items.forEach( item => {
+            if(item["UPC"] == upc){
+                selectedItems.push(item);
+            }
+        })
+    })
+    var pp = [];
+    pp.push(selectedSale, selectedCustomer, selectedItems, selectedQuantities);
+
+    Store("pp", pp, 1);
+}
+
 function createItems(count){
     var custinfo = document.getElementById("cust-info");
     var btns = document.getElementById("commits");
@@ -1216,6 +1333,21 @@ function RefreshAutoCompletes(){
         // autocomplete(document.getElementById("ordUPC"), generateListForAutocomplete(orders, "ManFactID"));
         autocomplete(document.getElementById("ordDate"), generateListForAutocomplete(orders, "OrderDate"));
     }
+    if(pageName == "customers.html"){
+        autocomplete(document.getElementById("custName"), generateListForAutocomplete(customers, "Name"));
+        autocomplete(document.getElementById("custStreet"), generateListForAutocomplete(customers, "Street"));
+        autocomplete(document.getElementById("custCity"), generateListForAutocomplete(customers, "City"));
+        autocomplete(document.getElementById("custProv"), generateListForAutocomplete(customers, "Province"));
+        autocomplete(document.getElementById("custPost"), generateListForAutocomplete(customers, "PostCode"));
+        autocomplete(document.getElementById("custPhone"), generateListForAutocomplete(customers, "PhoneNumber"));
+        
+    }
+    if(pageName == "sales.html"){
+        autocomplete(document.getElementById("custInv"), generateListForAutocomplete(sales, "InvoiceID"));
+        autocomplete(document.getElementById("custFirst"), generateListForAutocomplete(sales, "CustomerName"));
+        autocomplete(document.getElementById("custAlt"), generateListForAutocomplete(sales, "AltCode"));
+        autocomplete(document.getElementById("ordDate"), generateListForAutocomplete(sales, "OrderDate"));
+    }
 }
 
 
@@ -1230,3 +1362,5 @@ function ToggleHelp(elementID) {
     var h = document.getElementById(elementID);
     h.style.display = h.style.display == "none" ? "block" : "none";
 }
+
+
