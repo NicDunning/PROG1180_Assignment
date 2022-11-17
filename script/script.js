@@ -5,7 +5,7 @@ document.onreadystatechange = function () {
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
     if(document.cookie == ""){InitialLoad()};
-    Retrieve(accounts);
+    accounts = Retrieve(accounts);
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
@@ -17,7 +17,7 @@ document.onreadystatechange = function () {
 
     if(!chklogin){
         console.log("problem");
-        //window.location.replace("./login.html");
+        window.location.replace("./login.html");
     }
 
     if (document.readyState == "interactive") {
