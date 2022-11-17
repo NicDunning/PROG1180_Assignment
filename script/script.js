@@ -458,7 +458,7 @@ document.onreadystatechange = function () {
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Balance Due</td>`
-            + `<td>$${total + total * 0.13}</td></tr>`
+            + `<td>${total + total * 0.13}</td></tr>`
 
             alt = document.getElementById("altcode");
             date = document.getElementById("date");
@@ -712,7 +712,7 @@ function RefreshItemsDisplayedData(){
 function refreshOrders(){
     // Init Variables
     const tblOrders = document.getElementById("tbOrders");
-    var tblOrdersHeaders = ["Invoice#", "CustomerName",  "DatePlaced", "ItemUPC(s)", "Quantity" , "Modify"];
+    var tblOrdersHeaders = ["AltCode", "CustomerName",  "DatePlaced", "ItemUPC(s)", "Quantity" , "Modify"];
     var tblOrdersHTML = "<tr>";
     tblOrders.innerHTML = "";
     // Foreach value in headers make a column.
@@ -727,6 +727,7 @@ function refreshOrders(){
     }
     else{
         orders = Retrieve("orders");
+        sales = Retrieve("sales");
     }
 
     // Foreach item on hand
@@ -734,7 +735,15 @@ function refreshOrders(){
     orders.forEach(item => {
         itemRow += `<tr>`;
 
-        itemRow += `<td>${item["InvoiceID"]}</td>`
+        var altcode = "";
+        sales.forEach( sale => {
+            if(sale["InvoiceID"] == item["InvoiceID"]){
+                altcode = sale["AltCode"]
+            }
+        })
+
+
+        itemRow += `<td>${altcode}</td>`
         +`<td>${item["CustomerName"]}</td>`
         +`<td>${item["OrderDate"]}</td><td>`
         item["ItemUPC"].forEach(upc => {
