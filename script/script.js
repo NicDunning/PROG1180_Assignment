@@ -1158,6 +1158,9 @@ function sendToPP(){
     pp.push(selectedSale, selectedCustomer, selectedItems, selectedQuantities);
 
     Store("pp", pp, 1);
+
+    window.location = "./pp.html";
+
 }
 
 function createItems(count){
