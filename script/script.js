@@ -51,10 +51,12 @@ document.onreadystatechange = function () {
                 itemsOnHand = JoinDB(onHandInventory, items, "UPC");
             }
             else{
+                sales = Retrieve("sales");
                 itemsOnHand = Retrieve("itemsOnHand");
                 items = Retrieve("items");
                 Suppliers = Retrieve("suppliers");
                 orders = Retrieve("orders");
+                customers = Retrieve("customers");
             }
             btnCommit = document.getElementById("btnSubmit");
             // On btn click retrieve stored data, modify data, redisplay data
@@ -142,8 +144,12 @@ document.onreadystatechange = function () {
 
             }
             else{
-                itemsOnHand = Retrieve("orders");
+                sales = Retrieve("sales");
+                itemsOnHand = Retrieve("itemsOnHand");
                 items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
+                customers = Retrieve("customers");
             }
             btnNew = document.getElementById("btnNew");
             btnNew.addEventListener("click", function(){
@@ -198,7 +204,12 @@ document.onreadystatechange = function () {
 
             }
             else{
+                sales = Retrieve("sales");
+                itemsOnHand = Retrieve("itemsOnHand");
+                items = Retrieve("items");
                 Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
+                customers = Retrieve("customers");
             }
             
             btnNew = document.getElementById("btnNew");
@@ -250,6 +261,11 @@ document.onreadystatechange = function () {
 
             }
             else{
+                sales = Retrieve("sales");
+                itemsOnHand = Retrieve("itemsOnHand");
+                items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
                 customers = Retrieve("customers");
             }
             
@@ -302,8 +318,11 @@ document.onreadystatechange = function () {
             }
             else{
                 sales = Retrieve("sales");
-                customers = Retrieve("customers");
+                itemsOnHand = Retrieve("itemsOnHand");
                 items = Retrieve("items");
+                Suppliers = Retrieve("suppliers");
+                orders = Retrieve("orders");
+                customers = Retrieve("customers");
             }
             btnNew = document.getElementById("btnNew");
             btnNew.addEventListener("click", function(){
