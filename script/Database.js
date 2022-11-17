@@ -209,6 +209,14 @@ customers = [
         "Province" : "Ontario",
         "PostCode" : "L3S2R4",
         "PhoneNumber" : "123-456-7890"
+    },
+    {
+        "Name" : "James Jones",
+        "Street" : "1411 Randall Court",
+        "City" : "Toronto",
+        "Province" : "Ontario",
+        "PostCode" : "L3S2R4",
+        "PhoneNumber" : "123-456-7890"
     }
 ]
 

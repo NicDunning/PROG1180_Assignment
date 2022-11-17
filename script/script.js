@@ -983,7 +983,7 @@ function refreshSales(){
         itemRow += `<td>${item["AltCode"]}</td>`
         +`<td><input type="submit" value="Edit" class="${counter} edit">` 
         +`<input type="submit" value="Delete" class="${counter} delete">`
-        +`<input type="submit" value="Print Prieview" class="${counter} print"></td></tr>`;
+        +`<input type="submit" value="Print Preview" class="${counter} print"></td></tr>`;
         counter++;
     });
     
