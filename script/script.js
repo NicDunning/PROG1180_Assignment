@@ -458,7 +458,7 @@ document.onreadystatechange = function () {
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Balance Due</td>`
-            + `<td>${total + total * 0.13}</td></tr>`
+            + `<td>$${total + total * 0.13}</td></tr>`
 
             alt = document.getElementById("altcode");
             date = document.getElementById("date");
