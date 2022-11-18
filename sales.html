@@ -63,7 +63,7 @@
               <div id="cust-info">
                 <h2>Sale Details</h2>
                 
-                <div class="invoice-code">
+                <div class="invoice-code" style="position: relative;">
                   <label for="custInv">Invoice Number</label>
                   <img onclick="ToggleHelp('invoice-num-help')" title="Help" alt="Help" src="photos/Help.png">
                   <input type="text" id="custInv" name="custInv" placeholder="12345">
@@ -73,7 +73,7 @@
                   <p>Please provide a unique invoice number..</p><br>
                 </div>
                 <div>
-                  <div>
+                  <div style="position: relative;">
                   <label for="custFull">Full Name</label>
                   <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
                   <input type="text" id="custFirst" name="custFirst" placeholder='ex: Jason Sloan'>
@@ -83,7 +83,7 @@
                       Maximum length is 50 characters. </p>
                 </div>
                 <br>
-                <div class="alternate code">
+                <div class="alternate code" style="position: relative;">
                   <label for="custAlt">Alternate Code</label>
                   <img onclick="ToggleHelp('alt-code-help')" title="Help" alt="Help" src="photos/Help.png">
                   <input type="text" id="custAlt" name="custALt" placeholder="123">
@@ -92,7 +92,7 @@
                 <div id="alt-code-help" style="display: none;" class="invoice-code-help help">
                   <p>Please provide a unique alternate code.</p><br>
                 </div>
-                <div>
+                <div style="position: relative;">
                   <label for="ordItem">Date Ordered</label>
                   <img onclick="ToggleHelp('date-ordered-help')" title="Help" alt="Help" src="photos/Help.png">
                   <input type="date" id="ordDate" name="ordDate">
