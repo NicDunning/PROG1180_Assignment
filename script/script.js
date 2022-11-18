@@ -11,8 +11,9 @@ document.onreadystatechange = function () {
             if(account["isloggedin"]){
                 if(pageName != "pp.html"){
                     welcomeMessage.innerHTML = "Welcome "+ account["username"];
-                    chklogin = true;
+                    
                 }
+                chklogin = true;
 
             }
         }
