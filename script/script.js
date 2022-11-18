@@ -417,7 +417,7 @@ document.onreadystatechange = function () {
                 +`<td>${item["Details"]}</td>\n`
                 +`<td>${item["SerialNum"]}</td>\n`
                 +`<td>$ ${itemCost}</td>\n`
-                +`<td>${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
+                +`<td>$ ${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
                 +`</tr>`;
                 
                 total += parseFloat(fakepp[3][count]) * parseFloat(itemCost);
