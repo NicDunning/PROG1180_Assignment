@@ -226,7 +226,7 @@ accounts = [
         password : "passw0rd",
         lastlogin : "",
         lastlogout : "",
-        isloggedin : false
+        isloggedin : true
     }
 ]
 
