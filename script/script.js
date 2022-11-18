@@ -421,6 +421,7 @@ document.onreadystatechange = function () {
                 +`<td>${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
                 +`</tr>`;
                 
+                count++;
                 total += parseFloat(fakepp[3][count]) * parseFloat(itemCost);
                 tbPrint.innerHTML += itemFields;
             })
