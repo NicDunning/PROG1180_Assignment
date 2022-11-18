@@ -5,15 +5,14 @@ document.onreadystatechange = function () {
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
     if(document.cookie == ""){InitialLoad()};
-    accounts = Retrieve("accounts");
+    //accounts = Retrieve("accounts");
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
                 if(pageName != "pp.html"){
                     welcomeMessage.innerHTML = "Welcome "+ account["username"];
-                    
+                    chklogin = true;
                 }
-                chklogin = true;
 
             }
         }
@@ -21,7 +20,7 @@ document.onreadystatechange = function () {
 
     if(!chklogin){
         console.log("problem");
-        window.location.replace("./login.html");
+        //window.location.replace("./login.html");
     }
 
     if (document.readyState == "interactive") {
@@ -421,7 +420,6 @@ document.onreadystatechange = function () {
                 +`<td>${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
                 +`</tr>`;
                 
-                count++;
                 total += parseFloat(fakepp[3][count]) * parseFloat(itemCost);
                 tbPrint.innerHTML += itemFields;
             })
@@ -1343,6 +1341,18 @@ function ArchiveRecord(){
         archivedRecords.push(orders.splice(parseInt(this.className), 1));
         Store("orders", orders, 1);
         refreshOrders();
+        ButtonFunctionality();
+    }
+    else if(pageName == "sales.html"){
+        archivedRecords.push(orders.splice(parseInt(this.className), 1));
+        Store("sales", orders, 1);
+        refreshSales();
+        ButtonFunctionality();
+    }
+    else if(pageName == "customers.html"){
+        archivedRecords.push(orders.splice(parseInt(this.className), 1));
+        Store("customers", orders, 1);
+        RefreshCustomers();
         ButtonFunctionality();
     }
     
