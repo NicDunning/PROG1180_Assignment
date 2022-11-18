@@ -416,7 +416,7 @@ document.onreadystatechange = function () {
                 +`<td>${fakepp[3][count]}</td>\n`
                 +`<td>${item["Details"]}</td>\n`
                 +`<td>${item["SerialNum"]}</td>\n`
-                +`<td>${itemCost}</td>\n`
+                +`<td>$ ${itemCost}</td>\n`
                 +`<td>${parseFloat(fakepp[3][count]) * parseFloat(itemCost)}</td>\n`
                 +`</tr>`;
                 
@@ -437,14 +437,14 @@ document.onreadystatechange = function () {
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Subtotal : </td>`
-            + `<td>$${total}</td></tr>`;
+            + `<td>$ ${total}</td></tr>`;
 
             tbPrint.innerHTML += `<tr>`
             + `<td>Thank you for your business!</td>`
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Tax</td>`
-            + `<td>$${total * 0.13}</td></tr>`
+            + `<td>$ ${total * 0.13}</td></tr>`
 
             tbPrint.innerHTML += `<tr>`
             + `<td></td>`
@@ -458,7 +458,7 @@ document.onreadystatechange = function () {
             + `<td></td>`
             + `<td></td>`
             + `<td style="font-weight: bold;">Balance Due</td>`
-            + `<td>${total + total * 0.13}</td></tr>`
+            + `<td>$ ${total + total * 0.13}</td></tr>`
 
             alt = document.getElementById("altcode");
             date = document.getElementById("date");
