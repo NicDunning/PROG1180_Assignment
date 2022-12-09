@@ -6,7 +6,7 @@ document.onreadystatechange = function () {
     var welcomeMessage = document.getElementById("welcome");
     var createAccount = document.getElementById("create");
     if(document.cookie == ""){InitialLoad()};
-    //accounts = Retrieve("accounts");
+    accounts = Retrieve("accounts");
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
