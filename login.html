@@ -81,7 +81,7 @@
         };
         create.addEventListener("click", function(){
             if(Retrieve("accounts") != ""){
-                accounts = Retrieve(accounts);
+                accounts = Retrieve("accounts");
             }
             var accountCreated = false;
             console.log(accounts);
