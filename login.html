@@ -33,6 +33,9 @@
         var create = document.getElementById("create");
         var usernameLogin = document.getElementById("username-login");
         var passwordLogin = document.getElementById("password-login");
+        if(Retrieve(accounts) != ""){
+                accounts = Retrieve(accounts);
+            }
         function swapVisible(){
             if(window.getComputedStyle(registerbox[0]).display === "none"){
                 registerbox[0].style.display = "block";
