@@ -223,10 +223,27 @@ customers = [
 accounts = [
     {
         username : "nicd123",
-        password : "passw0rd",
+        password : "password",
         lastlogin : "",
         lastlogout : "",
-        isloggedin : true
+        isloggedin : false,
+        AuthGroup : "admin"
+    },
+    {
+        username : "Admin",
+        password : "password",
+        lastlogin : "",
+        lastlogout : "",
+        isloggedin : false,
+        AuthGroup : "admin"
+    },
+    {
+        username : "Employee",
+        password : "password",
+        lastlogin : "",
+        lastlogout : "",
+        isloggedin : false,
+        AuthGroup : "employee"
     }
 ]
 
