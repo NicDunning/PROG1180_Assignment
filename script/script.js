@@ -27,8 +27,8 @@ document.onreadystatechange = function () {
 
 
     if(!chklogin){
-        console.log("problem");
-        //window.location.replace("./login.html");
+        //console.log("problem");
+        window.location.replace("./login.html");
     }
 
     if (document.readyState == "interactive") {
