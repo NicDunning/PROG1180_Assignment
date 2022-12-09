@@ -4,6 +4,7 @@ document.onreadystatechange = function () {
     var pageName = window.location.pathname.split("/").pop();
     var chklogin = false;
     var welcomeMessage = document.getElementById("welcome");
+    var createAccount = document.getElementById("create");
     if(document.cookie == ""){InitialLoad()};
     //accounts = Retrieve("accounts");
     accounts.forEach(account => {
@@ -12,11 +13,18 @@ document.onreadystatechange = function () {
                 if(pageName != "pp.html"){
                     welcomeMessage.innerHTML = "Welcome "+ account["username"];
                     chklogin = true;
+                    if(account["AuthGroup"] != "admin"){
+                        createAccount.style.visibility = "hidden";
+                    }
+                    else{
+                        createAccount.style.visibility = "visible";
+                    }
                 }
 
             }
         }
     })
+
 
     if(!chklogin){
         console.log("problem");
@@ -32,6 +40,8 @@ document.onreadystatechange = function () {
                 window.location.replace("./login.html");
             });
         }
+        
+
         if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");

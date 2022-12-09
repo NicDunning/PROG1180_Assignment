@@ -539,12 +539,23 @@ table input[type="submit"] {
 	padding-left: 15px;
 }
 
+
+
 #logout{
 	float: right;
 	font-size:small;
 	margin:13px 0px;
 	padding:0px;
 	text-align: center;
+}
+
+#create{
+	float: right;
+	font-size:small;
+	margin:13px 0px;
+	padding:0px;
+	text-align: center;
+	width: 100px;
 }
 
 /*******************

@@ -10,19 +10,19 @@
     
 </head>
 <body>
-    <div class="login-page">
+    <div class="login-page" >
       <div class="form">
-        <div class="register-form" onsubmit="event.preventDefault();">
+        <div class="register-form" onsubmit="event.preventDefault();" onload="create()">
           <input id="username-create" type="text" placeholder="Enter Username Here"/>
           <input id="password-create" type="password" placeholder="Enter Password Here" />
           <button id="create">create</button>
-          <p class="message">Already registered? <a href="#" onclick="swapVisible();">Sign In</a></p>
+          <!-- <p class="message">Already registered? <a href="#" onclick="swapVisible();">Sign In</a></p> -->
         </div>
         <div class="login-form" onsubmit="return false;">
           <input id="username-login" type="text" placeholder="Enter Username Here"/>
           <input id="password-login" type="password" placeholder="Enter Password Here"/>
           <button id="login">login</button>
-          <p class="message">Not registered? <a href="#" onclick="swapVisible();" >Create an account</a></p>
+          <!-- <p class="message">Not registered? <a href="#" onclick="swapVisible();" >Create an account</a></p> -->
         </div>
       </div>
     </div>
@@ -49,6 +49,15 @@
             }
         }
 
+
+
+        function check(){
+            console.log(window.location.href.split("#"));
+            if(window.location.href.split("#")[1] == "create"){
+                swapVisible();
+            }
+        }
+
         usernameLogin.addEventListener("keydown", checkKeyPressed, false);
         passwordLogin.addEventListener("keydown", checkKeyPressed, false);
         login.addEventListener("click", loginAction);
@@ -58,7 +67,6 @@
             }
             var log = false;
             accounts.forEach(account => {
-                console.log(account["username"] , usernameLogin.value , account["password"] , passwordLogin.value );
                 if(account["username"] == usernameLogin.value && account["password"] == passwordLogin.value){
                     account["isloggedin"] = true;
                     Store("accounts", accounts, 1);
@@ -75,6 +83,7 @@
             if(Retrieve(accounts) != ""){
                 accounts = Retrieve(accounts);
             }
+            var accountCreated = false;
             console.log(accounts);
             accounts.forEach(account => {
                 if(account["username"].toLowerCase() == document.getElementById("username-create").value.toLowerCase()){
@@ -96,10 +105,19 @@
                     swapVisible();
                     document.getElementById("username-create").value = "";
                     document.getElementById("password-create").value = "";
-                    alert("Account " + usernameLogin.value + " has been succesfully created.")
+                    accountCreated = true;
+                    
+
                 }
             }); 
+            
+            if(accountCreated){
+                alert("Account " + usernameLogin.value + " has been succesfully created.")
+                window.location.replace(`./${window.location.href.split("#")[2]}.html`);
+            }
         });
+        document.onreadystatechange = check();
+
     </script>
 </body>
 </html>
