@@ -64,14 +64,28 @@
             </div>
             <div class="row2" style="background-color: #fff4e6">
                 <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-                    <h2 >Edit Or Add Customers</h2>
+                    <div class="commits">
+                        <label id="status"></label>
+                        <input onclick="AdaptInputs('btnNew')" type="submit" value="New Entry" id="btnNew" class="toHide">
+                    </div>
+                    <h2 >Customer Details</h2>
                     <div style="position: relative;">
-                        <label for="custFullName" >Customer Full Name</label>
-                        <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
-                        <input type="text" id="custName" name="custName" placeholder="ex: Jim Browning" disabled>
+                        <label for="custFirstName" >Customer First Name</label>
+                        <img onclick="ToggleHelp('first-name-help')" title="Help" alt="Help" src="photos/Help.png">
+                        <input type="text" id="custFirstName" name="custFirst" placeholder="ex: Jim" disabled>
+                    </div>
+                    <div id="first-name-help" style="display: none;" class="first-name-help help">
+                        <p>Please provide the customer's first (given) name. <br>
+                           Maximum length is 50 characters. </p>
+                    </div>
+                    <br>
+                    <div style="position: relative;">
+                        <label for="custLastName" >Customer Last Name</label>
+                        <img onclick="ToggleHelp('last-name-help')" title="Help" alt="Help" src="photos/Help.png">
+                        <input type="text" id="custLastName" name="custLast" placeholder="ex: Browning" disabled>
                     </div>
                     <div id="full-name-help" style="display: none;" class="first-name-help help">
-                        <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
+                        <p>Please provide the customer's last (family) name. <br>
                            Maximum length is 50 characters. </p>
                     </div>
                     <br>
@@ -130,9 +144,8 @@
                     </div>
                     <br>
                     <div class="commits">
-                        <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
-                        <br>
-                        <input type="submit" value="New Entry" id="btnNew" class="toHide">
+                        <input style="display: none;" type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+                        <input onclick="EmptyStatus();" style="display: none;" type="submit" value="Clear Fields" id="btnClear" class="toHide">
                     </div>
                 </div>
             </div>

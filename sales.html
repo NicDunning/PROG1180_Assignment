@@ -18,7 +18,7 @@
     <div id="account">
       <p id="welcome">Welcome User</p>
       <a id="logout" href="./login.html">Logout</a>
-      <a id="create" href="./login.html#create#sales">Create New User</a>
+      <a id="create" href="./login.html#create#customers">Create New User</a>
     </div>
       <header>
       <div class="logo">
@@ -61,13 +61,17 @@
           </div>
           <div class="row2" style="background-color: #fff4e6">
             <div class="column-inv toHide input-style" style="background-color: #fff4e6">
+              <div class="commits">
+                <label id="status"></label>
+                <input onclick="AdaptInputs('btnNew')" type="submit" value="New Entry" id="btnNew" class="toHide">
+              </div>
               <div id="cust-info">
                 <h2>Sale Details</h2>
                 
                 <div class="invoice-code" style="position: relative;">
                   <label for="custInv">Invoice Number</label>
                   <img onclick="ToggleHelp('invoice-num-help')" title="Help" alt="Help" src="photos/Help.png">
-                  <input type="text" id="custInv" name="custInv" placeholder="12345">
+                  <input disabled type="text" id="custInv" name="custInv" placeholder="12345">
                 </div>
                 <br>
                 <div id="invoice-num-help" style="display: none;" class="invoice-code-help help">
@@ -77,7 +81,7 @@
                   <div style="position: relative;">
                   <label for="custFull">Full Name</label>
                   <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
-                  <input type="text" id="custFirst" name="custFirst" placeholder='ex: Jason Sloan'>
+                  <input disabled type="text" id="custFirst" name="custFirst" placeholder='ex: Jason Sloan'>
                 </div>
                 <div id="full-name-help" style="display: none;" class="first-name-help help">
                   <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
@@ -87,7 +91,7 @@
                 <div class="alternate code" style="position: relative;">
                   <label for="custAlt">Alternate Code</label>
                   <img onclick="ToggleHelp('alt-code-help')" title="Help" alt="Help" src="photos/Help.png">
-                  <input type="text" id="custAlt" name="custALt" placeholder="123">
+                  <input disabled type="text" id="custAlt" name="custALt" placeholder="123">
                 </div>
                 <br>
                 <div id="alt-code-help" style="display: none;" class="invoice-code-help help">
@@ -96,7 +100,7 @@
                 <div style="position: relative;">
                   <label for="ordItem">Date Ordered</label>
                   <img onclick="ToggleHelp('date-ordered-help')" title="Help" alt="Help" src="photos/Help.png">
-                  <input type="date" id="ordDate" name="ordDate">
+                  <input disabled type="date" id="ordDate" name="ordDate">
                 </div>
                 <div id="date-ordered-help" style="display: none;" class="date-ordered-help help">
                   <p>Please use the date picker to select the date the order was/is being placed.</p>
@@ -107,10 +111,9 @@
               <div class="commits" id="commits">
                 <div id="upcs-help" style="display: none;" class="invoice-code-help help">
                   <p>Please provide an amount followed by an 'X' and the UPC </p><br>
-                </div>
-                <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
-                <br>
-                <input type="submit" value="New Entry" id="btnNew" class="toHide">
+              </div>
+                <input style="display: none;" type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+                <input onclick="EmptyStatus();" style="display: none;" type="submit" value="Clear Fields" id="btnClear" class="toHide">
               </div>
             </div>
           </div>

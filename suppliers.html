@@ -18,7 +18,7 @@
   <div id="account">
     <p id="welcome">Welcome User</p>
     <a id="logout" href="./login.html">Logout</a>
-    <a id="create" href="./login.html#create#suppliers">Create New User</a>
+    <a id="create" href="./login.html#create#customers">Create New User</a>
   </div>
     <header>
       <div class="logo">
@@ -61,7 +61,11 @@
     </div>
     <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-            <h2 >Edit Or Add Suppliers </h2>
+          <div class="commits">
+            <label id="status"></label>
+            <input onclick="AdaptInputs('btnNew')" type="submit" value="New Entry" id="btnNew" class="toHide">
+          </div>
+            <h2 >Supplier Details</h2>
             <div  style="position: relative;">
                 <label for="supName" >Supplier Name</label>
                 <img onclick="ToggleHelp('supplier-name-help')" title="Help" alt="Help" src="photos/Help.png">
@@ -126,11 +130,10 @@
                    If in doubt, simply input in the 10 or 11 digits.</p>
             </div>
             <br>
-            <div class="commits">
-                <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
-                <br>
-                <input type="submit" value="New Entry" id="btnNew" class="toHide">
-            </div>
+          <div class="commits">
+            <input style="display: none;" type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+            <input onclick="EmptyStatus();" style="display: none;" type="submit" value="Clear Fields" id="btnClear" class="toHide">
+          </div>
         </div>
     </div>
 </div>

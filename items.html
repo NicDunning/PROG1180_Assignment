@@ -15,7 +15,7 @@
   <div id="account">
     <p id="welcome">Welcome User</p>
     <a id="logout" href="./login.html">Logout</a>
-    <a id="create" href="./login.html#create#items">Create New User</a>
+    <a id="create" href="./login.html#create#customers">Create New User</a>
   </div>
     <header>
       <div class="logo">
@@ -57,7 +57,11 @@
     </div>
     <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv input-style" style="background-color: #fff4e6">
-            <h2>Edit Or Add Items </h2>
+          <div class="commits">
+            <label id="status"></label>
+            <input onclick="AdaptInputs('btnNew')" type="submit" value="New Entry" id="btnNew">
+          </div>
+            <h2>Item Details</h2>
             <div style="position: relative;">
                 <label for="upc">UPC</label>
                 <img onclick="ToggleHelp('upc-help')" title="Help" alt="Help" src="photos/Help.png">
@@ -119,8 +123,8 @@
             </div>
             <br>
             <div class="commits">
-                <input type="submit" value="Commit Changes" id="btnCommit"><br>
-                <input type="submit" value="New Entry" id="btnNew">
+              <input style="display: none;" type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+              <input onclick="EmptyStatus();" style="display: none;" type="submit" value="Clear Fields" id="btnClear" class="toHide">
             </div>
         </div>
     </div>

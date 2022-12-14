@@ -12,11 +12,11 @@
     <script src="script\script.js"></script>  
 </head>
 <body>
-  <div id="account">
-    <p id="welcome">Welcome User</p>
-    <a id="logout" href="./login.html">Logout</a>
-    <a id="create" href="./login.html#create#ordering">Create New User</a>
-  </div>
+    <div id="account">
+      <p id="welcome">Welcome User</p>
+      <a id="logout" href="./login.html">Logout</a>
+      <a id="create" href="./login.html#create#customers">Create New User</a>
+    </div>
     <header>
       <div class="logo">
         <a title="INVSYS Home" class="img-anc" href="index.html">
@@ -56,18 +56,33 @@
       </div>
       <div class="row2" style="background-color: #fff4e6">
         <div class="column-inv toHide input-style" style="background-color: #fff4e6">
-          <div id="cust-info">
+          <div  id="cust-info">
+            <div class="commits">
+              <label id="status"></label>
+              <input onclick="AdaptInputs('btnNew')" type="submit" value="New Entry" id="btnNew" class="toHide">
+            </div>
+            <div>
             <h2>Order Details</h2>
             <div  style="position: relative;">
-              <label for="custFull">Full Name</label>
-              <img onclick="ToggleHelp('full-name-help')" title="Help" alt="Help" src="photos/Help.png">
-              <input type="text" id="custFirst" name="custFirst" placeholder='ex: John Smith' disabled>
+              <label for="custFirst">Full Name</label>
+              <img onclick="ToggleHelp('first-name-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custFirst" name="custFirst" placeholder='ex: John' disabled>
             </div>
-            <div id="full-name-help" style="display: none;" class="first-name-help help">
-              <p>Please provide the customer's first (given) name and last (family) name seperated by a space. <br>
+            <div id="first-name-help" style="display: none;" class="first-name-help help">
+              <p>Please provide the customer's full name. (First and Last(Family) names) <br>
                  Maximum length is 50 characters. </p>
             </div>
             <br>
+            <!-- <div  style="position: relative;">
+              <label for="custLast">Last Name</label>
+              <img onclick="ToggleHelp('last-name-help')" title="Help" alt="Help" src="photos/Help.png">
+              <input type="text" id="custLast" name="custLast" placeholder='ex: Smith' disabled>
+            </div>
+            <div id="last-name-help" style="display: none;" class="last-name-help help">
+              <p>Please provide the customer's last (family) name. <br>
+                 Maximum length is 50 characters. </p>
+            </div>
+            <br> -->
             <div class="invoice-code"  style="position: relative;">
               <label for="custInv">Invoice Number</label>
               <img onclick="ToggleHelp('invoice-code-help')" title="Help" alt="Help" src="photos/Help.png">
@@ -85,36 +100,13 @@
             <div id="date-ordered-help" style="display: none;" class="date-ordered-help help">
               <p>Please use the date picker to select the date the order was/is being placed.</p>
             </div>
-            <br>
-            <!-- <div class="Item0"  style="position: relative;">
-              <label for="ordUPC">Item</label>
-              <img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">
-              <input type="button" id="clear0" value="clear" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
-              <input type="text" class="ordUPC" name="ordUPC" placeholder='ex: 2x123456789023' style="max-width: 185px;">
-              <input type="button" id="add0" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small"disabled>
-            </div>
-            <br>
-            <div class="Item1"  style="position: relative;">
-              <label for="ordUPC">Item</label>
-              <img onclick="ToggleHelp('upcs-help')" title="Help" alt="Help" src="photos/Help.png">
-              <input type="button" id="clear1" value="clear" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small" disabled>
-              <input type="text" class="ordUPC" name="ordUPC" placeholder='ex: 1x210987654321' style="max-width: 185px;" disabled>
-              <input type="button" id="add1" value="add" style="width:60px; height:40px; margin:5px; padding:5px; font-size:small">
-            </div> -->
-            <!-- <div id="upcs-help" style="display: none;" class="upcs-help help">
-              <p>Please provide the quantity and UPC(s) of the item(s) included in the order. <br>
-                Format example:<br>
-                "1x123456789012, 3x123456789013"<br>
-                The above would represent 1 of the first item and 3 of the second.</p>
-            </div> -->
-            <!-- <br> -->
-            
           </div>
-          <div class="commits" id="commits">
-            <input type="submit" value="Commit Changes" id="btnCommit" class="toHide">
-            <br>
-            <input type="submit" value="New Entry" id="btnNew" class="toHide">
+          <br>
           </div>
+        <div class="commits">
+            <input style="display: none;" type="submit" value="Commit Changes" id="btnSubmit" class="toHide">
+            <input onclick="EmptyStatus();" style="display: none;" type="submit" value="Clear Fields" id="btnClear" class="toHide">
+        </div>
         </div>
       </div>
     </div>
