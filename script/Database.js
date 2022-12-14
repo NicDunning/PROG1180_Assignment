@@ -179,7 +179,8 @@ orders = [
 
 customers = [
     {
-        "Name" : "Will Smith",
+        "FirstName" : "Will",
+        "LastName" : "Smith",
         "Street" : "1411 Jacobson Parkway",
         "City" : "Toronto",
         "Province" : "Ontario",
@@ -187,7 +188,8 @@ customers = [
         "PhoneNumber" : "123-456-7890"
     },
     {
-        "Name" : "Tom Hanks",
+        "FirstName" : "Tom",
+        "LastName" : "Hanks",
         "Street" : "123 Walloughby Way",
         "City" : "Toronto",
         "Province" : "Ontario",
@@ -195,7 +197,8 @@ customers = [
         "PhoneNumber" : "123-456-7890"
     },
     {
-        "Name" : "John Jackson",
+        "FirstName" : "John",
+        "LastName" : "Jackson",
         "Street" : "1411 Jacobson Parkway",
         "City" : "Toronto",
         "Province" : "Ontario",
@@ -203,7 +206,8 @@ customers = [
         "PhoneNumber" : "123-456-7890"
     },
     {
-        "Name" : "Jamie Jameson",
+        "FirstName" : "Jamie",
+        "LastName" : "Jameson",
         "Street" : "123 Walloughby Way",
         "City" : "Toronto",
         "Province" : "Ontario",
@@ -211,7 +215,8 @@ customers = [
         "PhoneNumber" : "123-456-7890"
     },
     {
-        "Name" : "James Jones",
+        "FirstName" : "James",
+        "LastName" : "Jones",
         "Street" : "1411 Randall Court",
         "City" : "Toronto",
         "Province" : "Ontario",
@@ -1026,7 +1031,7 @@ function editManufacturer(supName, supStreet, supCity, supProv, supPost, supPhon
     return funcStatus
 }
 
-function addCustomer(custName, custStreet, custCity, custProv, custPost, custPhone) {
+function addCustomer(custFirstName, custLastName, custStreet, custCity, custProv, custPost, custPhone) {
     let funcStatus = "Failed to add customer."
 
     // pull down array of manufacturers
@@ -1043,7 +1048,7 @@ function addCustomer(custName, custStreet, custCity, custProv, custPost, custPho
     index = -1;
     customers.forEach( item => {
         // console.log(item, custID, custName);
-        if((item["Name"] == custName)){
+        if((item["FirstName"] == custFirstName)&&(item["LastName"] == custLastName)){
             index = customers.indexOf(item);
         }
     })
@@ -1055,7 +1060,8 @@ function addCustomer(custName, custStreet, custCity, custProv, custPost, custPho
     // build new object
     let newcustplier = 
     {
-        "Name" : custName,
+        "FirstName" : custFirstName,
+        "LastName" : custLastName,
         "Street" : custStreet,
         "City" : custCity,
         "Province" : custProv,
@@ -1079,7 +1085,7 @@ function addCustomer(custName, custStreet, custCity, custProv, custPost, custPho
     return funcStatus
 }
 
-function editCustomer(custName, custStreet, custCity, custProv, custPost, custPhone) {
+function editCustomer(custFirstName, custLastName, custStreet, custCity, custProv, custPost, custPhone) {
     let funcStatus = "Failed to edit customer."
     // pull down array of manufacturers
     if(document.cookie != ""){
@@ -1088,7 +1094,7 @@ function editCustomer(custName, custStreet, custCity, custProv, custPost, custPh
     else{
     }
     // check for missing manufacturer in array and store index for slice
-    let index = customers.findIndex(customer => customer["Name"] == custName)
+    let index = customers.findIndex(customer => customer["FirstName"] == custFirstName)
     if (index === -1) {
         funcStatus = "The customer you are trying to edit does not exist."
         return funcStatus
@@ -1098,7 +1104,8 @@ function editCustomer(custName, custStreet, custCity, custProv, custPost, custPh
     // update manufacturer, ignoring any nulls
     customers[index]= 
     {
-        "Name" : custName,
+        "FirstName" : custFirstName,
+        "LastName" : custLastName,
         "Street" : custStreet,
         "City" : custCity,
         "Province" : custProv,
