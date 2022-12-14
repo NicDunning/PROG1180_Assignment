@@ -16,9 +16,11 @@ document.onreadystatechange = function () {
                     chklogin = true;
                     if(account["AuthGroup"] != "admin"){
                         createAccount.style.visibility = "hidden";
+                        createAccount.style.display = "none";
                     }
                     else{
                         createAccount.style.visibility = "visible";
+                        createAccount.style.display = "block";
                     }
                 }
 
