@@ -6,8 +6,8 @@ document.onreadystatechange = function () {
     var welcomeMessage = document.getElementById("welcome");
     var createAccount = document.getElementById("create");
     if(document.cookie == ""){InitialLoad()};
-    accounts = Retrieve("accounts");
-    Store("accounts", accounts, 1);
+    //accounts = Retrieve("accounts");
+    //Store("accounts", accounts, 1);
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
@@ -26,7 +26,6 @@ document.onreadystatechange = function () {
         }
     })
 
-
     if(!chklogin){
         //console.log("problem");
         window.location.replace("./login.html");
@@ -41,8 +40,6 @@ document.onreadystatechange = function () {
                 window.location.replace("./login.html");
             });
         }
-        
-
         if(pageName == "inventory.html"){
             RefreshInventoryDisplayedData();
             btnNew = document.getElementById("btnNew");
@@ -91,6 +88,7 @@ document.onreadystatechange = function () {
                 else{alert(editInventoryItem(upc, quantity, cost, dateReceived));}
                 RefreshInventoryDisplayedData();
                 lockFields();
+                EmptyStatus();
             })
         
             // buttons in table have OnClick
@@ -118,6 +116,7 @@ document.onreadystatechange = function () {
                     unlockFields();
                 }
             });
+            btnCommit = document.getElementById("btnSubmit");
             btnCommit.addEventListener("click", function(){
                 upc = document.getElementById("upc").value;
                 Status = document.getElementById("status").checked;
@@ -142,7 +141,7 @@ document.onreadystatechange = function () {
                 else{alert(editProduct(upc, Status, Name, details, manfactid, serialnum));}
                 RefreshItemsDisplayedData();
                 lockFields();
-                RefreshItemsDisplayedData();
+                EmptyStatus();
             })
             RefreshItemsDisplayedData();
             ButtonFunctionality();
@@ -173,6 +172,7 @@ document.onreadystatechange = function () {
                     unlockFields();
                 }
             });
+            btnCommit = document.getElementById("btnSubmit");
             btnCommit.addEventListener("click", function(){
                 UPCsandQuant = document.querySelectorAll("#ordUPC");
                 UPCs = [];
@@ -203,7 +203,7 @@ document.onreadystatechange = function () {
                 else{alert(editOrder(invoiceID, UPCs, Quants, orderdate, customername));}
                 refreshOrders();
                 lockFields();
-                refreshOrders();
+                EmptyStatus();
             })
         }
 
@@ -236,6 +236,7 @@ document.onreadystatechange = function () {
 
 
             });
+            btnCommit = document.getElementById("btnSubmit");
             btnCommit.addEventListener("click", function(){
                 supName = document.getElementById("supName").value;;
                 supStreet = document.getElementById("supStreet").value;
@@ -260,7 +261,7 @@ document.onreadystatechange = function () {
                 else{alert(editManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone));}
                 RefreshSuppliers();
                 lockFields();
-                RefreshSuppliers();
+                EmptyStatus();
             })
         }
 
@@ -293,8 +294,10 @@ document.onreadystatechange = function () {
 
 
             });
+            btnCommit = document.getElementById("btnSubmit");
             btnCommit.addEventListener("click", function(){
-                custName = document.getElementById("custName").value;;
+                custFirstName = document.getElementById("custFirstName").value;
+                custLastName = document.getElementById("custLastName").value;
                 custStreet = document.getElementById("custStreet").value;
                 custCity = document.getElementById("custCity").value;
                 custProv = document.getElementById("custProv").value;
@@ -303,7 +306,8 @@ document.onreadystatechange = function () {
                 add = true;
                 checkitem = 
                 {
-                    "Name" : custName,
+                    "FirstName" : custFirstName,
+                    "LastName" : custLastName,
                     "Street": custStreet,
                     "City": custCity,
                     "Prov": custProv,
@@ -311,13 +315,13 @@ document.onreadystatechange = function () {
                     "Phone": custPhone
                 };
                 customers.forEach(item => {
-                    if(item["Name"] == checkitem["Name"]){add = false;}
+                    if(item["FirstName"] == checkitem["FirstName"] && item["LastName"] == checkitem["LastName"]){add = false;}
                 });
-                if(add){alert(addCustomer(custName, custStreet, custCity, custProv, custPost, custPhone));}
-                else{alert(editCustomer(custName, custStreet, custCity, custProv, custPost, custPhone));}
+                if(add){alert(addCustomer(custFirstName, custLastName, custStreet, custCity, custProv, custPost, custPhone));}
+                else{alert(editCustomer(custFirstName, custLastName, custStreet, custCity, custProv, custPost, custPhone));}
                 RefreshCustomers();
                 lockFields();
-                RefreshCustomers();
+                EmptyStatus();
             })
         }
 
@@ -346,7 +350,7 @@ document.onreadystatechange = function () {
                     unlockFields();
                 }
             });
-
+            btnCommit = document.getElementById("btnSubmit");
             btnCommit.addEventListener("click", function(){
                 UPCsandQuant = document.querySelectorAll("#ordUPC");
                 UPCs = [];
@@ -379,7 +383,7 @@ document.onreadystatechange = function () {
                 else{alert(editSale(invoiceID, UPCs, Quants, orderdate, customername, altcode));}
                 refreshSales();
                 lockFields();
-                refreshSales();
+                EmptyStatus();
             })
         }
         if(pageName == "pp.html"){
@@ -520,6 +524,7 @@ function ButtonFunctionality(){
     deleteButtons = document.querySelectorAll("td > input.delete");
     deleteButtons.forEach( button => {
         button.addEventListener("click", ArchiveRecord);
+        button.addEventListener("click", AdaptInputs("btnDelete"));
     })
     ppButtons = document.querySelectorAll("td > input.print")
     ppButtons.forEach( button => {
@@ -531,12 +536,12 @@ function unlockFields(){
     var inputs = document.querySelectorAll("div > input");
     inputs.forEach(input => {
         input.disabled = false;
-        if(input.value == "New Entry"){
-            input.value = "Clear Fields";
-        }
-        else if(input.value == "Clear Fields"){
-            input.value = "New Entry";
-        }
+        // if(input.value == "New Entry"){
+        //     input.value = "Clear Fields";
+        // }
+        // else if(input.value == "Clear Fields"){
+        //     input.value = "New Entry";
+        // }
     })
     disableInputsOrders();
 }
@@ -564,6 +569,8 @@ function clearInputs(){
             input.disabled = true;
         }
     });
+
+    btnNew.disabled = false;
 }
 
 function RefreshInventoryDisplayedData(){
@@ -782,16 +789,16 @@ function refreshOrders(){
     RefreshAutoCompletes();
     ButtonFunctionality();
     // Sort Functionality
-    document.getElementById("Invoice#Header").addEventListener("click", function(){
-        sortAsc = !sortAsc;
-        orders = SortInventoryOnHand(orders, sortAsc, "InvoiceID");
-        Store("orders", orders, 1);
-        refreshOrders();
-        if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
-            buttonValue = this.value;
-        }
-        document.getElementById("Invoice#Header").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
-    });
+    // document.getElementById("Invoice#Header").addEventListener("click", function(){
+    //     sortAsc = !sortAsc;
+    //     orders = SortInventoryOnHand(orders, sortAsc, "InvoiceID");
+    //     Store("orders", orders, 1);
+    //     refreshOrders();
+    //     if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
+    //         buttonValue = this.value;
+    //     }
+    //     document.getElementById("Invoice#Header").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+    // });
     document.getElementById("DatePlacedHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         orders = SortInventoryOnHand(orders, sortAsc, "OrderDate");
@@ -890,7 +897,7 @@ function RefreshSuppliers(){
 function RefreshCustomers(){
     // Init Variables
     const tblCustomers = document.getElementById("tbSupplier");
-    var tblCustomersHeaders = ["Name", "Street", "City", "Province" , "PostCode" , "PhoneNumber" , "Modify"];
+    var tblCustomersHeaders = ["FirstName", "LastName", "Street", "City", "Province" , "PostCode" , "PhoneNumber" , "Modify"];
     var tblCustomersHTML = "<tr>";
     tblCustomers.innerHTML = "";
     // Foreach value in headers make a column.
@@ -912,7 +919,8 @@ function RefreshCustomers(){
     customers.forEach(item => {
         itemRow += `<tr>`;
 
-        itemRow += `<td>${item["Name"]}</td>`
+        itemRow += `<td>${item["FirstName"]}</td>`
+        +`<td>${item["LastName"]}</td>`
         +`<td>${item["Street"]}</td>`
         +`<td>${item["City"]}</td>`
         +`<td>${item["Province"]}</td>`
@@ -940,7 +948,7 @@ function RefreshCustomers(){
     //     }
     //     document.getElementById("SupplierIDHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
     // });
-    document.getElementById("NameHeader").addEventListener("click", function(){
+    document.getElementById("FirstNameHeader").addEventListener("click", function(){
         sortAsc = !sortAsc;
         customers = SortInventoryOnHand(customers, sortAsc, "Name");
         Store("customers", customers, 1);
@@ -948,7 +956,7 @@ function RefreshCustomers(){
         if(!(this.value.includes("▲")) && !(this.value.includes("▼"))){
             buttonValue = this.value;
         }
-        document.getElementById("NameHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
+        document.getElementById("FirstNameHeader").value = buttonValue + `${sortAsc ? "▲":"▼"}`;;
     });
     // document.getElementById("DateReceivedHeader").addEventListener("click", function(){
     //     sortAsc = !sortAsc;
@@ -1142,7 +1150,8 @@ function sendToEdit(){
         }
         var selectedItem = customers[parseInt(this.className)];
 
-        document.getElementById("custName").value = selectedItem["Name"];
+        document.getElementById("custFirstName").value = selectedItem["FirstName"];
+        document.getElementById("custLastName").value = selectedItem["LastName"];
         document.getElementById("custStreet").value = selectedItem["Street"];
         document.getElementById("custCity").value = selectedItem["City"];
         document.getElementById("custProv").value = selectedItem["Province"];
@@ -1184,7 +1193,7 @@ function sendToEdit(){
         document.getElementById("custAlt").value = selectedItem["AltCode"];
         document.getElementById("ordDate").value = String(selectedItem["OrderDate"]);
     }
-
+    AdaptInputs("btnEdit");
 };
 
 function sendToPP(){
@@ -1355,13 +1364,13 @@ function ArchiveRecord(){
         ButtonFunctionality();
     }
     else if(pageName == "sales.html"){
-        archivedRecords.push(orders.splice(parseInt(this.className), 1));
+        archivedRecords.push(sales.splice(parseInt(this.className), 1));
         Store("sales", orders, 1);
         refreshSales();
         ButtonFunctionality();
     }
     else if(pageName == "customers.html"){
-        archivedRecords.push(orders.splice(parseInt(this.className), 1));
+        archivedRecords.push(customers.splice(parseInt(this.className), 1));
         Store("customers", orders, 1);
         RefreshCustomers();
         ButtonFunctionality();
@@ -1399,7 +1408,8 @@ function RefreshAutoCompletes(){
         autocomplete(document.getElementById("ordDate"), generateListForAutocomplete(orders, "OrderDate"));
     }
     if(pageName == "customers.html"){
-        autocomplete(document.getElementById("custName"), generateListForAutocomplete(customers, "Name"));
+        autocomplete(document.getElementById("custFirstName"), generateListForAutocomplete(customers, "FirstName"));
+        autocomplete(document.getElementById("custLastName"), generateListForAutocomplete(customers, "LastName"));
         autocomplete(document.getElementById("custStreet"), generateListForAutocomplete(customers, "Street"));
         autocomplete(document.getElementById("custCity"), generateListForAutocomplete(customers, "City"));
         autocomplete(document.getElementById("custProv"), generateListForAutocomplete(customers, "Province"));
@@ -1428,4 +1438,30 @@ function ToggleHelp(elementID) {
     h.style.display = h.style.display == "none" ? "block" : "none";
 }
 
+function AdaptInputs(buttonID) {
+    switch(buttonID) {
+        case 'btnNew':
+            document.getElementById("status").textContent = "Operation Status: Add New Record";
+            unlockFields();
+            btnSubmit.style = "display: inline;";
+            btnSubmit.value = "Add Record";
+            btnClear.style = "display: inline;";
+            btnNew.disabled = true;
+            break;
+        case 'btnEdit':
+            document.getElementById("status").textContent = "Operation Status: Edit Selected Record";
+            btnSubmit.style = "display: inline;";
+            btnSubmit.value = "Submit Changes";
+            btnClear.style = "display: inline;";
+            btnNew.disabled = false;
+            break;
+        case 'btnCommit':
+            EmptyStatus();
+            break;
+    }
+}
 
+function EmptyStatus(){
+    clearInputs();
+    document.getElementById("status").textContent = "";
+}
