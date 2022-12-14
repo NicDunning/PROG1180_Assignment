@@ -11,7 +11,23 @@
 	margin: 10px 30px 10px 10px;
 	
 }
+table.report > tbody > tr > td{
+	font-size: 22px;
+	min-width: 200px;
+}
+table.report > tbody > th{
+	background-color: whitesmoke;
+}
+table.report > tbody > tr{
+	height: 75px;
+}
 
+.report{
+	margin-top: 20px;
+	border: 5px solid black;
+	width: 100%;
+	padding: 5px;
+}
 /* .column for print preview page */
 .column {
 	margin-left: 50px;
@@ -558,6 +574,14 @@ table input[type="submit"] {
 	width: 100px;
 }
 
+#generateReport{
+	float: right;
+	font-size:small;
+	margin:13px 0px;
+	padding:0px;
+	text-align: center;
+	width: 100px;
+}
 /*******************
 * Sea's Additions *
 *******************/

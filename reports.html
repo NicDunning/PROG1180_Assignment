@@ -15,9 +15,11 @@
         <script src="script\script.js"></script>  
     </head>
     <body>
-        <div id="account" style="padding-bottom: 40px;">
-            <p id="welcome" style="float: left; font-size: small; margin:13px 0px; padding: 0px;">Welcome User</p>
-            <a id="logout" href="./login.html" style="float: right; font-size:small; margin:13px 0px; padding:0px; text-align: center;">Logout</a>
+        <div id="account">
+            <p id="welcome">Welcome User</p>
+            <a id="logout" href="./login.html">Logout</a>
+            <a id="create" href="./login.html#create#invoice">Create New User</a>
+            <a id="generateReport" href="./reports.html">Generate Reports</a>
         </div>
         <header>
             <div class="logo">
@@ -52,38 +54,152 @@
                 </nav>
         </header>
         <div style="padding: 5%;">
-            <div style="width: 100%; border: 5px solid black; height:30rem;">
+            <div style="border: 5px solid black; height:10.1rem;">
                 <div style="height: 100px;">
                     <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
-                        <label style="font-size: 16px;">Report for :</label>
-                        <select style="font-size: 16px;">
+                        <label style="font-size: 24px;">Report for :</label>
+                        <select style="font-size: 24px;" id="reportType" onchange="ReportDDLChange();">
                             <option>Choose an Option</option>
-                            <option>Invoices</option>
-                            <option>Orders</option>
+                            <option>Sales</option>
+                            <option>Inventory</option>
+                            <option>Employees</option>
                         </select>
-                        <label style="font-size: 16px;">Placed </label>
-                        <select style="font-size: 16px;">
+                        <label style="font-size: 24px;">Placed </label>
+                        <select style="font-size: 24px;" id="dateCriteria" onchange="ReportDDLChange();">
                             <option>Choose an Option</option>
                             <option>Before</option>
                             <option>After</option>
                             <option>On</option>
+                            <option>Between</option>
                         </select>
-                        <input type="date" style="font-size: 16px;">
-                        <select style="font-size: 16px;">
-                            <option>Containing Item : </option>
+                        <input type="date" style="font-size: 24px;">
+                        <p style="margin:0 10px 0 10px; font-size: 24px; display:none; visibility:hidden;" id="pAnd">And</p>
+                        <input type="date" style="font-size: 24px; display:none; visibility:hidden;" id="dateAnd">
+                        <select style="font-size: 24px;" id="contentCriteria">
                             <option>Ordered By Customer :</option>
+                            <option>Quantity Equals :</option>
+                            <option>Quantity Less Than :</option>
+                            <option>Quantity Greater Than :</option>
+                            <option>Contains :</option>
+                            <option>Does Not Contain :</option>
                         </select>
-                        <input type="text" style="font-size: 16px;">
-                        
+                        <input type="text" style="font-size: 24px;" id="input"><br>
+                        <!-- <p style="font-size:24px; margin: 0 0 0 10px">Inventory: Show All 0 Inventory</p>
+                        <input type="checkbox"> -->
                     </div>
                     <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
-                        <input type="button" value="Generate Report" style="margin: 20px;">
-                    </div>
-                    <div style="display: flex; justify-content:center; align-items:center; border: 1px solid black; margin: 10px;">
-                        Report goes here
+                        <input type="button" value="Generate Report" style="margin: 20px;" onclick="genReport();">
                     </div>
                 </div>
             </div>
+            <table border="0" id="saleReport" class="report" style="display: none;">
+                <tbody>
+                   <tr>
+                      <th>Invoice</th>
+                      <th>Customer</th>
+                      <th>Date Placed</th>
+                      <th>Item UPC(s)</th>
+                      <th>Quantity</th>
+                      <th>Alt Code</th>
+                   </tr>
+                </tbody>
+                <tbody>
+                   <tr>
+                      <td>1002</td>
+                      <td>John Jackson</td>
+                      <td>2022-12-13</td>
+                      <td>123456789013</td>
+                      <td>2<br></td>
+                      <td>1002</td>
+                   </tr>
+                   <tr>
+                      <td>1001</td>
+                      <td>James Jones</td>
+                      <td>2022-12-12</td>
+                      <td>123456789013</td>
+                      <td>2<br></td>
+                      <td>1001</td>
+                   </tr>
+                   <tr>
+                      <td>1004</td>
+                      <td>Jamie Jameson</td>
+                      <td>2022-12-13</td>
+                      <td>123456789012</td>
+                      <td>2<br></td>
+                      <td>1003</td>
+                   </tr>
+                </tbody>
+             </table>
+             <table border="0" id="employeeReport" class="report" style="display: none;">
+                <tbody>
+                   <tr>
+                      <th>Employee</th>
+                      <th>Last Logged In</th>
+                      <th>Last Logged Out</th>
+                      <th>Authentication Level</th>
+                   </tr>
+                </tbody>
+                <tbody>
+                   <tr>
+                      <td>Emma Motor</td>
+                      <td>08:00 2022-12-13</td>
+                      <td>17:00 2022-12-13</td>
+                      <td>Manager</td>
+                   </tr>
+                   <tr>
+                      <td>Eugene Einstein</td>
+                      <td>09:00 2022-12-10</td>
+                      <td>10:00 2022-12-10</td>
+                      <td>Technician</td>
+                   </tr>
+                   <tr>
+                    <td>Wendy Williams</td>
+                    <td>11:00 2022-12-10</td>
+                    <td>13:00 2022-12-10</td>
+                    <td>Sales</td>
+                 </tr>
+                   <tr>
+                      <td>Emily Erickson</td>
+                      <td>13:00 2022-12-09</td>
+                      <td>15:00 2022-12-09</td>
+                      <td>Admin</td>
+                   </tr>
+                </tbody>
+             </table>
+             <table border="0" id="inventoryReport" class="report" style="display: none;">
+                <tbody>
+                   <tr>
+                      <th>Name</th>
+                      <th>UPC</th>
+                      <th>Quantity</th>
+                      <th>Date Recieved</th>
+                      <th>Cost</th>
+                   </tr>
+                </tbody>
+                <tbody>
+                   <tr>
+                      <td>12-Inch Wrench</td>
+                      <td>123456789012</td>
+                      <td>10</td>
+                      <td>2022-12-13</td>
+                      <td>2.00</td>
+                   </tr>
+                   <tr>
+                      <td>Phillips Head Size 2 Screw Driver</td>
+                      <td>123456789013</td>
+                      <td>2</td>
+                      <td>2022-12-14</td>
+                      <td>2.50</td>
+                   </tr>
+                   <tr>
+                      <td>Philips Head Size 2 Screw</td>
+                      <td>123456789014</td>
+                      <td>4</td>
+                      <td>2022-12-11</td>
+                      <td>3.00</td>
+                   </tr>
+                </tbody>
+             </table>
         </div>
         <footer>
             PROG1180 ComicSans INVSYS 
