@@ -487,6 +487,91 @@ document.onreadystatechange = function () {
     }
 }
 
+function ReportDDLChange(){
+    reportTypeDDL = document.getElementById("reportType");
+    dateCriteriaDDL = document.getElementById("dateCriteria");
+    contentsDDL = document.getElementById("contentCriteria");
+    dateAnd = document.getElementById("dateAnd");
+    pAnd = document.getElementById("pAnd");
+    input = document.getElementById("input");
+
+    salesList = ["Contains Item:", "Does Not Contain Item:", "Customer Name :", "Employee Name :"];
+    inventoryList = ["Ordered By Customer :", "Quantity =", "Quantity <", "Quantity >", "Contains :", "Does Not Contain :"];
+    employeesList = ["Last Logged In :", "Time Logged >", "Time Logged <", "Time Logged =", "Authentication Level >", "Authentication Level <", "Authentication Level ="];
+
+    reportType = reportTypeDDL.value;
+
+    while(contentsDDL.options.length > 0){
+        contentsDDL.remove(0);
+    }
+    
+    input.value = "";
+    count = 0;
+    switch(reportType)
+    {
+        case "Sales":
+            salesList.forEach( option => {
+                let optionAdd = new Option(option, count); 
+                contentsDDL.add(optionAdd, undefined);
+                count++;
+            });
+            break;
+        case "Inventory":
+            inventoryList.forEach( option => {
+                let optionAdd = new Option(option, count); 
+                contentsDDL.add(optionAdd, undefined);
+                count++;
+            });
+            break;
+        case "Employees":
+            employeesList.forEach( option => {
+                let optionAdd = new Option(option, count); 
+                contentsDDL.add(optionAdd, undefined);
+                count++;
+            });
+            break;
+    }
+
+    if(dateCriteriaDDL.value != "Between"){
+        pAnd.style.visibility = "hidden";
+        pAnd.style.display = "none";
+        dateAnd.style.visibility = "hidden";
+        dateAnd.style.display = "none";
+    }
+    else{
+        pAnd.style.visibility = "visible";
+        pAnd.style.display = "block";
+        dateAnd.style.visibility = "visible";
+        dateAnd.style.display = "block";
+    }
+    
+} 
+
+function genReport(){
+    switch(document.getElementById("reportType").value){
+        case "Sales":
+            document.getElementById("inventoryReport").style.display = "none";
+            document.getElementById("employeeReport").style.display = "none";
+            document.getElementById("saleReport").style.display = "block";
+            break;
+        case "Inventory":
+            document.getElementById("inventoryReport").style.display = "block";
+            document.getElementById("employeeReport").style.display = "none";
+            document.getElementById("saleReport").style.display = "none";
+            break;
+        case "Employees":
+            document.getElementById("inventoryReport").style.display = "none";
+            document.getElementById("employeeReport").style.display = "block";
+            document.getElementById("saleReport").style.display = "none";
+            break;
+        default:
+            document.getElementById("inventoryReport").style.display = "none";
+            document.getElementById("employeeReport").style.display = "none";
+            document.getElementById("saleReport").style.display = "none";
+            break;
+    }
+}
+
 function InitialLoad(){
     itemsOnHand = JoinDB(onHandInventory, items, "UPC");
     Store("itemsOnHand", itemsOnHand, 1);
