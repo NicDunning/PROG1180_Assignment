@@ -6,8 +6,8 @@ document.onreadystatechange = function () {
     var welcomeMessage = document.getElementById("welcome");
     var createAccount = document.getElementById("create");
     if(document.cookie == ""){InitialLoad()};
-    //accounts = Retrieve("accounts");
-    //Store("accounts", accounts, 1);
+    accounts = Retrieve("accounts");
+    Store("accounts", accounts, 1);
     accounts.forEach(account => {
         if(pageName != "login.html"){
             if(account["isloggedin"]){
@@ -25,6 +25,7 @@ document.onreadystatechange = function () {
             }
         }
     })
+
 
     if(!chklogin){
         //console.log("problem");
