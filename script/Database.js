@@ -948,11 +948,11 @@ function addManufacturer(supName, supStreet, supCity, supProv, supPost, supPhone
     }
     else{
     }
-    // check for duplicate manufacturer
-    // if (manufacturers.getIndex(manufacturer => manufacturer["Name"] === name) != -1) {
-    //     let funcStatus = "This manufacturer is already in the system."
-    //     return funcStatus
-    // }
+    
+    if(supName == "" || supStreet == "" || supCity == "" || supProv == "" || supPost == "" || supPhone == ""){
+       return "Entry fields cannot be blank. Please check your field to make sure they contain values. If you think this is incorrect please contact your Database Administrator."
+    }
+    
     index = -1;
     Suppliers.forEach( item => {
         // console.log(item, supID, supName);
@@ -1040,11 +1040,10 @@ function addCustomer(custFirstName, custLastName, custStreet, custCity, custProv
     }
     else{
     }
-    // check for duplicate manufacturer
-    // if (manufacturers.getIndex(manufacturer => manufacturer["Name"] === name) != -1) {
-    //     let funcStatus = "This manufacturer is already in the system."
-    //     return funcStatus
-    // }
+    
+    if(custFirstName == "" || custLastName == "" || custStreet == "" || custCity == "" || custProv == "" || custPost == "" || custPhone == ""){
+       return "Entry fields cannot be blank. Please check your field to make sure they contain values. If you think this is incorrect please contact your Database Administrator."
+    }
     index = -1;
     customers.forEach( item => {
         // console.log(item, custID, custName);
@@ -1053,9 +1052,10 @@ function addCustomer(custFirstName, custLastName, custStreet, custCity, custProv
         }
     })
 
-    // if(index != -1){
-    //     return "A Custmer already exists with that Name " + contactUs;
-    // }
+     if(index != -1){
+         return "A Custmer already exists with that Name " + contactUs;
+     }
+   
 
     // build new object
     let newcustplier = 
