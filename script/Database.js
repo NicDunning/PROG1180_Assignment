@@ -1000,6 +1000,11 @@ function editManufacturer(supName, supStreet, supCity, supProv, supPost, supPhon
     }
     else{
     }
+    
+    if(supName == "" || supStreet == "" || supCity == "" || supProv == "" || supPost == "" || supPhone == ""){
+       return "Entry fields cannot be blank. Please check your field to make sure they contain values. If you think this is incorrect please contact your Database Administrator."
+    }
+    
     // check for missing manufacturer in array and store index for slice
     let index = Suppliers.findIndex(supplier => supplier["Name"] == supName)
     if (index === -1) {
@@ -1093,6 +1098,11 @@ function editCustomer(custFirstName, custLastName, custStreet, custCity, custPro
     }
     else{
     }
+    
+    if(custFirstName == "" || custLastName == "" || custStreet == "" || custCity == "" || custProv == "" || custPost == "" || custPhone == ""){
+       return "Entry fields cannot be blank. Please check your field to make sure they contain values. If you think this is incorrect please contact your Database Administrator."
+    }
+    
     // check for missing manufacturer in array and store index for slice
     let index = customers.findIndex(customer => customer["FirstName"] == custFirstName)
     if (index === -1) {
