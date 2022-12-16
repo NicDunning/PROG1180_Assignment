@@ -7,6 +7,15 @@
 	margin: 15px;
 }
 
+td > input{
+	background-color:#d4d4d4;
+}
+
+th > input{
+	background-color: #be9b7b;
+}
+
+
 .cust-info input[type=text]{
 	margin: 10px 30px 10px 10px;
 	
